@@ -1,0 +1,132 @@
+/* Contenido del archivo index.css */
+
+body,
+html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.9);
+    z-index: -1;
+}
+
+body {
+    background-image: url('../img/fondo.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.97);
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 2px 2px 50px #888888;
+}
+
+.header-container img {
+    max-width: 100px;
+}
+
+.header-content h1 {
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 3em;
+    color: #000000;
+    font-family: Arial, sans-serif;
+}
+
+.navbar-nav .nav-link {
+    border-bottom: 2px solid transparent;
+    /* Línea por debajo de los botones */
+    color: #000000 !important;
+    /* Color del texto en negro puro */
+}
+
+.navbar-nav .nav-link:hover {
+    border-bottom-color: #000000;
+    /* Color de la línea al pasar el ratón */
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 100%;
+    /* Altura fija para todas las imágenes del carrusel */
+    object-fit: cover;
+    /* Para mantener la proporción de la imagen */
+}
+
+.carousel-container {
+    width: 60%;
+    /* Tamaño fijo para el contenedor del carrusel */
+    /* overflow: hidden; */
+    /* Para evitar que las imágenes se desborden */
+    margin-top: 140px;
+    /* Aumentado para asegurar que no se superponga con el header */
+}
+
+.footer-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    padding:20px;
+    border-top: 1px solid #ddd;
+
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 2px 2px 5px #888888;
+}
+
+.footer-container img {
+    max-width: 100px;
+}
+
+.footer-container .col-md-4:not(:last-child) {
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para los títulos "Contacto" y "Servicios" */
+.footer-container p {
+    font-size: 20px; /* Ajusta el tamaño de fuente */
+    font-weight: bold; /* Hace que el texto sea negrita */
+    margin-bottom: 10px; /* Agrega espacio debajo del texto */
+    text-align: left; 
+}
+
+/* Estilo para el texto debajo de "Contacto" y "Servicios" */
+.footer-container p:nth-child(2) {
+    font-size: 12px; /* Ajusta el tamaño de fuente */
+    text-align: justify; /* Justifica el texto a la izquierda */
+}
+
+/* Estilo para quitar los puntos en las listas del footer */
+.footer-container ul {
+    list-style-type: square; /* Esto quita los puntos de la lista */
+}

@@ -8,79 +8,49 @@ import com.aplication.jetfeb.models.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 
 @RestController
-public class UsuarioController implements UsuarioDao {
+public class UsuarioController  {
 
-	@RequestMapping(value = "/usuario/{id}")
+	
+	@Autowired
+	private UsuarioDao usuarioDao;
+	
+	
+	@RequestMapping(value = "api/usuario/{id}", method = RequestMethod.GET)
 	public Usuario getUsuario(@PathVariable Long id) {
-
 		Usuario usuario = new Usuario();
-		
 		usuario.setId(id);
 		usuario.setNombre("Maicol");
 		usuario.setApellido("Cifuentes");
 		usuario.setEmail("maicolpalabras@gmail.com");
 		usuario.setTelefono("3167556055");
 		usuario.setPassword("213421421");
-
 		return usuario;
 	}
 	
-	@RequestMapping(value = "/usuario")
-	public List<Usuario>  getUsuario(){
-
-		List<Usuario> usuarios = new ArrayList<>();
-
-		Usuario usuario = new Usuario();
-		usuario.setId(2311L);
-		usuario.setNombre("Maicol");
-		usuario.setApellido("Cifuentes");
-		usuario.setEmail("maicolpalabras@gmail.com");
-		usuario.setTelefono("3167556055");
-		usuario.setPassword("213421421");
-
-		usuarios.add(usuario);
-		return usuarios;
-	
+	@RequestMapping(value = "api/usuarios", method = RequestMethod.GET)
+	public List<Usuario>  getUsuarios(){
+		return usuarioDao.getUsuarios();
+		
 	}
 	
-	
-//
-//	@RequestMapping(value = "usuario")
-//	public Usuario editar() {
-//		Usuario usuario = new Usuario();
-//		usuario.setNombre("Maicol");
-//		usuario.setApellido("Cifuentes");
-//		usuario.setEmail("maicolpalabras@gmail.com");
-//		usuario.setTelefono("3167556055");
-//		usuario.setPassword("213421421");
-//		return usuario;
-//	}
-//	
-//
-//	@RequestMapping(value = "usuario")
-//	public Usuario eliminar() {
-//		Usuario usuario = new Usuario();
-//		usuario.setNombre("Maicol");
-//		usuario.setApellido("Cifuentes");
-//		usuario.setEmail("maicolpalabras@gmail.com");
-//		usuario.setTelefono("3167556055");
-//		usuario.setPassword("213421421");
-//		return usuario;
-//	}
-//	
-//	@RequestMapping(value = "usuario")
-//	public Usuario buscar() {
-//		Usuario usuario = new Usuario();
-//		usuario.setNombre("Maicol");
-//		usuario.setApellido("Cifuentes");
-//		usuario.setEmail("maicolpalabras@gmail.com");
-//		usuario.setTelefono("3167556055");
-//		usuario.setPassword("213421421");
-//		return usuario;
-//	}
+	@RequestMapping(value = "api/usuarios", method = RequestMethod.POST)
+	public void  registrarUsuario(@RequestBody Usuario usuario){
+		 usuarioDao.registrar(usuario);
+	}
+
+
+	@RequestMapping(value = "api/usuarios/{id}", method = RequestMethod.DELETE)
+	public void  eliminar(@PathVariable Long id) {
+		usuarioDao.eliminar(id);
+	}
+
 
 }
