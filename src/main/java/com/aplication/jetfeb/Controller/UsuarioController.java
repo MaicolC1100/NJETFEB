@@ -14,19 +14,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-
 @RestController
-public class UsuarioController  {
+public class UsuarioController {
 
-	
 	@Autowired
 	private UsuarioDao usuarioDao;
-	
-	
+
 	@RequestMapping(value = "api/usuario/{id}", method = RequestMethod.GET)
 	public Usuario getUsuario(@PathVariable Long id) {
 		Usuario usuario = new Usuario();
-		usuario.setId(id);
+		usuario.setIdUsuario(id);
 		usuario.setNombre("Maicol");
 		usuario.setApellido("Cifuentes");
 		usuario.setEmail("maicolpalabras@gmail.com");
@@ -34,23 +31,21 @@ public class UsuarioController  {
 		usuario.setPassword("213421421");
 		return usuario;
 	}
-	
+
 	@RequestMapping(value = "api/usuarios", method = RequestMethod.GET)
-	public List<Usuario>  getUsuarios(){
+	public List<Usuario> getUsuarios() {
 		return usuarioDao.getUsuarios();
-		
-	}
-	
-	@RequestMapping(value = "api/usuarios", method = RequestMethod.POST)
-	public void  registrarUsuario(@RequestBody Usuario usuario){
-		 usuarioDao.registrar(usuario);
+
 	}
 
+	@RequestMapping(value = "api/usuarios", method = RequestMethod.POST)
+	public void registrarUsuario(@RequestBody Usuario usuario) {
+		usuarioDao.registrar(usuario);
+	}
 
 	@RequestMapping(value = "api/usuarios/{id}", method = RequestMethod.DELETE)
-	public void  eliminar(@PathVariable Long id) {
+	public void eliminar(@PathVariable Long id) {
 		usuarioDao.eliminar(id);
 	}
-
 
 }
