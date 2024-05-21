@@ -2,6 +2,7 @@ package com.aplication.jetfeb.Controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.aplication.jetfeb.dao.UsuarioDao;
 import com.aplication.jetfeb.models.Usuario;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
-public class UsuarioController {
+public class UsuarioController implements UsuarioDao {
 
 	@RequestMapping(value = "/usuario/{id}")
 	public Usuario getUsuario(@PathVariable Long id) {
