@@ -1,7 +1,8 @@
 package com.aplication.jetfeb.Controller;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,12 +20,14 @@ public class AuthController {
     // private JWTUtil jwtUtil;
 
     @RequestMapping(value = "api/login", method = RequestMethod.POST)
-    public String login(@PathVariable String email, @PathVariable String password){
+    public boolean login(@RequestBody Usuario usuario){
+        
+        // String plaintextPassword = usuario.getPassword();
+        // usuario.setPassword(BCrypt.hashpw(plaintextPassword, BCrypt.gensalt()));
 
-        Usuario user = usuarioDao.getUsuario(email, password);
         // if (user != null){
         //     return jwtUtil.create(String.valueOf(user.getIdUsuario()), user.getUserName());
         // }
-        return "fail";
+        return usuarioDao.loginUsuario(usuario);
     }
 }

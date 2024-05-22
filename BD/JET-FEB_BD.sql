@@ -6,6 +6,7 @@ CREATE TABLE usuario (
   email varchar(50) NOT NULL COMMENT 'Correo electrónico del usuario',
   password varchar(100) NOT NULL COMMENT 'Contraseña del usuario',
   estado TINYINT(1) NOT NULL DEFAULT 1 COMMENT 'Estado del usuario (1 = activo, 0 = inactivo)'
+  UNIQUE (email)
 ) COMMENT 'Tabla que almacena información de los usuarios';
 
 CREATE TABLE rol (
@@ -60,3 +61,8 @@ CREATE TABLE empleado_cliente (
 -- DROP TABLE IF EXISTS empleado;
 -- DROP TABLE IF EXISTS empleado_cliente;
 -- DROP TABLE IF EXISTS empresa;
+
+-- Si ya se creo la base de datos se deben ejecutar estos scripts
+
+-- ALTER TABLE usuarios
+-- ADD CONSTRAINT unique_email UNIQUE (email);

@@ -6,7 +6,7 @@ import com.aplication.jetfeb.models.Usuario;
 
 public interface UsuarioDao {
 	
-	Usuario getUsuario(String email, String password);
+	Usuario getUsuario(Long idUsuario);
 
 	List<Usuario> getUsuarios();
 
@@ -14,5 +14,6 @@ public interface UsuarioDao {
 
 	void registrar(Usuario usuario);
 
+	boolean loginUsuario(Usuario usuario);
 	
 }

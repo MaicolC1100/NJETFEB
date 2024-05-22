@@ -2,6 +2,7 @@ package com.aplication.jetfeb.dao;
 
 import java.util.List;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Repository;
 
 import com.aplication.jetfeb.models.Usuario;
@@ -13,17 +14,16 @@ import jakarta.transaction.Transactional;
 
 @Repository
 @Transactional
-public class UsuarioDaoImp implements UsuarioDao{
+public class UsuarioDaoImp implements UsuarioDao {
 	
 	@PersistenceContext
 	private EntityManager entityManager;
 	
 	@Override
-	public Usuario getUsuario(String email, String password) {
-		String query = "From usuario WHERE email = :email AND password = :password ";
+	public Usuario getUsuario(Long idUsuario) {
+		String query = "From Usuario WHERE id_usuario = :id_usuario ";
 		return entityManager.createQuery(query, Usuario.class)
-			.setParameter("email", email)
-			.setParameter("password", password)
+			.setParameter("id_usuario", idUsuario)
 			.getSingleResult();
  	}
 
@@ -44,6 +44,16 @@ public class UsuarioDaoImp implements UsuarioDao{
 		entityManager.merge(usuario);
 		
 	}
+
+	@Override
+	public boolean loginUsuario(Usuario usuario) {
+		String query = "From Usuario WHERE email = :email";
+		Usuario usuarioBD = entityManager.createQuery(query, Usuario.class)
+			.setParameter("email", usuario.getEmail())
+			.getSingleResult();
+
+		return BCrypt.checkpw(usuario.getPassword(), usuarioBD.getPassword());
+ 	}
 
 
 }

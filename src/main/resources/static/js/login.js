@@ -6,7 +6,7 @@ $(document).ready(function() {
 async function iniciarSesion(){
 
     let datos = {};
-    datos.userName = document.getElementById('email').value;
+    datos.email = document.getElementById('email').value;
     datos.password = document.getElementById('password').value;
 
     const request = await fetch('api/login', {
@@ -20,7 +20,7 @@ async function iniciarSesion(){
 
     const respuesta = await request.text();
 
-    if(respuesta != 'fail'){
+    if(respuesta){
         //localStorage.token = respuesta;
         localStorage.userName = datos.email;
         window.location.href = 'index.html'
