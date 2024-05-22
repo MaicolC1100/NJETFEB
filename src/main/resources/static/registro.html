@@ -137,28 +137,38 @@
                     </div>
                     <form class="user">
                         <div class="form-group row">
-                            <input id="nombre" type="text" class="form-control"  required
+                            <input id="nombre" type="text" class="form-control form-control-user" required
                                 autofocus="autofocus" placeholder="Nombre">
                         </div>
 
                         <div class="form-group">
-                            <input id="apellido" class="form-control"  required
+                            <input id="apellido" class="form-control form-control-user" required
                                 autofocus="autofocus" placeholder="Apellido">
+                        </div>
+                        
+                        <div class="form-group">
+                       		<input id="telefono" type="telefono" class="form-control form-control-user"  required
+                                autofocus="autofocus" placeholder="Telefono">
                         </div>
 
                         <div class="form-group">
-                            <input id="email" type="email" class="form-control"  required
+                            <input id="email" type="email" class="form-control form-control-user"  required
                                 autofocus="autofocus" placeholder="Email">
                         </div>
                         
 
                         <div class="form-group">
-                            <input type="password" id="password" class="form-control"  required
-                                autofocus="autofocus" placeholder="Contraseña">
+                            <input type="password" id="password" class="form-control form-control-user"  required
+                                autofocus="autofocus" placeholder="Password">
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="password" id="repetirpassword" class="form-control form-control-user"  required
+                                autofocus="autofocus" placeholder="RepetirPassword">
                         </div>
 
                         <div class="form-group">
-                            <button type="submit" class="btn btn-success btn-block">Registrar</button>
+                           <a onclick="registrarUsuarios()" href="#" class="btn btn-primary btn-user btn-block"></a>
                             
                         </div>
                     </form>
@@ -177,6 +187,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
+        
+     <script type="text/javascript" src="js/registrar.js"></script>
+        
 </body>
 
 </html>

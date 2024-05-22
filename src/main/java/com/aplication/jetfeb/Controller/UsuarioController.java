@@ -18,7 +18,7 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioDao usuarioDao;
 
-	@RequestMapping(value = "api/usuario/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "api/usuarios/{id}", method = RequestMethod.GET)
 	public Usuario getUsuario(@PathVariable Long id) {
 		Usuario usuario = new Usuario();
 		usuario.setIdUsuario(id);
