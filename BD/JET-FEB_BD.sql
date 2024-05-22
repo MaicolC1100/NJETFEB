@@ -4,12 +4,14 @@ CREATE TABLE usuario (
   apellido varchar(100) DEFAULT NULL,
   telefono varchar(20) DEFAULT NULL,
   email varchar(50) NOT NULL,
-  password varchar(100) NOT NULL
+  password varchar(100) NOT NULL,
+  estado TINYINT(1) NOT NULL DEFAULT 1
 );
 
 CREATE TABLE rol (
   id_rol int AUTO_INCREMENT PRIMARY KEY,
-  nombre varchar(100) NOT NULL
+  nombre varchar(100) NOT NULL,
+  estado TINYINT(1) NOT NULL DEFAULT 1
 );
 
 
@@ -35,7 +37,8 @@ CREATE TABLE empleado (
 
 CREATE TABLE empresa (
   id_empresa int AUTO_INCREMENT PRIMARY KEY,
-  nombre varchar(100) NOT NULL
+  nombre varchar(100) NOT NULL,
+  estado TINYINT(1) NOT NULL DEFAULT 1
 );
 
 CREATE TABLE empleado_cliente (
@@ -45,6 +48,7 @@ CREATE TABLE empleado_cliente (
   ctro_costo varchar(50) NOT NULL,
   gerencia varchar(50) NOT NULL,
   cedula varchar(50) NOT NULL,
+  estado TINYINT(1) NOT NULL DEFAULT 1,
   FOREIGN KEY (id_empresa) REFERENCES empresa(id_empresa)
 );
 
