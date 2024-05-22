@@ -3,37 +3,32 @@ $(document).ready(function() {
  // on ready
 });
 
-function actualizarEmailDelUsuario() {
-    document.getElementById('txt-email-usuario').outerHTML = localStorage.email;
-}
 
 
-async function registrarUsuarios() {
-  let datos = {}
-	datos.nombre = document.getElementById('Nombre').value;
-	datos.apellido = document.getElementById('Apellido').value;
-	datos.telefono = document.getElementById('Telefono').value;
-	datos.email = document.getElementById('Email').value;
-	datos.password = document.getElementById('Password').value;
+async function registrarUsuario() {
+  let datos = {};
+  datos.nombre = document.getElementById('txtNombre').value;
+  datos.apellido = document.getElementById('txtApellido').value;
+  datos.telefono = document.getElementById('txtTelefono').value;
+  datos.email = document.getElementById('txtEmail').value;
+  datos.password = document.getElementById('txtPassword').value;
 
-let repetirPassword = datos.password = document.getElementById('RepetirPassword').value;
+let repetirPassword = document.getElementById('txtRepetirPassword').value;
 
-if(repetirPassword != datos.password)
-	alert('La contraseña que escribiste es diferente')
-}
+  if (repetirPassword != datos.password) {
+    alert('La contraseña que escribiste es diferente.');
+    return;
+  }
 
-	
   const request = await fetch('api/usuarios', {
-    method: 'POST  ',
+    method: 'POST',
     headers: {
-		'Accept': 'application/json',
-		'Content-Type': 'application/json'
-	},
-	
-	body: JSON.stringify()
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(datos)
   });
-  const usuarios = await request.json(datos);
+  alert("La cuenta fue creada con exito!");
+  window.location.href = 'login.html'
 
-
-
-
+}
