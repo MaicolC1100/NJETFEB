@@ -12,112 +12,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
         integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
-    <style>
-        body,
-        html {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
+    <link rel="stylesheet" href="css/registro.css">
 
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.9);
-            /* Color de fondo negro con opacidad del 50% */
-            z-index: -1;
-            /* Asegura que el pseudo-elemento esté detrás de todo */
-        }
-
-        body {
-            background-image: url('./img/fondo.jpg');
-            background-size: cover;
-            background-position: center;
-        }
-
-        .page-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
-            height: 100%;
-            width: 100%;
-        }
-
-        .header-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            background-color: rgba(255, 255, 255, 0.8);
-            /* Color blanco con opacidad */
-            padding: 20px;
-            border-bottom: 1px solid #ddd;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 1000;
-            box-shadow: 2px 2px 50px #888888;
-        }
-
-        .header-container img {
-            max-width: 100px;
-            /* Ajusta el tamaño de la imagen */
-        }
-
-        .header-content {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            padding-bottom: 50px;
-        }
-
-        .header-content h1 {
-            /* background-color: rgba(0, 123, 255, 0.1); */
-            /* border: 2px solid #007bff; */
-            border-radius: 10px;
-            padding: 10px 20px;
-            font-size: 3em;
-            /* Modifica el tamaño del texto */
-            color: #000000;
-            /* Modifica el color del texto a rojo */
-            font-family: Arial, sans-serif;
-            /* Modifica la fuente del texto */
-        }
-
-        .main-content {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: calc(100% - 80px);
-            /* Ajusta según la altura del header */
-            padding-top: 100px;
-            /* Ajusta según la altura del header */
-        }
-
-        .form-box {
-            background-color: rgba(255, 255, 255, 0.8);
-            /* Color blanco con opacidad */
-            color: black;
-            /* Texto negro */
-            border-radius: 10px;
-            box-shadow: 5px 5px 50px #888888;
-            width: 500px;
-            /* Ancho del cuadro */
-            max-width: 90%;
-            /* Ancho máximo del cuadro */
-            padding: 40px;
-            /* Aumenta el espacio interno */
-        }
-    </style>
 </head>
 
 <body>
@@ -134,7 +30,7 @@
                         <h1>Registro Usuarios</h1>
                     </div>
                     <form class="user">
-                        <div class="form-group row">
+                        <div class="form-group">
                             <input id="txtNombre" type="text" class="form-control form-control-user" required
                                 autofocus="autofocus" placeholder="Nombre">
                         </div>
