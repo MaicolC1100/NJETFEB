@@ -9,7 +9,7 @@ const empleadosTableBody = document.querySelector('#empleados-table tbody');
 const formAgregarEmpleado = document.querySelector('#form-agregar-empleado');
 
 // Función para cargar la lista de empleados
-function cargarListaEmpleados() {
+async function cargarListaEmpleados() {
 	fetch('/api/empleado')
 		.then(response => response.json())
 		.then(data => {
@@ -31,8 +31,8 @@ function cargarListaEmpleados() {
 								'<i class="bi bi-person-fill-check" style="font-size: 1rem; color: darkgreen;" title="Activo"></i>' : 
 								'<i class="bi bi-person-fill-x" style="font-size: 1rem; color: darkred;" title="Inactivo"></i>'}</td>
 							<td class="td-icon">
-								<a href="#" class="btn btn-warning btn-sm" title="Modificar"><i class="bi bi-eraser-fill"></i></a>
-								<a href="#" class="btn btn-danger btn-sm" title="Eliminar"><i class="bi bi-trash"></i></a>
+								<a href="#" onclick="modificarEmpleado(${empleado.idEmpleado})" class="btn btn-warning btn-sm" title="Modificar"><i class="bi bi-eraser-fill"></i></a>
+								<a href="#" onclick="eliminarEmpleado(${empleado.idEmpleado})" class="btn btn-danger btn-sm" title="Eliminar"><i class="bi bi-trash"></i></a>
 							</td>
                         `;
 				empleadosTableBody.appendChild(row);
@@ -46,7 +46,7 @@ function cargarListaEmpleados() {
 async function registrarEmpleado(){
 
 	let datos = {};
-	
+
 	datos.nombre = document.querySelector('#nombre').value;
 	datos.apellido = document.querySelector('#apellido').value;
 	datos.cedula = document.querySelector('#cedula').value;
@@ -66,4 +66,33 @@ async function registrarEmpleado(){
     });
     alert("El empleado fue creado exitosamente!");
     window.location.href = 'empleado.html'
+}
+
+async function modificarEmpleado(idEmpleado) {
+	// Ocultar el formulario de registro después de registrar al empleado
+	document.getElementById('divRegistroEmpleado').style.display = 'none';
+
+	const request = await fetch('api/empleado/' + idEmpleado, {
+        	method: 'GET',
+            headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+          });
+	const empleado = await request.json();
+
+	document.getElementById('nombreModificar').value = empleado.nombre;
+	document.getElementById('apellidoModificar').value = empleado.apellido;
+	document.getElementById('correoModificar').value = empleado.correo;
+	document.getElementById('cargoModificar').value = empleado.cargo;
+	document.getElementById('celularModificar').value = empleado.celular;
+	document.getElementById('cedulaModificar').value = empleado.cedula;
+	document.getElementById('placaModificar').value = empleado.placa;
+
+	document.getElementById('divModificarEmpleado').style.display = 'flex';
+}
+
+function registrarModificarEmpleado(){
+
+	window.location.href = 'empleado.html'
 }
