@@ -1,158 +1,125 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Empleados de Clientes</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gestión empleados</title>
+<link rel="icon" type="image/jpg" href="img/icono.png">
+<!-- Importar Bootstrap CSS -->
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+	rel="stylesheet">
+<!-- DISEÑO CSS -->
+<link href="css/index.css" rel="stylesheet">
+<link href="css/generales.css" rel="stylesheet">
+
 </head>
 <body>
-    <h1>Lista de Empleados de Clientes</h1>
-    <table id="empleados-cliente-table">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Cédula</th>
-                <th>Centro de Costo</th>
-                <th>Gerencia</th>
-                <th>Empresa</th>
-                <th>Estado</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Aquí se mostrará la lista de empleados de clientes -->
-        </tbody>
-    </table>
 
-    <h2>Agregar Nuevo Empleado de Cliente</h2>
-    <form id="form-agregar-empleado-cliente">
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required><br>
+	<div class="page-container">
+		<!-- Contenedor del Header -->
+		<div id="header-container"></div>
 
-        <label for="apellido">Apellido:</label>
-        <input type="text" id="apellido" name="apellido" required><br>
+		<div class="content">
+			<div class="container">
+				<!-- <h2 class="mb-4">Agregar Nuevo Empleado</h2> -->
+				<div class="row justify-content-center" id="divRegistroEmpleado">
+					<form id="form-agregar-empleado-cliente"
+						class="col-md-8 formularios">
+						<h2 class="h2-form">Registro empleado</h2>
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="nombre">Nombre:</label> <input type="text"
+									id="nombre" name="nombre" class="form-control" required>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="apellido">Apellido:</label> <input type="text"
+									id="apellido" name="apellido" class="form-control" required>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="ctroCosto">Centro de Costo:</label> <input
+									type="text" id="ctroCosto" name="ctroCosto"
+									class="form-control" required>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="gerencia">Gerencia:</label> <input type="text"
+									id="gerencia" name="gerencia" class="form-control" required>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="cedula">Cédula:</label> <input type="text"
+									id="cedula" name="cedula" class="form-control" required>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="empresa">Empresa:</label> <select id="empresa"
+									name="empresa" class="form-control" required>
+									<!-- Las opciones se llenarán dinámicamente -->
+								</select>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="estado">Estado:</label> <select id="estado"
+									name="estado" class="form-control" required>
+									<option value="true">Activo</option>
+									<option value="false">Inactivo</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-row btn-form">
+							<div class="form-group col-12">
+								<button type="submit" onclick="registrarEmpleado()"
+									class="btn btn-warning">
+									Guardar <i class="bi bi-floppy"></i>
+								</button>
+							</div>
+						</div>
+					</form>
+				</div>
 
-        <label for="cedula">Cédula:</label>
-        <input type="text" id="cedula" name="cedula" required><br>
 
-        <label for="ctroCosto">Centro de Costo:</label>
-        <input type="text" id="ctroCosto" name="ctroCosto" required><br>
+			</div>
+			<div class="row div-table">
+				<h1 class="mt-4">Lista de Empleados de Clientes</h1>
+				<div class="table-responsive">
+					<table id="empleados-cliente-table"
+						class="table table-striped table-bordered table-hover">
+						<thead class="thead-dark">
+							<tr>
+								<th scope="col">Nombre</th>
+								<th scope="col">Apellido</th>
+								<th scope="col">Cédula</th>
+								<th scope="col">Centro de Costo</th>
+								<th scope="col">Gerencia</th>
+								<th scope="col">Empresa</th>
+								<th scope="col">Estado</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- Aquí se mostrará la lista de empleados de clientes -->
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Contenedor del Footer -->
+	<div id="footer-container"></div>
+	</div>
 
-        <label for="gerencia">Gerencia:</label>
-        <input type="text" id="gerencia" name="gerencia" required><br>
+	<!-- Importar jQuery y Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script src="js/cliente.js"></script>
+	<script src="js/footer.js"></script>
 
-        <label for="empresa">Empresa:</label>
-        <select id="empresa" name="empresa" required>
-            <!-- Las opciones se llenarán dinámicamente -->
-        </select><br>
-
-        <label for="estado">Estado:</label>
-        <input type="checkbox" id="estado" name="estado"><br>
-
-        <button type="submit">Agregar Empleado de Cliente</button>
-    </form>
-
-    <script>
-        const empleadosClienteTableBody = document.querySelector('#empleados-cliente-table tbody');
-        const formAgregarEmpleadoCliente = document.querySelector('#form-agregar-empleado-cliente');
-        const empresaSelect = document.querySelector('#empresa');
-
-        // Función para cargar la lista de empresas
-        function cargarEmpresas() {
-            fetch('/api/empresa')
-                .then(response => response.json())
-                .then(data => {
-                    data.forEach(empresa => {
-                        const option = document.createElement('option');
-                        option.value = empresa.idEmpresa;
-                        option.textContent = empresa.nombre;
-                        empresaSelect.appendChild(option);
-                    });
-                })
-                .catch(error => {
-                    console.error('Error al obtener la lista de empresas:', error);
-                });
-        }
-
-        // Función para cargar la lista de empleados de clientes
-        function cargarListaEmpleadosCliente() {
-            fetch('/api/empleado-cliente')
-                .then(response => response.json())
-                .then(data => {
-                    // Limpiar la tabla antes de volver a llenarla
-                    empleadosClienteTableBody.innerHTML = '';
-
-                    // Llenar la tabla con los datos de los empleados de clientes
-                    data.forEach(empleado => {
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
-                            <td>${empleado.nombre}</td>
-                            <td>${empleado.apellido}</td>
-                            <td>${empleado.cedula}</td>
-                            <td>${empleado.ctroCosto}</td>
-                            <td>${empleado.gerencia}</td>
-                            <td>${empleado.empresa.nombre}</td>
-                            <td>${empleado.estado ? 'Activo' : 'Inactivo'}</td>
-                        `;
-                        empleadosClienteTableBody.appendChild(row);
-                    });
-                })
-                .catch(error => {
-                    console.error('Error al obtener los datos de los empleados de clientes:', error);
-                });
-        }
-
-        // Llamar a las funciones para cargar la lista de empresas y la lista de empleados de clientes cuando se cargue la página
-        cargarEmpresas();
-        cargarListaEmpleadosCliente();
-
-        // Agregar evento de submit al formulario para agregar un nuevo empleado de cliente
-        formAgregarEmpleadoCliente.addEventListener('submit', event => {
-            event.preventDefault(); // Evitar que se recargue la página
-
-            // Obtener los valores del formulario
-            const nombre = document.querySelector('#nombre').value;
-            const apellido = document.querySelector('#apellido').value;
-            const cedula = document.querySelector('#cedula').value;
-            const ctroCosto = document.querySelector('#ctroCosto').value;
-            const gerencia = document.querySelector('#gerencia').value;
-            const empresaId = document.querySelector('#empresa').value;
-            const estado = document.querySelector('#estado').checked;
-
-            // Crear un objeto con los datos del nuevo empleado de cliente
-            const nuevoEmpleadoCliente = {
-                nombre: nombre,
-                apellido: apellido,
-                cedula: cedula,
-                ctroCosto: ctroCosto,
-                gerencia: gerencia,
-                empresa: {
-                    idEmpresa: empresaId // Asignar el ID de la empresa seleccionada
-                },
-                estado: estado
-            };
-
-            // Enviar la solicitud POST para guardar el nuevo empleado de cliente
-            fetch('/api/empleado-cliente', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(nuevoEmpleadoCliente)
-            })
-            .then(response => {
-                if (response.ok) {
-                    // Recargar la lista de empleados de clientes después de agregar uno nuevo
-                    cargarListaEmpleadosCliente();
-                    formAgregarEmpleadoCliente.reset(); // Limpiar el formulario
-                } else {
-                    console.error('Error al agregar el empleado de cliente');
-                }
-            })
-            .catch(error => {
-                console.error('Error al agregar el empleado de cliente:', error);
-            });
-        });
-    </script>
 </body>
+
 </html>
