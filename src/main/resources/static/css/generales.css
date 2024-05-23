@@ -1,6 +1,5 @@
 .table-margin-top {
     margin-top: 15px;
-    
 }
 
 .div-table {
@@ -8,25 +7,38 @@
     justify-content: center;
     border-radius: 10px;
     box-shadow: 1px 1px 10px #2a26267d;
-    background-color: #ffffffbd;
+    background-color: #ffffff91;
     padding: 40px;
 }
 
-.formularios {
+.h2-form {
+    text-align: center;
     padding: 20px;
+    /* border: 0.1mm solid rgb(0, 0, 0);
+    border-radius: 10px; */
+    font-size: x-large;
+    /* box-shadow: 1px 2px 2px 1px #2a26267d; */
+}
+
+.h2-table {
+    text-align: center;
+    padding: 20px;
+    /* border: 0.1mm solid rgb(0, 0, 0);
+    border-radius: 10px; */
+    font-size: x-large;
+    /* box-shadow: 1px 2px 2px 1px #2a26267d; */
+}
+.formularios {
+    padding: 30px;
     /* border: 1px solid; */
     box-shadow: 1px 1px 10px #2a26267d;
     border-radius: 10px;
-    background-color: #ffffffbd;
+    background-color: #ffffff91;
     -ms-flex: 0 0 66.666667%;
     flex: 0 0 66.666667%;
     max-width: 66.666667%;
     margin-bottom: 20px;
     margin-top: 30px;
-}
-
-.formularios button {
-    justify-content: center;
 }
 
 .formularios .btn-form {
