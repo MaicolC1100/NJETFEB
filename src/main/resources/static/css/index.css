@@ -24,15 +24,6 @@ body {
     background-position: center;
 }
 
-.page-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-}
-
 .header-container {
     display: flex;
     align-items: center;
@@ -81,28 +72,24 @@ body {
 }
 
 .carousel-container {
-    width: 60%;
-    /* Tamaño fijo para el contenedor del carrusel */
-    /* overflow: hidden; */
-    /* Para evitar que las imágenes se desborden */
+    width: 50%;
+    margin-left: 25%;
     margin-top: 140px;
     /* Aumentado para asegurar que no se superponga con el header */
 }
 
+
 .footer-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     width: 100%;
     background-color: rgb(255, 255, 255);
-    padding:20px;
+    padding: 20px;
     border-top: 1px solid #ddd;
-
-    top: 0;
+    bottom: 0;
     left: 0;
     z-index: 1000;
     box-shadow: 2px 2px 5px #888888;
 }
+
 
 .footer-container img {
     max-width: 100px;
