@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>empleado App</title>
+</head>
+<body>
+    <h1>Lista de Empleados</h1>
+    <table id="empleados-table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Cédula</th>
+                <th>Cargo</th>
+                <th>Celular</th>
+                <th>Correo</th>
+                <th>Placa</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Aquí se mostrará la lista de empleados -->
+        </tbody>
+    </table>
+
+    <h2>Agregar Nuevo Empleado</h2>
+    <form id="form-agregar-empleado">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required><br>
+
+        <label for="cedula">Cédula:</label>
+        <input type="text" id="cedula" name="cedula" required><br>
+
+        <label for="cargo">Cargo:</label>
+        <input type="text" id="cargo" name="cargo" required><br>
+
+        <label for="celular">Celular:</label>
+        <input type="text" id="celular" name="celular" required><br>
+
+        <label for="correo">Correo:</label>
+        <input type="email" id="correo" name="correo" required><br>
+
+        <label for="placa">Placa:</label>
+        <input type="text" id="placa" name="placa" required><br>
+
+        <label for="estado">Estado:</label>
+        <input type="checkbox" id="estado" name="estado"><br>
+
+        <button type="submit">Agregar Empleado</button>
+    </form>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="js/empleado.js"></script> 
+ 
+</body>
+</html>

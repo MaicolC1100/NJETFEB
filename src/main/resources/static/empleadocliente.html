@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empleados de Clientes</title>
+</head>
+<body>
+    <h1>Lista de empleados de clientes</h1>
+    <table id="empleados-cliente-table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Cédula</th>
+                <th>Centro de Costo</th>
+                <th>Gerencia</th>
+                <th>Empresa</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Aquí se mostrará la lista de empleados de clientes -->
+        </tbody>
+    </table>
+
+    <h2>Agregar Nuevo Empleado de Cliente</h2>
+    <form id="form-agregar-empleado-cliente">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required><br>
+
+        <label for="cedula">Cédula:</label>
+        <input type="text" id="cedula" name="cedula" required><br>
+
+        <label for="ctroCosto">Centro de Costo:</label>
+        <input type="text" id="ctroCosto" name="ctroCosto" required><br>
+
+        <label for="gerencia">Gerencia:</label>
+        <input type="text" id="gerencia" name="gerencia" required><br>
+
+        <label for="empresa">Empresa:</label>
+        <input type="text" id="empresa" name="empresa" required><br>
+
+        <label for="estado">Estado:</label>
+        <input type="checkbox" id="estado" name="estado"><br>
+
+        <button type="submit">Agregar Empleado de Cliente</button>
+    </form>
+
+    <script>
+        const empleadosClienteTableBody = document.querySelector('#empleados-cliente-table tbody');
+        const formAgregarEmpleadoCliente = document.querySelector('#form-agregar-empleado-cliente');
+
+        // Función para cargar la lista de empleados de clientes
+        function cargarListaEmpleadosCliente() {
+            fetch('/api/empleado-cliente')
+                .then(response => response.json())
+                .then(data => {
+                    // Limpiar la tabla antes de volver a llenarla
+                    empleadosClienteTableBody.innerHTML = '';
+
+                    // Llenar la tabla con los datos de los empleados de clientes
+                    data.forEach(empleado => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${empleado.nombre}</td>
+                            <td>${empleado.cedula}</td>
+                            <td>${empleado.ctroCosto}</td>
+                            <td>${empleado.gerencia}</td>
+                            <td>${empleado.empresa.nombre}</td>
+                            <td>${empleado.estado ? 'Activo' : 'Inactivo'}</td>
+                        `;
+                        empleadosClienteTableBody.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error al obtener los datos de los empleados de clientes:', error);
+                });
+        }
+
+        // Llamar a la función para cargar la lista de empleados de clientes cuando se cargue la página
+        cargarListaEmpleadosCliente();
+
+        // Agregar evento de submit al formulario para agregar un nuevo empleado de cliente
+        formAgregarEmpleadoCliente.addEventListener('submit', event => {
+            event.preventDefault(); // Evitar que se recargue la página
+
+            // Obtener los valores del formulario
+            const nombre = document.querySelector('#nombre').value;
+            const cedula = document.querySelector('#cedula').value;
+            const ctroCosto = document.querySelector('#ctroCosto').value;
+            const gerencia = document.querySelector('#gerencia').value;
+            const empresa = document.querySelector('#empresa').value;
+            const estado = document.querySelector('#estado').checked;
+
+            // Crear un objeto con los datos del nuevo empleado de cliente
+            const nuevoEmpleadoCliente = {
+                nombre: nombre,
+                cedula: cedula,
+                ctroCosto: ctroCosto,
+                gerencia: gerencia,
+                empresa: {
+                    nombre: empresa // Asumiendo que el campo "empresa" es el nombre de la empresa
+                },
+                estado: estado
+            };
+
+            // Enviar la solicitud POST para guardar el nuevo empleado de cliente
+            fetch('/api/empleado-cliente', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(nuevoEmpleadoCliente)
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Recargar la lista de empleados de clientes después de agregar uno nuevo
+                    cargarListaEmpleadosCliente();
+                    // Limpiar el formulario después de agregar un empleado de cliente
+                    formAgregarEmpleadoCliente.reset();
+                } else {
+                    throw new Error('Error al agregar empleado de cliente');
+                }
+            })
+            .catch(error => {
+                console.error('Error al agregar empleado de cliente:', error);
+            });
+        });
+    </script>
+</body>
+</html>
