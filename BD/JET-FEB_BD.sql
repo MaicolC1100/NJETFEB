@@ -45,6 +45,7 @@ CREATE TABLE empleado_cliente (
   id_empleado_cliente int AUTO_INCREMENT PRIMARY KEY COMMENT 'Identificador único de la relación empleado-cliente',
   id_empresa int NOT NULL COMMENT 'Identificador de la empresa',
   nombre varchar(100) NOT NULL COMMENT 'Nombre del empleado cliente',
+  apellido varchar(100) NOT NULL COMMENT 'Apellido del empleado cliente',
   ctro_costo varchar(50) NOT NULL COMMENT 'Centro de costo',
   gerencia varchar(50) NOT NULL COMMENT 'Gerencia del empleado cliente',
   cedula varchar(50) NOT NULL COMMENT 'Cédula del empleado cliente',

@@ -5,14 +5,13 @@ import com.aplication.jetfeb.models.EmpleadoCliente;
 
 public interface EmpleadoClienteServicio {
 
-    public List<EmpleadoCliente> listarTodosLosEmpleadosClientes();
+    List<EmpleadoCliente> listarTodosLosEmpleadosCliente();
 
-    public EmpleadoCliente guardarEmpleadoCliente(EmpleadoCliente empleadoCliente);
+    EmpleadoCliente guardarEmpleadoCliente(EmpleadoCliente empleadoCliente);
 
-    public EmpleadoCliente obtenerEmpleadoClientePorId(Integer id);
+    EmpleadoCliente obtenerEmpleadoClientePorId(Integer id);
 
-    public EmpleadoCliente actualizarEmpleadoCliente(EmpleadoCliente empleadoCliente);
+    EmpleadoCliente actualizarEmpleadoCliente(EmpleadoCliente empleadoCliente);
 
-    public void eliminarEmpleadoCliente(Integer id);
-
+    void eliminarEmpleadoCliente(Integer id);
 }

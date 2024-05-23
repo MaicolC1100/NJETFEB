@@ -1,7 +1,6 @@
 package com.aplication.jetfeb.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import com.aplication.jetfeb.models.EmpleadoCliente;
 import com.aplication.jetfeb.service.EmpleadoClienteServicio;
@@ -15,8 +14,8 @@ public class EmpleadoClienteController {
     private EmpleadoClienteServicio empleadoClienteServicio;
 
     @GetMapping
-    public List<EmpleadoCliente> listarEmpleadosClientes() {
-        return empleadoClienteServicio.listarTodosLosEmpleadosClientes();
+    public List<EmpleadoCliente> listarEmpleadosCliente() {
+        return empleadoClienteServicio.listarTodosLosEmpleadosCliente();
     }
 
     @PostMapping
@@ -32,15 +31,16 @@ public class EmpleadoClienteController {
     @PutMapping("/{id}")
     public void actualizarEmpleadoCliente(@PathVariable Integer id, @RequestBody EmpleadoCliente empleadoCliente) {
         EmpleadoCliente empleadoClienteExistente = empleadoClienteServicio.obtenerEmpleadoClientePorId(id);
-        empleadoClienteExistente.setIdEmpleadoCliente(id);
-        empleadoClienteExistente.setNombre(empleadoCliente.getNombre());
-        empleadoClienteExistente.setCedula(empleadoCliente.getCedula());
-        empleadoClienteExistente.setCtroCosto(empleadoCliente.getCtroCosto());
-        empleadoClienteExistente.setGerencia(empleadoCliente.getGerencia());
-        empleadoClienteExistente.setEmpresa(empleadoCliente.getEmpresa());
-        empleadoClienteExistente.setEstado(empleadoCliente.isEstado());
-
-        empleadoClienteServicio.actualizarEmpleadoCliente(empleadoClienteExistente);
+        if (empleadoClienteExistente != null) {
+            empleadoClienteExistente.setNombre(empleadoCliente.getNombre());
+            empleadoClienteExistente.setApellido(empleadoCliente.getApellido());
+            empleadoClienteExistente.setCtroCosto(empleadoCliente.getCtroCosto());
+            empleadoClienteExistente.setGerencia(empleadoCliente.getGerencia());
+            empleadoClienteExistente.setCedula(empleadoCliente.getCedula());
+            empleadoClienteExistente.setEstado(empleadoCliente.isEstado());
+            empleadoClienteExistente.setEmpresa(empleadoCliente.getEmpresa());
+            empleadoClienteServicio.actualizarEmpleadoCliente(empleadoClienteExistente);
+        }
     }
 
     @DeleteMapping("/{id}")

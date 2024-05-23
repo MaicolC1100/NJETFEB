@@ -28,7 +28,10 @@ public class EmpleadoCliente {
 
     @Column(name = "nombre", nullable = false)
     private String nombre;
-
+    
+    @Column(name = "apellido", nullable = false)
+    private String apellido;
+        
     @Column(name = "ctro_costo", nullable = false)
     private String ctroCosto;
 

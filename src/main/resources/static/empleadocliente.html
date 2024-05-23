@@ -6,11 +6,12 @@
     <title>Empleados de Clientes</title>
 </head>
 <body>
-    <h1>Lista de empleados de clientes</h1>
+    <h1>Lista de Empleados de Clientes</h1>
     <table id="empleados-cliente-table">
         <thead>
             <tr>
                 <th>Nombre</th>
+                <th>Apellido</th>
                 <th>Cédula</th>
                 <th>Centro de Costo</th>
                 <th>Gerencia</th>
@@ -28,6 +29,9 @@
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre" required><br>
 
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido" name="apellido" required><br>
+
         <label for="cedula">Cédula:</label>
         <input type="text" id="cedula" name="cedula" required><br>
 
@@ -38,7 +42,9 @@
         <input type="text" id="gerencia" name="gerencia" required><br>
 
         <label for="empresa">Empresa:</label>
-        <input type="text" id="empresa" name="empresa" required><br>
+        <select id="empresa" name="empresa" required>
+            <!-- Las opciones se llenarán dinámicamente -->
+        </select><br>
 
         <label for="estado">Estado:</label>
         <input type="checkbox" id="estado" name="estado"><br>
@@ -49,6 +55,24 @@
     <script>
         const empleadosClienteTableBody = document.querySelector('#empleados-cliente-table tbody');
         const formAgregarEmpleadoCliente = document.querySelector('#form-agregar-empleado-cliente');
+        const empresaSelect = document.querySelector('#empresa');
+
+        // Función para cargar la lista de empresas
+        function cargarEmpresas() {
+            fetch('/api/empresa')
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(empresa => {
+                        const option = document.createElement('option');
+                        option.value = empresa.idEmpresa;
+                        option.textContent = empresa.nombre;
+                        empresaSelect.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error al obtener la lista de empresas:', error);
+                });
+        }
 
         // Función para cargar la lista de empleados de clientes
         function cargarListaEmpleadosCliente() {
@@ -63,6 +87,7 @@
                         const row = document.createElement('tr');
                         row.innerHTML = `
                             <td>${empleado.nombre}</td>
+                            <td>${empleado.apellido}</td>
                             <td>${empleado.cedula}</td>
                             <td>${empleado.ctroCosto}</td>
                             <td>${empleado.gerencia}</td>
@@ -77,7 +102,8 @@
                 });
         }
 
-        // Llamar a la función para cargar la lista de empleados de clientes cuando se cargue la página
+        // Llamar a las funciones para cargar la lista de empresas y la lista de empleados de clientes cuando se cargue la página
+        cargarEmpresas();
         cargarListaEmpleadosCliente();
 
         // Agregar evento de submit al formulario para agregar un nuevo empleado de cliente
@@ -86,20 +112,22 @@
 
             // Obtener los valores del formulario
             const nombre = document.querySelector('#nombre').value;
+            const apellido = document.querySelector('#apellido').value;
             const cedula = document.querySelector('#cedula').value;
             const ctroCosto = document.querySelector('#ctroCosto').value;
             const gerencia = document.querySelector('#gerencia').value;
-            const empresa = document.querySelector('#empresa').value;
+            const empresaId = document.querySelector('#empresa').value;
             const estado = document.querySelector('#estado').checked;
 
             // Crear un objeto con los datos del nuevo empleado de cliente
             const nuevoEmpleadoCliente = {
                 nombre: nombre,
+                apellido: apellido,
                 cedula: cedula,
                 ctroCosto: ctroCosto,
                 gerencia: gerencia,
                 empresa: {
-                    nombre: empresa // Asumiendo que el campo "empresa" es el nombre de la empresa
+                    idEmpresa: empresaId // Asignar el ID de la empresa seleccionada
                 },
                 estado: estado
             };
@@ -116,14 +144,13 @@
                 if (response.ok) {
                     // Recargar la lista de empleados de clientes después de agregar uno nuevo
                     cargarListaEmpleadosCliente();
-                    // Limpiar el formulario después de agregar un empleado de cliente
-                    formAgregarEmpleadoCliente.reset();
+                    formAgregarEmpleadoCliente.reset(); // Limpiar el formulario
                 } else {
-                    throw new Error('Error al agregar empleado de cliente');
+                    console.error('Error al agregar el empleado de cliente');
                 }
             })
             .catch(error => {
-                console.error('Error al agregar empleado de cliente:', error);
+                console.error('Error al agregar el empleado de cliente:', error);
             });
         });
     </script>
