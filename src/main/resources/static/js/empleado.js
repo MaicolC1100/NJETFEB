@@ -51,7 +51,7 @@ formAgregarEmpleado.addEventListener('submit', event => {
 	const celular = document.querySelector('#celular').value;
 	const correo = document.querySelector('#correo').value;
 	const placa = document.querySelector('#placa').value;
-	const estado = document.querySelector('#estado').checked;
+	const estado = true;
 
 	// Crear un objeto con los datos del nuevo empleado
 	const nuevoEmpleado = {
