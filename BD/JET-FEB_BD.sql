@@ -66,3 +66,4 @@ CREATE TABLE empleado_cliente (
 
 -- ALTER TABLE usuarios
 -- ADD CONSTRAINT unique_email UNIQUE (email);
+ 
