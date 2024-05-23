@@ -9,6 +9,11 @@
     box-shadow: 1px 1px 10px #2a26267d;
     background-color: #ffffff91;
     padding: 40px;
+    font-size: 12px;
+}
+
+.div-table thead {
+   text-align: center;
 }
 
 .h2-form {
@@ -42,5 +47,9 @@
 }
 
 .formularios .btn-form {
+    text-align: center;
+}
+
+.td-icon {
     text-align: center;
 }

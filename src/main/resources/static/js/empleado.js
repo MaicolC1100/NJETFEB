@@ -1,6 +1,7 @@
 // Call the dataTables jQuery plugin
 $(document).ready(function() {
 	// on ready
+	cargarListaEmpleados();
 });
 
 
@@ -26,10 +27,12 @@ function cargarListaEmpleados() {
                             <td>${empleado.celular}</td>
                             <td>${empleado.correo}</td>
                             <td>${empleado.placa}</td>
-                            <td>${empleado.estado ? 'Activo' : 'Inactivo'}</td>
-							<td>
-								<a href="#" class="btn btn-warning btn-sm"><i class="bi bi-eraser-fill"></i></a>
-								<a href="#" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a>
+                            <td class="td-icon">${empleado.estado ? 
+								'<i class="bi bi-person-fill-check" style="font-size: 1rem; color: darkgreen;" title="Activo"></i>' : 
+								'<i class="bi bi-person-fill-x" style="font-size: 1rem; color: darkred;" title="Inactivo"></i>'}</td>
+							<td class="td-icon">
+								<a href="#" class="btn btn-warning btn-sm" title="Modificar"><i class="bi bi-eraser-fill"></i></a>
+								<a href="#" class="btn btn-danger btn-sm" title="Eliminar"><i class="bi bi-trash"></i></a>
 							</td>
                         `;
 				empleadosTableBody.appendChild(row);
@@ -40,54 +43,27 @@ function cargarListaEmpleados() {
 		});
 }
 
-// Llamar a la función para cargar la lista de empleados cuando se cargue la página
-cargarListaEmpleados();
+async function registrarEmpleado(){
 
-// Agregar evento de submit al formulario para agregar un nuevo empleado
-formAgregarEmpleado.addEventListener('submit', event => {
-	event.preventDefault(); // Evitar que se recargue la página
-
-	// Obtener los valores del formulario
-	const nombre = document.querySelector('#nombre').value;
-	const apellido = document.querySelector('#apellido').value;
-	const cedula = document.querySelector('#cedula').value;
-	const cargo = document.querySelector('#cargo').value;
-	const celular = document.querySelector('#celular').value;
-	const correo = document.querySelector('#correo').value;
-	const placa = document.querySelector('#placa').value;
-	const estado = true;
-
-	// Crear un objeto con los datos del nuevo empleado
-	const nuevoEmpleado = {
-		nombre: nombre,
-		apellido: apellido,
-		cedula: cedula,
-		cargo: cargo,
-		celular: celular,
-		correo: correo,
-		placa: placa,
-		estado: estado
-	};
-
-	// Enviar la solicitud POST para guardar el nuevo empleado
-	fetch('/api/empleado', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify(nuevoEmpleado)
-	})
-		.then(response => {
-			if (response.ok) {
-				// Recargar la lista de empleados después de agregar uno nuevo
-				cargarListaEmpleados();
-				// Limpiar el formulario después de agregar un empleado
-				formAgregarEmpleado.reset();
-			} else {
-				throw new Error('Error al agregar empleado');
-			}
-		})
-		.catch(error => {
-			console.error('Error al agregar empleado:', error);
-		});
-});
+	let datos = {};
+	
+	datos.nombre = document.querySelector('#nombre').value;
+	datos.apellido = document.querySelector('#apellido').value;
+	datos.cedula = document.querySelector('#cedula').value;
+	datos.cargo = document.querySelector('#cargo').value;
+	datos.celular = document.querySelector('#celular').value;
+	datos.correo = document.querySelector('#correo').value;
+	datos.placa = document.querySelector('#placa').value;
+	datos.estado = true;
+	
+	const request = await fetch('api/empleado', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(datos)
+    });
+    alert("El empleado fue creado exitosamente!");
+    window.location.href = 'empleado.html'
+}
