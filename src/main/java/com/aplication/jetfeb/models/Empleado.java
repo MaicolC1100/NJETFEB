@@ -25,6 +25,9 @@ public class Empleado {
 
     @Column(name = "nombre", nullable = false)
     private String nombre;
+    
+    @Column(name = "apellido", nullable = false)
+    private String apellido;
 
     @Column(name = "cargo", nullable = false)
     private String cargo;
@@ -40,12 +43,5 @@ public class Empleado {
 
     @Column(name = "estado", nullable = false)
     private boolean estado;
-
-	@Override
-	public String toString() {
-		return "Empleado [idEmpleado=" + idEmpleado + ", cedula=" + cedula + ", nombre=" + nombre + ", cargo=" + cargo
-				+ ", celular=" + celular + ", correo=" + correo + ", placa=" + placa + ", estado=" + estado + "]";
-	}
-    
     
 }

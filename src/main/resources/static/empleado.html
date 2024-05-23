@@ -1,16 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>empleado App</title>
+    <title>JET-FEB</title>
+    <!-- Importar Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- DISEÑO CSS -->
+    <link rel="stylesheet" href="css/index.css">
+	
 </head>
 <body>
-    <h1>Lista de Empleados</h1>
+    <!-- <div class="page-container"> -->
+        <!-- Contenedor del Header -->
+        <div id="header-container"></div>
+        
+        <h1>Lista de Empleados</h1>
     <table id="empleados-table">
         <thead>
             <tr>
                 <th>Nombre</th>
+                <th>Apellido</th>
                 <th>Cédula</th>
                 <th>Cargo</th>
                 <th>Celular</th>
@@ -28,6 +38,9 @@
     <form id="form-agregar-empleado">
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre" required><br>
+
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido" name="apellido" required><br>
 
         <label for="cedula">Cédula:</label>
         <input type="text" id="cedula" name="cedula" required><br>
@@ -49,8 +62,19 @@
 
         <button type="submit">Agregar Empleado</button>
     </form>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script src="js/empleado.js"></script> 
- 
+        <!-- Contenedor del Footer -->
+        <div id="footer-container"></div>
+    <!-- </div> -->
+
+    <!-- Importar jQuery y Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $("#header-container").load("header.html");
+            $("#footer-container").load("footer.html");
+        });
+    </script>
 </body>
 </html>

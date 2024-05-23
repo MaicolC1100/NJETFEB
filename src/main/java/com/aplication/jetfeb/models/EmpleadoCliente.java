@@ -40,4 +40,5 @@ public class EmpleadoCliente {
 
     @Column(name = "estado", nullable = false)
     private boolean estado;
+    
 }

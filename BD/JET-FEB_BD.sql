@@ -27,6 +27,7 @@ CREATE TABLE empleado (
   id_empleado int AUTO_INCREMENT PRIMARY KEY COMMENT 'Identificador único del empleado',
   cedula varchar(50) NOT NULL COMMENT 'Cédula del empleado',
   nombre varchar(50) NOT NULL COMMENT 'Nombre del empleado',
+  apellido varchar(100) NOT NULL COMMENT 'Apellido del empleado',
   cargo varchar(50) NOT NULL COMMENT 'Cargo del empleado',
   celular varchar(50) NOT NULL COMMENT 'Celular del empleado',
   correo varchar(50) NOT NULL COMMENT 'Correo electrónico del empleado',
