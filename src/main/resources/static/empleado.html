@@ -25,7 +25,7 @@
     </table>
 
     <h2>Agregar Nuevo Empleado</h2>
-    <form id="form-agregar-empleado" action="/empleado" method="post">
+    <form id="form-agregar-empleado">
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre" required><br>
 
@@ -49,32 +49,8 @@
 
         <button type="submit">Agregar Empleado</button>
     </form>
-
-    <script>
-        // Lógica para cargar la lista de empleados
-        const empleadosTableBody = document.querySelector('#empleados-table tbody');
-
-        // Lógica para mostrar la lista de empleados en la tabla
-        fetch('/empleado')
-            .then(response => response.json())
-            .then(data => {
-                data.forEach(empleado => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${empleado.nombre}</td>
-                        <td>${empleado.cedula}</td>
-                        <td>${empleado.cargo}</td>
-                        <td>${empleado.celular}</td>
-                        <td>${empleado.correo}</td>
-                        <td>${empleado.placa}</td>
-                        <td>${empleado.estado ? 'Activo' : 'Inactivo'}</td>
-                    `;
-                    empleadosTableBody.appendChild(row);
-                });
-            })
-            .catch(error => {
-                console.error('Error al obtener los datos de los empleados:', error);
-            });
-    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="js/empleado.js"></script> 
+ 
 </body>
 </html>
