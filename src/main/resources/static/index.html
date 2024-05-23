@@ -1,366 +1,290 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JET-FEB</title>
-<!-- Importar Bootstrap CSS -->
-<link
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-	rel="stylesheet">
-<!--  DISEÑO CSS -->
-<link rel="stylesheet" href="css/index.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JET-FEB</title>
+    <!-- Importar Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- DISEÑO CSS -->
+    <link rel="stylesheet" href="css/index.css">
 
 </head>
 <body>
+
 	<div class="page-container">
-		<header class="header-container">
-			<img 
-				src="https://live.staticflickr.com/65535/53694045368_cfae25bcd5_n.jpg"
-				alt="Logo" >
-			<nav class="navbar navbar-expand-lg navbar-light">
-				<div class="container">
-					<button class="navbar-toggler" type="button" data-toggle="collapse"
-						data-target="#navbarNav" aria-controls="navbarNav"
-						aria-expanded="false" aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"></span>
-					</button>
-					<div class="collapse navbar-collapse" id="navbarNav">
-						<ul class="navbar-nav ml-auto">
-							<li class="nav-item"><a class="nav-link" th:href="@{/}">Inicio<span
-									class="sr-only">(current)</span></a></li>
-							<li class="nav-item"><a class="nav-link" th:href="@{/tarifaVales}">Tarifa
-									Vales</a></li>
-							<li class="nav-item"><a class="nav-link" th:href="@{/asignacionVale}"
-								>Asignación Vales</a></li>
-							<li class="nav-item"><a class="nav-link" th:href="@{/solcitudVale}">Solicitud
-									Vale</a></li>
-							<li class="nav-item"><a class="nav-link" th:href="@{/personal}">
-									Personal</a></li>
-							<li class="nav-item"><a class="nav-link" th:href="@{/personalBll}">
-							Personal BellezaExpress</a></li>
-							<li class="nav-item"><a class="nav-link" th:href="@{/historial}">Historial</a></li>
-							
-							<li sec:authorize="isAuthenticated()" class="nav-item"><a
-								th:href="@{/logout}" class="nav-link">Cerrar sesión</a></li>
-						</ul>
-					</div>
-				</div>
-			</nav>
-		</header>
+		<!-- Contenedor del Header -->
+		<div id="header-container"></div>
 
 		<br>
 
 		<!-- Carrusel -->
 		<div class="carousel-container">
-			<div id="carouselExampleIndicators" class="carousel slide"
-				data-ride="carousel" data-interval="3000">
+			<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="3000">
 				<ol class="carousel-indicators">
-					<li data-target="#carouselExampleIndicators" data-slide-to="0"
-						class="active"></li>
+					<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
 					<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
 				</ol>
 				<div class="carousel-inner">
 					<div class="carousel-item active">
-						<img
-							src="https://live.staticflickr.com/65535/53694275225_f3214cb5c3_c.jpg"
+						<img src="https://live.staticflickr.com/65535/53694275225_f3214cb5c3_c.jpg"
 							class="d-block w-100" alt="Banner 1">
 					</div>
 					<div class="carousel-item">
-						<img
-							src="https://live.staticflickr.com/65535/53694275225_f3214cb5c3_c.jpg"
+						<img src="https://live.staticflickr.com/65535/53694275225_f3214cb5c3_c.jpg"
 							class="d-block w-100" alt="Banner 2">
 					</div>
 				</div>
-				<a class="carousel-control-prev" href="#carouselExampleIndicators"
-					role="button" data-slide="prev"> <span
-					class="carousel-control-prev-icon" aria-hidden="true"></span> <span
-					class="sr-only">Previous</span>
-				</a> <a class="carousel-control-next" href="#carouselExampleIndicators"
-					role="button" data-slide="next"> <span
-					class="carousel-control-next-icon" aria-hidden="true"></span> <span
-					class="sr-only">Next</span>
+				<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span> <span
+						class="sr-only">Previous</span>
+				</a> <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span> <span
+						class="sr-only">Next</span>
 				</a>
 			</div>
 		</div>
+		<div class="content">
+			<div class="container">
+				<div class="row">
+					<div>
+						<h2 class="text-center mb-4">¿QUIÉNES SOMOS?</h2>
+						<p>JET-FEB TRANSPORTE S.A.S es una empresa dedicada a
+							proporcionar servicios de transporte ejecutivo de calidad,
+							comprometida con la eficiencia, la transparencia, la fidelidad, la
+							excelencia y el bienestar de nuestros clientes. Con un enfoque en
+							la innovacion y la satisfaccion del cliente, nos esforzamos por
+							ofrecer solciones de movilidad confiables y seguras para
+							comunidades locales y visitantes por igual</p>
 
-		<br>
-
-		<div class="container">
-			<div class="row">
-				<div>
-					<h2 class="text-center mb-4">¿QUIÉNES SOMOS?</h2>
-					<p>JET-FEB TRANSPORTE S.A.S es una empresa dedicada a
-						proporcionar servicios de transporte ejecutivo de calidad,
-						comprometida con la eficiencia, la transparencia, la fidelidad, la
-						excelencia y el bienestar de nuestros clientes. Con un enfoque en
-						la innovacion y la satisfaccion del cliente, nos esforzamos por
-						ofrecer solciones de movilidad confiables y seguras para
-						comunidades locales y visitantes por igual</p>
-
-				</div>
-			</div>
-		</div>
-
-		<br>
-
-		<div class="container custom-container">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="custom-box">
-						<h2 class="text-center mb-4">DESCRIPCION DE SERVICIOS</h2>
-						<p class="descripcion-servicios">Nos complace presentarles
-							nuestra propuesta de servicios de transporte para satisfacer las
-							necesidades de movilidad de su empresa de manera eficiente y
-							confiable. En JET-FEB TRANSPORTE S.A.S, nos comprometemos a
-							ofrecer soluciones de transporte de alta calidad que respalden el
-							crecimiento y la operación fluida de su negocio. Nuestra
-							propuesta de servicios de transporte para facturación Directa
-							Comisiones: Proponemos establecer un sistema de facturación
-							directa Bivien, donde se facture mensualmente para pagos
-							quincenales, reflejando el monto facturado cada 15 días. Se
-							aplicará una comisión del 10% sobre el total facturado como
-							compensación por nuestros servicios. En el primer mes el pago
-							será a 30 días para evaluar el desarrollo del negocio. Tarifas
-							Ajustadas y Precios competitivos: Nos comprometemos a ajustar
-							nuestras tarifas cada año de acuerdo con el incremento del
-							mercado y sus necesidades especificas, asegurando precios
-							competitivos que reflejen el valor agregado de nuestros servicios
-							y así satisfacer las necesidades de movilidad de su empresa de
-							manera eficiente y confiable. En JET-FEB TRANSPORTE S.A.S nos
-							comprometemos a ofrecer soluciones de transporte de alta calidad
-							que respalden el crecimiento y la operación fluida de su negocio.
-							Gestión de Vales de Servicio: Nos encargaremos de recibir los
-							vales proporcionados por Bivien y de gestionar eficientemente su
-							distribución entre nuestros conductores. Además, nos
-							comprometemos a pagar a los conductores de manera oportuna,
-							garantizando una ejecución eficiente y rápida de los servicios
-							prestados.</p>
 					</div>
 				</div>
 			</div>
-		</div>
-		<br>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-6"
-					style="border-right: 5px solid rgba(255, 215, 0, 0.61);">
-					<div class="box">
-						<h2 class="text-center">Misión</h2>
-						<p>Nuestra misión es proporcionar un servicio excepcional al
-							servicio del cliente, facturación y gestión administrativa,
-							enfocado en superar las expectativas de nuestros clientes a
-							través de la puntualidad, la atención personalizada y el apoyo
-							constante. Nos comprometemos a ser un socio estratégico para las
-							empresas a las que servimos, brindando soluciones integrales que
-							les permitan concentrarse en su crecimiento y desarrollo
-							confiando en nuestra dedicación y profesionalismo.</p>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="box">
-						<h2 class="text-center">Visión</h2>
-						<p>Nuestra visión es ser reconocidos como el aliado de
-							confianza para empresas en la gestión de sus procesos
-							administrativos, destacándonos por nuestro compromiso
-							inquebrantable con el servicio al cliente. Buscamos establecer
-							relaciones a largo plazo con nuestros clientes, basadas en la
-							excelencia operativa y la satisfacción continua convirtiéndonos
-							en su socio estratégico preferido.</p>
-					</div>
-				</div>
-			</div>
-		</div>
 
-		<br>
+			<br>
 
-		<div class="container custom-container">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="custom-box">
-						<h2 class="text-center mb-4">NUESTROS VALORES Y COMPROMISOS</h2>
-						<p>En JET-FEB Transporte, estamos comprometidos a superar las
-							expectativas de nuestros clientes y a establecer relaciones
-							solidas y duraderas basadas en la confianza, la transparencia y
-							la excelencia en el servicio. Nos comprometemos a trabajar en
-							estrecha colaboracion con Bivien para adaptar nuestros servicios
-							a sus necesidades cambiantes y asegurar su plena satisfaccion en
-							todo momento.</p>
-						<p>Llevamos mas de 16 años al servicio de ustedes a traves de
-							otra empresa externa, por eso hoy anhelamos trabajar de la mano
-							satisfaciendo sus necesidades y las nuestras por eso agradecemos
-							la oportunidad de presentar esta propuesta y esperamos poder
-							colaborar con ustedes.</p>
-						<ul>
-							<li>Puntualidad y compromiso con los plazos acordados</li>
-							<li>Atención personalizada y apoyo constante</li>
-							<li>Profesionalismo y dedicación a cada cliente</li>
-							<li>Innovación continua para ofrecer soluciones eficientes</li>
-							<li>Flexibilidad y adaptabilidad a las necesidades de
-								nuestros clientes</li>
-							<li>Transparencia y comunicación abierta para garantizar la
-								confianza</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-		<br>
-		<h2 class="text-center mb-4">Plan Estratégico de Seguridad Vial
-			para JET-FEB TRANSPORTE S.A.S</h2>
-		<br>
-
-		<div class="container">
-			<div class="row">
-				<div class="col-md-6"
-					style="border-right: 5px solid rgba(255, 215, 0, 0.61);">
-					<div class="box">
-						<p class="descripcion-servicios">Plan Estratégico de Seguridad
-							Vial para JET-FEB TRANSPORTE S.A.S
-						<li>Introducción</li> La seguridad vial es una prioridad
-						fundamental para JET-FEB TRANSPORTE S.A.S. Este plan estratégico
-						establece un marco integral para garantizar la seguridad de
-						nuestros conductores, pasajeros y otros usuarios de la vía, al
-						tiempo que promueve una cultura de responsabilidad y prevención en
-						nuestra empresa. Objetivos Generales: Garantizar la seguridad de
-						conductores y pasajeros mediante la implementación de medidas
-						preventivas y reactivas, promoviendo una cultura de seguridad vial
-						en toda la empresa. -aumentar la satisfacción del cliente en
-						relación con la seguridad del servicio.
-
-						<li>1. Análisis de riesgos: - Identificar y evaluar los
-							principales riesgos asociados con la operación de taxis, como
-							accidentes de transito, robos, agresiones, Fatiga crónica, fatiga
-							ocular, trabajo nocturno, posturas forzadas, Accidentes de sueño,
-							alcohol, medicamentos, factores provocadores de distracciones. -
-							Realizar un análisis de incidentes previos para identificar
-							patrones y áreas de mejora.</li>
-
-						<li>2. Normativas y regulaciones: - Cumplir con todas las
-							normativas y regulaciones locales y nacionales relacionadas con
-							la seguridad vial y el transporte de pasajeros. - Designar un
-							responsable para el seguimiento continuo de los cambios en las
-							regulaciones y asegurar su implementación.</li>
-
-						<li>3. Capacitación de conductores: - Diseñar e implementar
-							programas de formación y capacitación en seguridad vial para
-							conductores. - Incluir temas como conducción defensiva, respeto
-							de normas de transito, manejo de situaciones de emergencia, entre
-							otros. - Realizar evaluaciones periódicas para medir la
-							efectividad de la capacitación.</li>
-
-						<li>4. Mantenimiento de vehículos: - Establecer un programa
-							de mantenimiento preventivo regular para todos los vehículos
-							incluyendo inspecciones exhaustivas y reparaciones oportunas. -
-							Realizar inspecciones periódicas para detectar y corregir
-							cualquier problema de seguridad.</li>
-
-						<li>5. Monitoreo y control - Implementar sistemas de
-							monitoreo en tiempo real, como cámaras de seguridad y sistemas de
-							localización GPS, en todos los vehículos. - Establecer protocolos
-							claros para el seguimiento y respuesta ante incidentes.</li>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="box">
-						<li>6. Comunicación y sensibilización: - Promover una cultura
-							de seguridad vial mediante campañas de sensibilización dirigidas
-							a conductores y empleados. - Fomentar la comunicación abierta y
-							el intercambio de experiencias y mejores prácticas.</li>
-
-						<li>7. Servicio al cliente seguro: - Capacitar a los
-							conductores en la prestación de un servicio al cliente seguro,
-							incluyendo la verificación de la identidad de los pasajeros y el
-							manejo de situaciones confidenciales. - Establecer un sistema de
-							retroalimentación para recopilar comentarios de los pasajeros
-							sobre la seguridad del servicio.</li>
-
-						<li>8. Gestión de crisis: - Desarrollar un plan de acción
-							detallado para manejar situaciones de crisis, como accidentes de
-							transito o agresiones. - Designar un equipo de respuesta de
-							emergencia y proporcionarles la capacitación necesaria.</li>
-
-						<li>9. Feedback y mejora continua: - Establecer mecanismos
-							para recopilar feedback de conductores y pasajeros sobre el
-							desempeño en seguridad vial. - Utilizar esta retroalimentación
-							para identificar áreas de mejora y realizar ajustes en el plan
-							estratégico de seguridad vial de manera continua.</li>
-
-						<li>10.Implementación y seguimiento: -Asignar
-							responsabilidades claras y recursos adecuados para la
-							implementación de cada acción. - Establecer un calendario
-							detallado para el seguimiento de las actividades y el
-							cumplimiento de los objetivos. -Establecer relaciones de
-							colaboración con el gremio relacionadas con la seguridad vial
-							para compartir informacion y mejores prácticas. -Participar
-							activamente en iniciativas comunitarias y programas de seguridad
-							vial.</li>
-
-						<li>11. Evaluación de resultados: - Establecer indicadores
-							clave de desempeño (KPIs) para medir el éxito del plan
-							estratégico de seguridad vial. - Realizar evaluaciones periódicas
-							para analizar el cumplimiento de objetivos y realizar ajustes
-							según sea necesario.</li>
-
-						<li>12. Presupuesto y recursos: - Asignar recursos adecuados
-							para la implementación y mantenimiento del plan estratégico de
-							seguridad vial. - Priorizar la seguridad vial como una inversión
-							fundamental para el éxito a largo plazo de la empresa.</li>
-
-						<li>Este plan estratégico de seguridad vial servirá como un
-							marco sólido para guiar las acciones de JET-FEB TRANSPORTE S.A.S
-							Establecer un compromiso firme con la seguridad de nuestros
-							conductores y pasajeros, así como con la comunidad en general. A
-							través de la implementación de medidas preventivas y la promoción
-							de una cultura de seguridad vial, estamos comprometidos a reducir
-							los riesgos asociados con nuestras operaciones y a mejorar
-							continuamente nuestros estándares de seguridad.</li>
-					</div>
-				</div>
-			</div>
-		</div>
-		<br> <br>
-		<div class="page-container">
-			<footer class="footer-container">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-4">
-							<div class="d-flex flex-column">
-								<p>Contacto:</p>
-								<ul>
-									<li>Celular: (312 217 5757) o (313 650 3717)</li>
-								</ul>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="d-flex flex-column align-items-center ">
-								<img
-									src="https://live.staticflickr.com/65535/53694045368_cfae25bcd5_n.jpg"
-									alt="Logo">
-								<p class="text-center">© 2024 Todos los derechos reservados
-									JET-FEB</p>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="d-flex flex-column">
-								<p>JET-FEB S.A.S</p>
-								<ul>
-									<li>Juntos con eficiencia, fidelidad, excelencia, bienestar.</li>
-									<li>¡Nos movemos por Cali y nuestros ciudadanos!</li>
-								</ul>
-
-							</div>
+			<div class="container custom-container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="custom-box">
+							<h2 class="text-center mb-4">DESCRIPCION DE SERVICIOS</h2>
+							<p class="descripcion-servicios">Nos complace presentarles
+								nuestra propuesta de servicios de transporte para satisfacer las
+								necesidades de movilidad de su empresa de manera eficiente y
+								confiable. En JET-FEB TRANSPORTE S.A.S, nos comprometemos a
+								ofrecer soluciones de transporte de alta calidad que respalden el
+								crecimiento y la operación fluida de su negocio. Nuestra
+								propuesta de servicios de transporte para facturación Directa
+								Comisiones: Proponemos establecer un sistema de facturación
+								directa Bivien, donde se facture mensualmente para pagos
+								quincenales, reflejando el monto facturado cada 15 días. Se
+								aplicará una comisión del 10% sobre el total facturado como
+								compensación por nuestros servicios. En el primer mes el pago
+								será a 30 días para evaluar el desarrollo del negocio. Tarifas
+								Ajustadas y Precios competitivos: Nos comprometemos a ajustar
+								nuestras tarifas cada año de acuerdo con el incremento del
+								mercado y sus necesidades especificas, asegurando precios
+								competitivos que reflejen el valor agregado de nuestros servicios
+								y así satisfacer las necesidades de movilidad de su empresa de
+								manera eficiente y confiable. En JET-FEB TRANSPORTE S.A.S nos
+								comprometemos a ofrecer soluciones de transporte de alta calidad
+								que respalden el crecimiento y la operación fluida de su negocio.
+								Gestión de Vales de Servicio: Nos encargaremos de recibir los
+								vales proporcionados por Bivien y de gestionar eficientemente su
+								distribución entre nuestros conductores. Además, nos
+								comprometemos a pagar a los conductores de manera oportuna,
+								garantizando una ejecución eficiente y rápida de los servicios
+								prestados.</p>
 						</div>
 					</div>
 				</div>
-			</footer>
+			</div>
+			<br>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6" style="border-right: 5px solid rgba(255, 215, 0, 0.61);">
+						<div class="box">
+							<h2 class="text-center">Misión</h2>
+							<p>Nuestra misión es proporcionar un servicio excepcional al
+								servicio del cliente, facturación y gestión administrativa,
+								enfocado en superar las expectativas de nuestros clientes a
+								través de la puntualidad, la atención personalizada y el apoyo
+								constante. Nos comprometemos a ser un socio estratégico para las
+								empresas a las que servimos, brindando soluciones integrales que
+								les permitan concentrarse en su crecimiento y desarrollo
+								confiando en nuestra dedicación y profesionalismo.</p>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="box">
+							<h2 class="text-center">Visión</h2>
+							<p>Nuestra visión es ser reconocidos como el aliado de
+								confianza para empresas en la gestión de sus procesos
+								administrativos, destacándonos por nuestro compromiso
+								inquebrantable con el servicio al cliente. Buscamos establecer
+								relaciones a largo plazo con nuestros clientes, basadas en la
+								excelencia operativa y la satisfacción continua convirtiéndonos
+								en su socio estratégico preferido.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<br>
+
+			<div class="container custom-container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="custom-box">
+							<h2 class="text-center mb-4">NUESTROS VALORES Y COMPROMISOS</h2>
+							<p>En JET-FEB Transporte, estamos comprometidos a superar las
+								expectativas de nuestros clientes y a establecer relaciones
+								solidas y duraderas basadas en la confianza, la transparencia y
+								la excelencia en el servicio. Nos comprometemos a trabajar en
+								estrecha colaboracion con Bivien para adaptar nuestros servicios
+								a sus necesidades cambiantes y asegurar su plena satisfaccion en
+								todo momento.</p>
+							<p>Llevamos mas de 16 años al servicio de ustedes a traves de
+								otra empresa externa, por eso hoy anhelamos trabajar de la mano
+								satisfaciendo sus necesidades y las nuestras por eso agradecemos
+								la oportunidad de presentar esta propuesta y esperamos poder
+								colaborar con ustedes.</p>
+							<ul>
+								<li>Puntualidad y compromiso con los plazos acordados</li>
+								<li>Atención personalizada y apoyo constante</li>
+								<li>Profesionalismo y dedicación a cada cliente</li>
+								<li>Innovación continua para ofrecer soluciones eficientes</li>
+								<li>Flexibilidad y adaptabilidad a las necesidades de
+									nuestros clientes</li>
+								<li>Transparencia y comunicación abierta para garantizar la
+									confianza</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br>
+			<h2 class="text-center mb-4">Plan Estratégico de Seguridad Vial
+				para JET-FEB TRANSPORTE S.A.S</h2>
+			<br>
+
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6" style="border-right: 5px solid rgba(255, 215, 0, 0.61);">
+						<div class="box">
+							<p class="descripcion-servicios">Plan Estratégico de Seguridad
+								Vial para JET-FEB TRANSPORTE S.A.S
+								<li>Introducción</li> La seguridad vial es una prioridad
+								fundamental para JET-FEB TRANSPORTE S.A.S. Este plan estratégico
+								establece un marco integral para garantizar la seguridad de
+								nuestros conductores, pasajeros y otros usuarios de la vía, al
+								tiempo que promueve una cultura de responsabilidad y prevención en
+								nuestra empresa. Objetivos Generales: Garantizar la seguridad de
+								conductores y pasajeros mediante la implementación de medidas
+								preventivas y reactivas, promoviendo una cultura de seguridad vial
+								en toda la empresa. -aumentar la satisfacción del cliente en
+								relación con la seguridad del servicio.
+
+								<li>1. Análisis de riesgos: - Identificar y evaluar los
+									principales riesgos asociados con la operación de taxis, como
+									accidentes de transito, robos, agresiones, Fatiga crónica, fatiga
+									ocular, trabajo nocturno, posturas forzadas, Accidentes de sueño,
+									alcohol, medicamentos, factores provocadores de distracciones. -
+									Realizar un análisis de incidentes previos para identificar
+									patrones y áreas de mejora.</li>
+
+								<li>2. Normativas y regulaciones: - Cumplir con todas las
+									normativas y regulaciones locales y nacionales relacionadas con
+									la seguridad vial y el transporte de pasajeros. - Designar un
+									responsable para el seguimiento continuo de los cambios en las
+									regulaciones y asegurar su implementación.</li>
+
+								<li>3. Capacitación de conductores: - Diseñar e implementar
+									programas de formación y capacitación en seguridad vial para
+									conductores. - Incluir temas como conducción defensiva, respeto
+									de normas de transito, manejo de situaciones de emergencia, entre
+									otros. - Realizar evaluaciones periódicas para medir la
+									efectividad de la capacitación.</li>
+
+								<li>4. Mantenimiento de vehículos: - Establecer un programa
+									de mantenimiento preventivo regular para todos los vehículos
+									incluyendo inspecciones exhaustivas y reparaciones oportunas. -
+									Realizar inspecciones periódicas para detectar y corregir
+									cualquier problema de seguridad.</li>
+
+								<li>5. Monitoreo y control - Implementar sistemas de
+									monitoreo en tiempo real, como cámaras de seguridad y sistemas de
+									localización GPS, en todos los vehículos. - Establecer protocolos
+									claros para el seguimiento y respuesta ante incidentes.</li>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="box">
+							<li>6. Comunicación y sensibilización: - Promover una cultura
+								de seguridad vial mediante campañas de sensibilización dirigidas
+								a conductores y empleados. - Fomentar la comunicación abierta y
+								el intercambio de experiencias y mejores prácticas.</li>
+
+							<li>7. Servicio al cliente seguro: - Capacitar a los
+								conductores en la prestación de un servicio al cliente seguro,
+								incluyendo la verificación de la identidad de los pasajeros y el
+								manejo de situaciones confidenciales. - Establecer un sistema de
+								retroalimentación para recopilar comentarios de los pasajeros
+								sobre la seguridad del servicio.</li>
+
+							<li>8. Gestión de crisis: - Desarrollar un plan de acción
+								detallado para manejar situaciones de crisis, como accidentes de
+								transito o agresiones. - Designar un equipo de respuesta de
+								emergencia y proporcionarles la capacitación necesaria.</li>
+
+							<li>9. Feedback y mejora continua: - Establecer mecanismos
+								para recopilar feedback de conductores y pasajeros sobre el
+								desempeño en seguridad vial. - Utilizar esta retroalimentación
+								para identificar áreas de mejora y realizar ajustes en el plan
+								estratégico de seguridad vial de manera continua.</li>
+
+							<li>10.Implementación y seguimiento: -Asignar
+								responsabilidades claras y recursos adecuados para la
+								implementación de cada acción. - Establecer un calendario
+								detallado para el seguimiento de las actividades y el
+								cumplimiento de los objetivos. -Establecer relaciones de
+								colaboración con el gremio relacionadas con la seguridad vial
+								para compartir informacion y mejores prácticas. -Participar
+								activamente en iniciativas comunitarias y programas de seguridad
+								vial.</li>
+
+							<li>11. Evaluación de resultados: - Establecer indicadores
+								clave de desempeño (KPIs) para medir el éxito del plan
+								estratégico de seguridad vial. - Realizar evaluaciones periódicas
+								para analizar el cumplimiento de objetivos y realizar ajustes
+								según sea necesario.</li>
+
+							<li>12. Presupuesto y recursos: - Asignar recursos adecuados
+								para la implementación y mantenimiento del plan estratégico de
+								seguridad vial. - Priorizar la seguridad vial como una inversión
+								fundamental para el éxito a largo plazo de la empresa.</li>
+
+							<li>Este plan estratégico de seguridad vial servirá como un
+								marco sólido para guiar las acciones de JET-FEB TRANSPORTE S.A.S
+								Establecer un compromiso firme con la seguridad de nuestros
+								conductores y pasajeros, así como con la comunidad en general. A
+								través de la implementación de medidas preventivas y la promoción
+								de una cultura de seguridad vial, estamos comprometidos a reducir
+								los riesgos asociados con nuestras operaciones y a mejorar
+								continuamente nuestros estándares de seguridad.</li>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
+
+		<!-- Contenedor del Footer -->
+		<div id="footer-container"></div>
 	</div>
-	<!-- cierre pagina completa -->
 	<!-- Importar jQuery y Bootstrap JS -->
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script src="js/footer.js"></script>
+
 </body>
 </html>

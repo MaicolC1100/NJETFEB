@@ -20,6 +20,7 @@ function cargarListaEmpleados() {
 				const row = document.createElement('tr');
 				row.innerHTML = `
                             <td>${empleado.nombre}</td>
+							<td>${empleado.apellido}</td>
                             <td>${empleado.cedula}</td>
                             <td>${empleado.cargo}</td>
                             <td>${empleado.celular}</td>
@@ -44,16 +45,18 @@ formAgregarEmpleado.addEventListener('submit', event => {
 
 	// Obtener los valores del formulario
 	const nombre = document.querySelector('#nombre').value;
+	const apellido = document.querySelector('#apellido').value;
 	const cedula = document.querySelector('#cedula').value;
 	const cargo = document.querySelector('#cargo').value;
 	const celular = document.querySelector('#celular').value;
 	const correo = document.querySelector('#correo').value;
 	const placa = document.querySelector('#placa').value;
-	const estado = document.querySelector('#estado').checked;
+	const estado = true;
 
 	// Crear un objeto con los datos del nuevo empleado
 	const nuevoEmpleado = {
 		nombre: nombre,
+		apellido: apellido,
 		cedula: cedula,
 		cargo: cargo,
 		celular: celular,

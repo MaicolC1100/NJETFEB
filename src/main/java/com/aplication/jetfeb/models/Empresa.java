@@ -25,4 +25,5 @@ public class Empresa {
 
     @Column(name = "estado", nullable = false)
     private boolean estado;
+    
 }

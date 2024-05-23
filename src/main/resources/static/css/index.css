@@ -27,10 +27,11 @@ body {
 .page-container {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    height: 100%;
-    width: 100%;
+    min-height: 100vh;
+}
+
+.content {
+    flex: 1;
 }
 
 .header-container {
@@ -39,17 +40,20 @@ body {
     justify-content: space-between;
     width: 100%;
     background-color: rgba(255, 255, 255, 0.97);
-    padding: 20px;
+    padding: 10px;
     border-bottom: 1px solid #ddd;
-    position: fixed;
+    /* position: fixed; */
     top: 0;
     left: 0;
     z-index: 1000;
-    box-shadow: 2px 2px 50px #888888;
+    box-shadow: 2px 2px 10px #888888;
+    margin-bottom: 10px;
+    transition: top 0.3s; /* Transición suave para mostrar/ocultar el header */
 }
 
 .header-container img {
-    max-width: 100px;
+    max-width: 70px;
+    margin-left: 30px;
 }
 
 .header-content h1 {
@@ -81,31 +85,30 @@ body {
 }
 
 .carousel-container {
-    width: 60%;
-    /* Tamaño fijo para el contenedor del carrusel */
-    /* overflow: hidden; */
-    /* Para evitar que las imágenes se desborden */
-    margin-top: 140px;
+    width: 50%;
+    margin-left: 25%;
+    margin-bottom: 20px;
+    box-shadow: 2px 2px 5px 5px #8888883b;
+    /* margin-top: 140px; */
     /* Aumentado para asegurar que no se superponga con el header */
 }
 
+
 .footer-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     width: 100%;
     background-color: rgb(255, 255, 255);
-    padding:20px;
-    border-top: 1px solid #ddd;
-
-    top: 0;
+    padding: 10px;
+    border-top: 0.5px solid #ddd;
+    bottom: 0;
     left: 0;
     z-index: 1000;
     box-shadow: 2px 2px 5px #888888;
+    margin-top: 20px;
 }
 
+
 .footer-container img {
-    max-width: 100px;
+    max-width: 60px;
 }
 
 .footer-container .col-md-4:not(:last-child) {
@@ -114,19 +117,20 @@ body {
 
 /* Estilo para los títulos "Contacto" y "Servicios" */
 .footer-container p {
-    font-size: 20px; /* Ajusta el tamaño de fuente */
+    font-size: 15px; /* Ajusta el tamaño de fuente */
     font-weight: bold; /* Hace que el texto sea negrita */
-    margin-bottom: 10px; /* Agrega espacio debajo del texto */
+    margin-bottom: 5px; /* Agrega espacio debajo del texto */
     text-align: left; 
 }
 
 /* Estilo para el texto debajo de "Contacto" y "Servicios" */
 .footer-container p:nth-child(2) {
-    font-size: 12px; /* Ajusta el tamaño de fuente */
+    font-size: 10px; /* Ajusta el tamaño de fuente */
     text-align: justify; /* Justifica el texto a la izquierda */
 }
 
 /* Estilo para quitar los puntos en las listas del footer */
 .footer-container ul {
-    list-style-type: square; /* Esto quita los puntos de la lista */
+    list-style-type: circle; /* Esto quita los puntos de la lista */
+    font-size: 13px;
 }

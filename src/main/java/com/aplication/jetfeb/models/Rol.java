@@ -25,4 +25,5 @@ public class Rol {
 
 	@Column(name = "estado", nullable = false)
     private boolean estado;
+	
 }
