@@ -42,6 +42,6 @@ public class EmpleadoCliente {
     private String cedula;
 
     @Column(name = "estado", nullable = false)
-    private boolean estado;
+    private Boolean estado;
     
 }

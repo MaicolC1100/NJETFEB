@@ -24,6 +24,6 @@ public class Rol {
 	private String nombre;
 
 	@Column(name = "estado", nullable = false)
-    private boolean estado;
+    private Boolean estado;
 	
 }

@@ -42,6 +42,6 @@ public class Empleado {
     private String placa;
 
     @Column(name = "estado", nullable = false)
-    private boolean estado;
+    private Boolean estado;
     
 }
