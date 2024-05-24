@@ -39,15 +39,38 @@ public class EmpleadoController {
 
     @PutMapping("/{id}")
     public void actualizarEmpleado(@PathVariable Integer id, @RequestBody Empleado empleado) {
-        Empleado empleadoExistente = empleadoServicio.obtenerEmpleadoporId(id);
-        empleadoExistente.setIdEmpleado(id);
-        empleadoExistente.setCedula(empleado.getCedula());
-        empleadoExistente.setPlaca(empleado.getPlaca());
-        empleadoExistente.setCargo(empleado.getCargo());
-        empleadoExistente.setCelular(empleado.getCelular());
-        empleadoExistente.setCorreo(empleado.getCorreo());
 
-        empleadoServicio.actualizarEmpleado(empleadoExistente);
+        Empleado empleadoExistente = empleadoServicio.obtenerEmpleadoporId(id);
+        
+        if (empleadoExistente != null) {
+
+            if (empleado.getCedula() != null) {
+                empleadoExistente.setCedula(empleado.getCedula());
+            }
+            if (empleado.getNombre() != null) {
+                empleadoExistente.setNombre(empleado.getNombre());
+            }
+            if (empleado.getApellido() != null) {
+                empleadoExistente.setApellido(empleado.getApellido());
+            }
+            if (empleado.getCargo() != null) {
+                empleadoExistente.setCargo(empleado.getCargo());
+            }
+            if (empleado.getCelular() != null) {
+                empleadoExistente.setCelular(empleado.getCelular());
+            }
+            if (empleado.getCorreo() != null) {
+                empleadoExistente.setCorreo(empleado.getCorreo());
+            }
+            if (empleado.getPlaca() != null) {
+                empleadoExistente.setPlaca(empleado.getPlaca());
+            }
+            if (empleado.getEstado() != null) {
+                empleadoExistente.setEstado(empleado.getEstado());
+            }
+
+            empleadoServicio.actualizarEmpleado(empleadoExistente);
+        }        
     }
 
     @DeleteMapping("/{id}")

@@ -37,7 +37,7 @@ public class EmpleadoClienteController {
             empleadoClienteExistente.setCtroCosto(empleadoCliente.getCtroCosto());
             empleadoClienteExistente.setGerencia(empleadoCliente.getGerencia());
             empleadoClienteExistente.setCedula(empleadoCliente.getCedula());
-            empleadoClienteExistente.setEstado(empleadoCliente.isEstado());
+            empleadoClienteExistente.setEstado(empleadoCliente.getEstado());
             empleadoClienteExistente.setEmpresa(empleadoCliente.getEmpresa());
             empleadoClienteServicio.actualizarEmpleadoCliente(empleadoClienteExistente);
         }

@@ -31,6 +31,6 @@ public class UsuarioRol {
     private Rol rol;
 
     @Column(name = "estado", nullable = false)
-    private boolean estado;
+    private Boolean estado;
 
 }
