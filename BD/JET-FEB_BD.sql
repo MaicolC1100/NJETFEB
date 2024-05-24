@@ -36,6 +36,31 @@ CREATE TABLE empleado (
   UNIQUE (cedula)
 ) COMMENT 'Tabla que almacena la información de los empleados';
 
+
+CREATE TABLE solicitud_vale (
+    id_solicitud_vale INT AUTO_INCREMENT PRIMARY KEY COMMENT 'Identificador único de la solicitud de vale',
+    n_vale BIGINT(11) COMMENT 'Número de vale asociado a la solicitud',
+    id_usuario INT NOT NULL COMMENT 'Identificador del usuario que realiza la solicitud, referencia a la tabla usuario',
+    id_empresa INT NOT NULL COMMENT 'Identificador de la empresa asociada, referencia a la tabla empresa',
+    origen VARCHAR(255) NOT NULL COMMENT 'Lugar de origen del viaje o servicio',
+    destino VARCHAR(255) NOT NULL COMMENT 'Lugar de destino del viaje o servicio',
+    motivo VARCHAR(255) NOT NULL COMMENT 'Motivo de la solicitud del vale',
+    fecha_creacion DATE NOT NULL COMMENT 'Fecha en que se creó la solicitud',
+    fecha_aprobacion DATE NOT NULL COMMENT 'Fecha en que se aprobó la solicitud',
+    fecha_servicio DATE NOT NULL COMMENT 'Fecha en que se realizará el servicio',
+    identificacion_pasajero_1 INT COMMENT 'Identificación del primer pasajero, referencia a la tabla empleado_cliente',
+    identificacion_pasajero_2 INT COMMENT 'Identificación del segundo pasajero, referencia a la tabla empleado_cliente',
+    identificacion_pasajero_3 INT COMMENT 'Identificación del tercer pasajero, referencia a la tabla empleado_cliente',
+    identificacion_pasajero_4 INT COMMENT 'Identificación del cuarto pasajero, referencia a la tabla empleado_cliente',
+    CONSTRAINT fk_id_empresa FOREIGN KEY (id_empresa) REFERENCES empresa(id_empresa) COMMENT 'Clave foránea a la tabla empresa',
+    CONSTRAINT fk_id_usuario FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario) COMMENT 'Clave foránea a la tabla usuario',
+    CONSTRAINT fk_identificacion_pasajero_1 FOREIGN KEY (identificacion_pasajero_1) REFERENCES empleado_cliente(id_empleado_cliente) COMMENT 'Clave foránea al primer pasajero',
+    CONSTRAINT fk_identificacion_pasajero_2 FOREIGN KEY (identificacion_pasajero_2) REFERENCES empleado_cliente(id_empleado_cliente) COMMENT 'Clave foránea al segundo pasajero',
+    CONSTRAINT fk_identificacion_pasajero_3 FOREIGN KEY (identificacion_pasajero_3) REFERENCES empleado_cliente(id_empleado_cliente) COMMENT 'Clave foránea al tercer pasajero',
+    CONSTRAINT fk_identificacion_pasajero_4 FOREIGN KEY (identificacion_pasajero_4) REFERENCES empleado_cliente(id_empleado_cliente) COMMENT 'Clave foránea al cuarto pasajero'
+) COMMENT 'Tabla que almacena las solicitudes de vales de viaje o servicio';
+
+
 CREATE TABLE empresa (
   id_empresa int AUTO_INCREMENT PRIMARY KEY COMMENT 'Identificador único de la empresa',
   nombre varchar(100) NOT NULL COMMENT 'Nombre de la empresa',
@@ -63,6 +88,7 @@ CREATE TABLE empleado_cliente (
 -- DROP TABLE IF EXISTS empleado;
 -- DROP TABLE IF EXISTS empleado_cliente;
 -- DROP TABLE IF EXISTS empresa;
+-- DROP TABLE IF EXISTS solicitud_vale; 
 
 -- Si ya se creo la base de datos se deben ejecutar estos scripts
 
