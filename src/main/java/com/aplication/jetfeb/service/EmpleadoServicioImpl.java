@@ -7,8 +7,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.aplication.jetfeb.Repository.EmpleadoRepository;
 import com.aplication.jetfeb.models.Empleado;
+import com.aplication.jetfeb.repository.EmpleadoRepository;
 
 
 @Service

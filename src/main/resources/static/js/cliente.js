@@ -1,7 +1,8 @@
 // Call the dataTables jQuery plugin
 $(document).ready(function() {
 	// on ready
-	cargarListaEmpleados();
+	cargarEmpresas();
+	cargarListaEmpleadosCliente();
 });
 
 
@@ -9,17 +10,26 @@ $(document).ready(function() {
 const empleadosClienteTableBody = document.querySelector('#empleados-cliente-table tbody');
 const formAgregarEmpleadoCliente = document.querySelector('#form-agregar-empleado-cliente');
 const empresaSelect = document.querySelector('#empresa');
+const empresaModificarSelect = document.querySelector('#empresaModificar');
 
 // Función para cargar la lista de empresas
-function cargarEmpresas() {
+async function cargarEmpresas() {
 	fetch('/api/empresa')
 		.then(response => response.json())
 		.then(data => {
 			data.forEach(empresa => {
-				const option = document.createElement('option');
-				option.value = empresa.idEmpresa;
-				option.textContent = empresa.nombre;
-				empresaSelect.appendChild(option);
+				if (empresa.estado) {
+					const option = document.createElement('option');
+					option.value = empresa.idEmpresa;
+					option.textContent = empresa.nombre;
+					empresaSelect.appendChild(option);
+
+					const option2 = document.createElement('option');
+					option2.value = empresa.idEmpresa;
+					option2.textContent = empresa.nombre;
+					empresaModificarSelect.appendChild(option2);
+					empresaModificarSelect.appendChild(option2);
+				}	
 			});
 		})
 		.catch(error => {
@@ -28,7 +38,7 @@ function cargarEmpresas() {
 }
 
 // Función para cargar la lista de empleados de clientes
-function cargarListaEmpleadosCliente() {
+async function cargarListaEmpleadosCliente() {
 	fetch('/api/empleado-cliente')
 		.then(response => response.json())
 		.then(data => {
@@ -36,16 +46,23 @@ function cargarListaEmpleadosCliente() {
 			empleadosClienteTableBody.innerHTML = '';
 
 			// Llenar la tabla con los datos de los empleados de clientes
-			data.forEach(empleado => {
+			data.forEach(empleadoCliente => {
 				const row = document.createElement('tr');
 				row.innerHTML = `
-                            <td>${empleado.nombre}</td>
-                            <td>${empleado.apellido}</td>
-                            <td>${empleado.cedula}</td>
-                            <td>${empleado.ctroCosto}</td>
-                            <td>${empleado.gerencia}</td>
-                            <td>${empleado.empresa.nombre}</td>
-                            <td>${empleado.estado ? 'Activo' : 'Inactivo'}</td>
+                            <td>${empleadoCliente.nombre}</td>
+                            <td>${empleadoCliente.apellido}</td>
+                            <td>${empleadoCliente.cedula}</td>
+                            <td>${empleadoCliente.ctroCosto}</td>
+                            <td>${empleadoCliente.gerencia}</td>
+                            <td>${empleadoCliente.empresa.nombre}</td>
+                            <td class="td-icon">${empleadoCliente.estado ? 
+								'<i class="bi bi-person-fill-check" style="font-size: 1rem; color: darkgreen;" title="Activo"></i>' : 
+								'<i class="bi bi-person-fill-x" style="font-size: 1rem; color: darkred;" title="Inactivo"></i>'}
+							</td>
+							<td class="td-icon">
+								<a href="#" onclick="modificarEmpleadoCliente(${empleadoCliente.idEmpleadoCliente})" class="btn btn-warning btn-sm" title="Modificar"><i class="bi bi-eraser-fill"></i></a>
+								<a href="#" onclick="eliminarEmpleadoCliente(${empleadoCliente.idEmpleadoCliente})" class="btn btn-danger btn-sm" title="Eliminar"><i class="bi bi-trash"></i></a>
+							</td>
                         `;
 				empleadosClienteTableBody.appendChild(row);
 			});
@@ -55,54 +72,65 @@ function cargarListaEmpleadosCliente() {
 		});
 }
 
-// Llamar a las funciones para cargar la lista de empresas y la lista de empleados de clientes cuando se cargue la página
-cargarEmpresas();
-cargarListaEmpleadosCliente();
 
-// Agregar evento de submit al formulario para agregar un nuevo empleado de cliente
-formAgregarEmpleadoCliente.addEventListener('submit', event => {
-	event.preventDefault(); // Evitar que se recargue la página
+async function registrarEmpleadoCliente(){
 
-	// Obtener los valores del formulario
-	const nombre = document.querySelector('#nombre').value;
-	const apellido = document.querySelector('#apellido').value;
-	const cedula = document.querySelector('#cedula').value;
-	const ctroCosto = document.querySelector('#ctroCosto').value;
-	const gerencia = document.querySelector('#gerencia').value;
-	const empresaId = document.querySelector('#empresa').value;
-	const estado = document.querySelector('#estado').checked;
+	let datos = {};
+	let empresa = {};
 
-	// Crear un objeto con los datos del nuevo empleado de cliente
-	const nuevoEmpleadoCliente = {
-		nombre: nombre,
-		apellido: apellido,
-		cedula: cedula,
-		ctroCosto: ctroCosto,
-		gerencia: gerencia,
-		empresa: {
-			idEmpresa: empresaId // Asignar el ID de la empresa seleccionada
-		},
-		estado: estado
-	};
+	empresa.idEmpresa = document.querySelector('#empresa').value;
 
-	// Enviar la solicitud POST para guardar el nuevo empleado de cliente
-	fetch('/api/empleado-cliente', {
-		method: 'POST',
+	datos.nombre = document.querySelector('#nombre').value;
+	datos.apellido = document.querySelector('#apellido').value;
+	datos.cedula = document.querySelector('#cedula').value;
+	datos.ctroCosto = document.querySelector('#ctroCosto').value;
+	datos.gerencia = document.querySelector('#gerencia').value;
+	datos.empresa = empresa;
+	datos.estado = true;
+	
+	const request = await fetch('api/empleado-cliente', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(datos)
+    });
+    alert("El empleado cliente fue creado exitosamente!");
+    window.location.href = 'empleadocliente.html'
+}
+
+async function modificarEmpleadoCliente(idEmpleadoCliente) {
+	// Ocultar el formulario de registro después de registrar al empleado
+	document.getElementById('divRegistroEmpleadoCliente').style.display = 'none';
+
+	const request = await fetch('api/empleado-cliente/' + idEmpleadoCliente, {
+		method: 'GET',
 		headers: {
+			'Accept': 'application/json',
 			'Content-Type': 'application/json'
 		},
-		body: JSON.stringify(nuevoEmpleadoCliente)
-	})
-		.then(response => {
-			if (response.ok) {
-				// Recargar la lista de empleados de clientes después de agregar uno nuevo
-				cargarListaEmpleadosCliente();
-				formAgregarEmpleadoCliente.reset(); // Limpiar el formulario
-			} else {
-				console.error('Error al agregar el empleado de cliente');
-			}
-		})
-		.catch(error => {
-			console.error('Error al agregar el empleado de cliente:', error);
-		});
-});
+	  });
+	const empleadoCliente = await request.json();
+
+	document.getElementById('nombreModificar').value = empleadoCliente.nombre;
+	document.getElementById('apellidoModificar').value = empleadoCliente.apellido;
+	document.getElementById('ctroCostoModificar').value = empleadoCliente.ctroCosto;
+	document.getElementById('gerenciaModificar').value = empleadoCliente.gerencia;
+	document.getElementById('cedulaModificar').value = empleadoCliente.cedula;
+
+	for (let i = 0; i < empresaModificarSelect.options.length; i++) {
+		let option = empresaModificarSelect.options[i];
+		
+		// Verificar si el valor de la opción coincide con el valor deseado
+		if (option.value == empleadoCliente.empresa.idEmpresa) {
+		  // Establecer la opción como seleccionada
+		  empresaModificarSelect.selectedIndex = i;
+		  break; // Salir del bucle una vez encontrada la coincidencia
+		}
+	  }
+	// empresaModificarSelect;
+	// empleadoCliente.empresa;
+
+	document.getElementById('divModificarEmpleadoCliente').style.display = 'flex';
+}

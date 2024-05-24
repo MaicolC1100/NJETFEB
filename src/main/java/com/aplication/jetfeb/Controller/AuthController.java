@@ -1,4 +1,4 @@
-package com.aplication.jetfeb.Controller;
+package com.aplication.jetfeb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;

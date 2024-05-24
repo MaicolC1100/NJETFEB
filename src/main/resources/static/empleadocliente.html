@@ -26,17 +26,17 @@
 		<div class="content">
 			<div class="container">
 				<!-- <h2 class="mb-4">Agregar Nuevo Empleado</h2> -->
-				<div class="row justify-content-center" id="divRegistroEmpleado">
+				<div class="row justify-content-center" id="divRegistroEmpleadoCliente">
 					<form id="form-agregar-empleado-cliente"
 						class="col-md-8 formularios">
-						<h2 class="h2-form">Registro empleado</h2>
+						<h2 class="h2-form">Registro empleado cliente</h2>
 						<div class="form-row">
 							<div class="form-group col-md-6">
-								<label for="nombre">Nombre:</label> <input type="text"
+								<label for="nombre">Nombres:</label> <input type="text"
 									id="nombre" name="nombre" class="form-control" required>
 							</div>
 							<div class="form-group col-md-6">
-								<label for="apellido">Apellido:</label> <input type="text"
+								<label for="apellido">Apellidos:</label> <input type="text"
 									id="apellido" name="apellido" class="form-control" required>
 							</div>
 						</div>
@@ -57,39 +57,70 @@
 									id="cedula" name="cedula" class="form-control" required>
 							</div>
 							<div class="form-group col-md-6">
-								<label for="empresa">Empresa:</label> <select id="empresa"
-									name="empresa" class="form-control" required>
-									<!-- Las opciones se llenarán dinámicamente -->
-								</select>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="form-group col-md-6">
-								<label for="estado">Estado:</label> <select id="estado"
-									name="estado" class="form-control" required>
-									<option value="true">Activo</option>
-									<option value="false">Inactivo</option>
+								<label for="empresa">Empresa:</label> 
+								<select id="empresa" name="empresa" class="form-control" required>
+									<option value="" Active >Seleccionar</option>
 								</select>
 							</div>
 						</div>
 						<div class="form-row btn-form">
-							<div class="form-group col-12">
-								<button type="submit" onclick="registrarEmpleado()"
-									class="btn btn-warning">
-									Guardar <i class="bi bi-floppy"></i>
-								</button>
-							</div>
-						</div>
+                            <div class="form-group col-12">
+                                <button type="submit" onclick="registrarEmpleadoCliente()" class="btn btn-warning">Guardar <i class="bi bi-floppy"></i></button>
+                            </div>
+                        </div>
 					</form>
 				</div>
 
-
+				<div class="row justify-content-center" id="divModificarEmpleadoCliente" style="display: none;">
+                    <form id="form-modificar-empleado-cliente" class="col-md-8 formularios">
+                        <h2 class="h2-form">Modificar empleado cliente</h2>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="nombre">Nombres:</label>
+                                <input type="text" id="nombreModificar" name="nombreModificar" class="form-control" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="apellido">Apellidos:</label>
+                                <input type="text" id="apellidoModificar" name="apellidoModificar" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="ctroCosto">Centro de Costo:</label> <input
+									type="text" id="ctroCostoModificar" name="ctroCostoModificar"
+									class="form-control" required>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="gerencia">Gerencia:</label> <input type="text"
+									id="gerenciaModificar" name="gerenciaModificar" class="form-control" required>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="cedula">Cédula:</label> <input type="text"
+									id="cedulaModificar" name="cedulaModificar" class="form-control" required>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="empresa">Empresa:</label> 
+								<select id="empresaModificar" name="empresaModificar" class="form-control" required>
+									<option value="">Seleccionar</option>
+								</select>
+							</div>
+						</div>
+                        <div class="form-row btn-form">
+                            <div class="form-group col-12">
+                                <button type="submit" onclick="registrarModificarEmpleadoCliente()" class="btn btn-secondary">Guardar <i class="bi bi-floppy"></i></button>
+                            </div>
+                            
+                        </div>
+                        
+                    </form>
+                </div>
 			</div>
-			<div class="row div-table">
-				<h1 class="mt-4">Lista de Empleados de Clientes</h1>
+			<div class="row div-table custom-container">
+				<h2 class="h2-table">Listado empleados clientes</h2>
 				<div class="table-responsive">
-					<table id="empleados-cliente-table"
-						class="table table-striped table-bordered table-hover">
+					<table id="empleados-cliente-table" class="table table-striped table-bordered table-margin-top">
 						<thead class="thead-dark">
 							<tr>
 								<th scope="col">Nombre</th>
@@ -99,6 +130,7 @@
 								<th scope="col">Gerencia</th>
 								<th scope="col">Empresa</th>
 								<th scope="col">Estado</th>
+								<th scope="col">Acciones</th>
 							</tr>
 						</thead>
 						<tbody>

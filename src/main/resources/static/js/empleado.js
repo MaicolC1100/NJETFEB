@@ -29,7 +29,8 @@ async function cargarListaEmpleados() {
                             <td>${empleado.placa}</td>
                             <td class="td-icon">${empleado.estado ? 
 								'<i class="bi bi-person-fill-check" style="font-size: 1rem; color: darkgreen;" title="Activo"></i>' : 
-								'<i class="bi bi-person-fill-x" style="font-size: 1rem; color: darkred;" title="Inactivo"></i>'}</td>
+								'<i class="bi bi-person-fill-x" style="font-size: 1rem; color: darkred;" title="Inactivo"></i>'}
+							</td>
 							<td class="td-icon">
 								<a href="#" onclick="modificarEmpleado(${empleado.idEmpleado})" class="btn btn-warning btn-sm" title="Modificar"><i class="bi bi-eraser-fill"></i></a>
 								<a href="#" onclick="eliminarEmpleado(${empleado.idEmpleado})" class="btn btn-danger btn-sm" title="Eliminar"><i class="bi bi-trash"></i></a>

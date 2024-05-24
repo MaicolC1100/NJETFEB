@@ -1,4 +1,4 @@
-package com.aplication.jetfeb.Controller;
+package com.aplication.jetfeb.controller;
 
 import java.util.List;
 
@@ -34,7 +34,7 @@ public class EmpleadoController {
 
     @GetMapping("/{id}")
     public Empleado obtenerEmpleadoPorId(@PathVariable Integer id) {
-        return empleadoServicio.obtenerEmpleadoporId(id);
+         return empleadoServicio.obtenerEmpleadoporId(id);
     }
 
     @PutMapping("/{id}")
