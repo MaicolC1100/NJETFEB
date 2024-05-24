@@ -36,6 +36,23 @@ CREATE TABLE empleado (
   UNIQUE (cedula)
 ) COMMENT 'Tabla que almacena la información de los empleados';
 
+CREATE TABLE empresa (
+  id_empresa int AUTO_INCREMENT PRIMARY KEY COMMENT 'Identificador único de la empresa',
+  nombre varchar(100) NOT NULL COMMENT 'Nombre de la empresa',
+  estado TINYINT(1) NOT NULL DEFAULT 1 COMMENT 'Estado de la empresa (1 = activa, 0 = inactiva)'
+) COMMENT 'Tabla que almacena la información de las empresas';
+
+CREATE TABLE empleado_cliente (
+  id_empleado_cliente int AUTO_INCREMENT PRIMARY KEY COMMENT 'Identificador único de la relación empleado-cliente',
+  id_empresa int NOT NULL COMMENT 'Identificador de la empresa',
+  nombre varchar(100) NOT NULL COMMENT 'Nombre del empleado cliente',
+  apellido varchar(100) NOT NULL COMMENT 'Apellido del empleado cliente',
+  ctro_costo varchar(50) NOT NULL COMMENT 'Centro de costo',
+  gerencia varchar(50) NOT NULL COMMENT 'Gerencia del empleado cliente',
+  cedula varchar(50) NOT NULL COMMENT 'Cédula del empleado cliente',
+  estado TINYINT(1) NOT NULL DEFAULT 1 COMMENT 'Estado de la relación (1 = activo, 0 = inactivo)',
+  FOREIGN KEY (id_empresa) REFERENCES empresa(id_empresa)
+) COMMENT 'Tabla que almacena la relación entre empleados y clientes';
 
 CREATE TABLE solicitud_vale (
     id_solicitud_vale INT AUTO_INCREMENT PRIMARY KEY COMMENT 'Identificador único de la solicitud de vale',
@@ -59,26 +76,6 @@ CREATE TABLE solicitud_vale (
     CONSTRAINT fk_identificacion_pasajero_3 FOREIGN KEY (identificacion_pasajero_3) REFERENCES empleado_cliente(id_empleado_cliente) COMMENT 'Clave foránea al tercer pasajero',
     CONSTRAINT fk_identificacion_pasajero_4 FOREIGN KEY (identificacion_pasajero_4) REFERENCES empleado_cliente(id_empleado_cliente) COMMENT 'Clave foránea al cuarto pasajero'
 ) COMMENT 'Tabla que almacena las solicitudes de vales de viaje o servicio';
-
-
-CREATE TABLE empresa (
-  id_empresa int AUTO_INCREMENT PRIMARY KEY COMMENT 'Identificador único de la empresa',
-  nombre varchar(100) NOT NULL COMMENT 'Nombre de la empresa',
-  estado TINYINT(1) NOT NULL DEFAULT 1 COMMENT 'Estado de la empresa (1 = activa, 0 = inactiva)'
-) COMMENT 'Tabla que almacena la información de las empresas';
-
-CREATE TABLE empleado_cliente (
-  id_empleado_cliente int AUTO_INCREMENT PRIMARY KEY COMMENT 'Identificador único de la relación empleado-cliente',
-  id_empresa int NOT NULL COMMENT 'Identificador de la empresa',
-  nombre varchar(100) NOT NULL COMMENT 'Nombre del empleado cliente',
-  apellido varchar(100) NOT NULL COMMENT 'Apellido del empleado cliente',
-  ctro_costo varchar(50) NOT NULL COMMENT 'Centro de costo',
-  gerencia varchar(50) NOT NULL COMMENT 'Gerencia del empleado cliente',
-  cedula varchar(50) NOT NULL COMMENT 'Cédula del empleado cliente',
-  estado TINYINT(1) NOT NULL DEFAULT 1 COMMENT 'Estado de la relación (1 = activo, 0 = inactivo)',
-  FOREIGN KEY (id_empresa) REFERENCES empresa(id_empresa)
-) COMMENT 'Tabla que almacena la relación entre empleados y clientes';
-
 
 -- Scripts para elimninar las tablas
 
