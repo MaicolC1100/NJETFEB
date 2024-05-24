@@ -52,14 +52,58 @@ async function cargarListaEmpleados() {
 }
 
 async function registrarEmpleado() {
+    
+    const nombre = document.querySelector('#nombre').value.trim();
+    if (!nombre) {
+        showModalAlert('Faltan campos', 'El campo Nombre es obligatorio', 'danger');
+        return;
+    }
+
+    const apellido = document.querySelector('#apellido').value.trim();
+    if (!apellido) {
+        showModalAlert('Faltan campos', 'El campo Apellido es obligatorio', 'danger');
+        return;
+    }
+
+    const correo = document.querySelector('#correo').value.trim();
+    if (!correo) {
+        showModalAlert('Faltan campos', 'El campo Correo es obligatorio', 'danger');
+        return;
+    }
+
+    const cargo = document.querySelector('#cargo').value.trim();
+    if (!cargo) {
+        showModalAlert('Faltan campos', 'El campo Cargo es obligatorio', 'danger');
+        return;
+    }
+
+    const celular = document.querySelector('#celular').value.trim();
+    if (!celular) {
+        showModalAlert('Faltan campos', 'El campo Celular es obligatorio', 'danger');
+        return;
+    }
+
+    const cedula = document.querySelector('#cedula').value.trim();
+    if (!cedula) {
+        showModalAlert('Faltan campos', 'El campo Cédula es obligatorio', 'danger');
+        return;
+    }
+
+    const placa = document.querySelector('#placa').value.trim();
+    if (!placa) {
+        showModalAlert('Faltan campos', 'El campo Placa es obligatorio', 'danger');
+        return;
+    }
+
+    // Si todos los campos están completos, continuar con el registro
     let datos = {
-        nombre: document.querySelector('#nombre').value,
-        apellido: document.querySelector('#apellido').value,
-        cedula: document.querySelector('#cedula').value,
-        cargo: document.querySelector('#cargo').value,
-        celular: document.querySelector('#celular').value,
-        correo: document.querySelector('#correo').value,
-        placa: document.querySelector('#placa').value,
+        nombre,
+        apellido,
+        cedula,
+        cargo,
+        celular,
+        correo,
+        placa,
         estado: true
     };
 

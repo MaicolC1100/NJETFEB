@@ -30,15 +30,33 @@ public class EmpleadoClienteController {
 
     @PutMapping("/{id}")
     public void actualizarEmpleadoCliente(@PathVariable Integer id, @RequestBody EmpleadoCliente empleadoCliente) {
+        
         EmpleadoCliente empleadoClienteExistente = empleadoClienteServicio.obtenerEmpleadoClientePorId(id);
+        
         if (empleadoClienteExistente != null) {
-            empleadoClienteExistente.setNombre(empleadoCliente.getNombre());
-            empleadoClienteExistente.setApellido(empleadoCliente.getApellido());
-            empleadoClienteExistente.setCtroCosto(empleadoCliente.getCtroCosto());
-            empleadoClienteExistente.setGerencia(empleadoCliente.getGerencia());
-            empleadoClienteExistente.setCedula(empleadoCliente.getCedula());
-            empleadoClienteExistente.setEstado(empleadoCliente.getEstado());
-            empleadoClienteExistente.setEmpresa(empleadoCliente.getEmpresa());
+            
+            if (empleadoCliente.getEmpresa() != null) {
+                empleadoClienteExistente.setEmpresa(empleadoCliente.getEmpresa());
+            }
+            if (empleadoCliente.getNombre() != null) {
+                empleadoClienteExistente.setNombre(empleadoCliente.getNombre());
+            }
+            if (empleadoCliente.getApellido() != null) {
+                empleadoClienteExistente.setApellido(empleadoCliente.getApellido());
+            }
+            if (empleadoCliente.getCtroCosto() != null) {
+                empleadoClienteExistente.setCtroCosto(empleadoCliente.getCtroCosto());
+            }
+            if (empleadoCliente.getGerencia() != null) {
+                empleadoClienteExistente.setGerencia(empleadoCliente.getGerencia());
+            }
+            if (empleadoCliente.getCedula() != null) {
+                empleadoClienteExistente.setCedula(empleadoCliente.getCedula());
+            }
+            if (empleadoCliente.getEstado() != null) {
+                empleadoClienteExistente.setEstado(empleadoCliente.getEstado());
+            }
+               
             empleadoClienteServicio.actualizarEmpleadoCliente(empleadoClienteExistente);
         }
     }

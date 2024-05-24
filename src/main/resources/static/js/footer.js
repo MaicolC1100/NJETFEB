@@ -22,3 +22,23 @@ $(document).ready(function(){
 
     $("#footer-container").load("footer.html");
 });
+
+function showModalAlert(label, message, type) {
+    const alertModal = new bootstrap.Modal(document.getElementById('alertModal'));
+    const alertModalMessage = document.getElementById('alertModalMessage');
+    const alertLabelMessage = document.getElementById('alertModalLabel');
+
+    // Configurar el mensaje y el tipo de alerta
+    alertLabelMessage.textContent= label;
+    alertModalMessage.textContent = message;
+    if (type === 'danger') {
+        alertModalMessage.style.color = 'red';
+    } else if (type === 'success') {
+        alertModalMessage.style.color = 'green';
+    } else {
+        alertModalMessage.style.color = 'black';
+    }
+
+    // Mostrar el modal
+    alertModal.show();
+}
