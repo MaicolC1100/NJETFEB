@@ -9,6 +9,9 @@ let idEmpleadoModificar = null;
 
 // Función para cargar la lista de empleados
 async function cargarListaEmpleados() {
+
+    //await showSpinner(800);
+
     try {
         const response = await fetch('/api/empleado');
         const data = await response.json();
@@ -48,6 +51,8 @@ async function cargarListaEmpleados() {
         });
     } catch (error) {
         console.error('Error al obtener los datos de los empleados:', error);
+    } finally {
+        hideSpinner();
     }
 }
 
@@ -55,43 +60,43 @@ async function registrarEmpleado() {
     
     const nombre = document.querySelector('#nombre').value.trim();
     if (!nombre) {
-        showModalAlert('Faltan campos', 'El campo Nombre es obligatorio', 'danger');
+        showModalAlert('Faltan campos', 'El campo nombres es obligatorio', 'danger');
         return;
     }
 
     const apellido = document.querySelector('#apellido').value.trim();
     if (!apellido) {
-        showModalAlert('Faltan campos', 'El campo Apellido es obligatorio', 'danger');
+        showModalAlert('Faltan campos', 'El campo apellidos es obligatorio', 'danger');
         return;
     }
 
     const correo = document.querySelector('#correo').value.trim();
     if (!correo) {
-        showModalAlert('Faltan campos', 'El campo Correo es obligatorio', 'danger');
+        showModalAlert('Faltan campos', 'El campo correo es obligatorio', 'danger');
         return;
     }
 
     const cargo = document.querySelector('#cargo').value.trim();
     if (!cargo) {
-        showModalAlert('Faltan campos', 'El campo Cargo es obligatorio', 'danger');
+        showModalAlert('Faltan campos', 'El campo cargo es obligatorio', 'danger');
         return;
     }
 
     const celular = document.querySelector('#celular').value.trim();
     if (!celular) {
-        showModalAlert('Faltan campos', 'El campo Celular es obligatorio', 'danger');
+        showModalAlert('Faltan campos', 'El campo celular es obligatorio', 'danger');
         return;
     }
 
     const cedula = document.querySelector('#cedula').value.trim();
     if (!cedula) {
-        showModalAlert('Faltan campos', 'El campo Cédula es obligatorio', 'danger');
+        showModalAlert('Faltan campos', 'El campo cédula es obligatorio', 'danger');
         return;
     }
 
     const placa = document.querySelector('#placa').value.trim();
     if (!placa) {
-        showModalAlert('Faltan campos', 'El campo Placa es obligatorio', 'danger');
+        showModalAlert('Faltan campos', 'El campo placa es obligatorio', 'danger');
         return;
     }
 
@@ -107,6 +112,8 @@ async function registrarEmpleado() {
         estado: true
     };
 
+    await showSpinner(300);
+
     try {
         const request = await fetch('/api/empleado', {
             method: 'POST',
@@ -117,16 +124,21 @@ async function registrarEmpleado() {
             body: JSON.stringify(datos)
         });
         if (request.ok) {
-            // alert("El empleado fue creado exitosamente!");
+            showModalAlert('¡Registro existoso!', 'El empleado se creo exitosamente.', 'success');
             cargarListaEmpleados();
         }
     } catch (error) {
         console.error('Error al registrar el empleado:', error);
+    } finally {
+        hideSpinner();  
     }
 }
 
 async function modificarEmpleado(idEmpleado) {
+
     document.getElementById('divRegistroEmpleado').style.display = 'none';
+
+    await showSpinner(300);
 
     try {
         const request = await fetch('/api/empleado/' + idEmpleado, {
@@ -150,20 +162,68 @@ async function modificarEmpleado(idEmpleado) {
         document.getElementById('divModificarEmpleado').style.display = 'flex';
     } catch (error) {
         console.error('Error al obtener los datos del empleado:', error);
+        document.getElementById('divRegistroEmpleado').style.display = 'flex';
+    } finally {
+        hideSpinner();
     }
 }
 
 async function registrarModificarEmpleado() {
+
+    const nombre = document.querySelector('#nombreModificar').value.trim();
+    if (!nombre) {
+        showModalAlert('Faltan campos', 'El campo nombre es obligatorio', 'danger');
+        return;
+    }
+
+    const apellido = document.querySelector('#apellidoModificar').value.trim();
+    if (!apellido) {
+        showModalAlert('Faltan campos', 'El campo apellido es obligatorio', 'danger');
+        return;
+    }
+
+    const correo = document.querySelector('#correoModificar').value.trim();
+    if (!correo) {
+        showModalAlert('Faltan campos', 'El campo correo es obligatorio', 'danger');
+        return;
+    }
+
+    const cargo = document.querySelector('#cargoModificar').value.trim();
+    if (!cargo) {
+        showModalAlert('Faltan campos', 'El campo cargo es obligatorio', 'danger');
+        return;
+    }
+
+    const celular = document.querySelector('#celularModificar').value.trim();
+    if (!celular) {
+        showModalAlert('Faltan campos', 'El campo celular es obligatorio', 'danger');
+        return;
+    }
+
+    const cedula = document.querySelector('#cedulaModificar').value.trim();
+    if (!cedula) {
+        showModalAlert('Faltan campos', 'El campo cédula es obligatorio', 'danger');
+        return;
+    }
+
+    const placa = document.querySelector('#placaModificar').value.trim();
+    if (!placa) {
+        showModalAlert('Faltan campos', 'El campo placa es obligatorio', 'danger');
+        return;
+    }
+    
     let datos = {
-        nombre: document.querySelector('#nombreModificar').value,
-        apellido: document.querySelector('#apellidoModificar').value,
-        cedula: document.querySelector('#cedulaModificar').value,
-        cargo: document.querySelector('#cargoModificar').value,
-        celular: document.querySelector('#celularModificar').value,
-        correo: document.querySelector('#correoModificar').value,
-        placa: document.querySelector('#placaModificar').value
+        nombre,
+        apellido,
+        cedula,
+        cargo,
+        celular,
+        correo,
+        placa
     };
 
+    await showSpinner(300);
+    
     try {
         const request = await fetch('/api/empleado/' + idEmpleadoModificar, {
             method: 'PUT',
@@ -174,20 +234,26 @@ async function registrarModificarEmpleado() {
             body: JSON.stringify(datos)
         });
         if (request.ok) {
-            // alert("El empleado se modificó exitosamente!");
+            showModalAlert('¡Modificacion exitosa!', 'El empleado se modificó exitosamente.', 'success');
             cargarListaEmpleados();
             document.getElementById('divModificarEmpleado').style.display = 'none';
+            document.getElementById('divRegistroEmpleado').style.display = 'flex';
         }
     } catch (error) {
         console.error('Error al modificar el empleado:', error);
+    } finally {
+        hideSpinner();
     }
 }
 
-async function cambioEstadoEmpleado(estado, idEmpleadoModificar) {
+async function cambioEstadoEmpleado(estado, idEmpleadoEstado) {
+
     let datos = { estado: estado };
 
+    await showSpinner(150);
+
     try {
-        const request = await fetch('/api/empleado/' + idEmpleadoModificar, {
+        const request = await fetch('/api/empleado/' + idEmpleadoEstado, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -196,10 +262,12 @@ async function cambioEstadoEmpleado(estado, idEmpleadoModificar) {
             body: JSON.stringify(datos)
         });
         if (request.ok) {
-            // alert("El estado del empleado se modificó exitosamente!");
+            showModalAlert('¡Modificacion exitosa!', 'Se modifico el estado del empleado exitosamente.', 'success');
             cargarListaEmpleados();
         }
     } catch (error) {
         console.error('Error al cambiar el estado del empleado:', error);
+    } finally {
+        hideSpinner();
     }
 }

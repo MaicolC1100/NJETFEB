@@ -8,9 +8,13 @@ const empleadosClienteTableBody = document.querySelector('#empleados-cliente-tab
 const formAgregarEmpleadoCliente = document.querySelector('#form-agregar-empleado-cliente');
 const empresaSelect = document.querySelector('#empresa');
 const empresaModificarSelect = document.querySelector('#empresaModificar');
+let idEmpleadoClienteModificar = null;
 
 // Función para cargar la lista de empresas
 async function cargarEmpresas() {
+
+    await showSpinner(800);
+
     try {
         const response = await fetch('/api/empresa');
         const data = await response.json();
@@ -34,11 +38,14 @@ async function cargarEmpresas() {
         });
     } catch (error) {
         console.error('Error al obtener la lista de empresas:', error);
+    } finally {
+        hideSpinner();
     }
 }
 
 // Función para cargar la lista de empleados de clientes
 async function cargarListaEmpleadosCliente() {
+
     try {
         const response = await fetch('/api/empleado-cliente');
         const data = await response.json();
@@ -81,6 +88,7 @@ async function cargarListaEmpleadosCliente() {
 }
 
 async function registrarEmpleadoCliente() {
+    
     let datos = {};
     let empresa = {};
 
@@ -120,6 +128,8 @@ async function registrarEmpleadoCliente() {
         return;
     }    
 
+    await showSpinner(800);
+
     try {
         const request = await fetch('/api/empleado-cliente', {
             method: 'POST',
@@ -130,17 +140,21 @@ async function registrarEmpleadoCliente() {
             body: JSON.stringify(datos)
         });
         if (request.ok) {
-            alert("El empleado cliente fue creado exitosamente!");
+            showModalAlert('¡Registro existoso!', 'El empleado cliente se creo exitosamente.', 'success');
             cargarListaEmpleadosCliente();  // Actualizar la lista de empleados
         }
     } catch (error) {
         console.error('Error al registrar el empleado cliente:', error);
+    } finally {
+        hideSpinner();
     }
 }
 
 async function modificarEmpleadoCliente(idEmpleadoCliente) {
 	
     document.getElementById('divRegistroEmpleadoCliente').style.display = 'none';
+
+    await showSpinner(300);
 
     try {
         const request = await fetch('/api/empleado-cliente/' + idEmpleadoCliente, {
@@ -151,7 +165,8 @@ async function modificarEmpleadoCliente(idEmpleadoCliente) {
             }
         });
         const empleadoCliente = await request.json();
-
+        
+        idEmpleadoClienteModificar = empleadoCliente.idEmpleadoCliente;
         document.getElementById('nombreModificar').value = empleadoCliente.nombre;
         document.getElementById('apellidoModificar').value = empleadoCliente.apellido;
         document.getElementById('ctroCostoModificar').value = empleadoCliente.ctroCosto;
@@ -171,11 +186,86 @@ async function modificarEmpleadoCliente(idEmpleadoCliente) {
         document.getElementById('divModificarEmpleadoCliente').style.display = 'flex';
     } catch (error) {
         console.error('Error al obtener los datos del empleado cliente:', error);
+    } finally {
+        hideSpinner();
     }
 }
 
-async function cambioEstadoEmpleadoCliente(estado, idEmpleadoClienteModificar) {
+async function cambioEstadoEmpleadoCliente(estado, idEmpleadoClienteEstado) {
+
     let datos = { estado: estado };
+
+    await showSpinner(150);
+
+    try {
+        const request = await fetch('/api/empleado-cliente/' + idEmpleadoClienteEstado, {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(datos)
+        });
+        if (request.ok) {
+            showModalAlert('¡Modificacion exitosa!', 'Se modifico el estado del empleado cliente exitosamente.', 'success');
+            cargarListaEmpleadosCliente();
+        }
+    } catch (error) {
+        console.error('Error al cambiar el estado del empleado cliente:', error);
+    } finally {
+        hideSpinner();
+    }
+}
+
+async function registrarModificarEmpleadoCliente() {
+
+    const nombre = document.querySelector('#nombreModificar').value.trim();
+    if (!nombre) {
+        showModalAlert('Faltan campos', 'El campo nombre es obligatorio', 'danger');
+        return;
+    }
+
+    const apellido = document.querySelector('#apellidoModificar').value.trim();
+    if (!apellido) {
+        showModalAlert('Faltan campos', 'El campo apellido es obligatorio', 'danger');
+        return;
+    }
+
+    const ctroCosto = document.querySelector('#ctroCostoModificar').value.trim();
+    if (!ctroCosto) {
+        showModalAlert('Faltan campos', 'El campo centro de costo es obligatorio', 'danger');
+        return;
+    }
+    const gerencia = document.querySelector('#gerenciaModificar').value.trim();
+    if (!gerencia) {
+        showModalAlert('Faltan campos', 'El campo gerencia es obligatorio', 'danger');
+        return;
+    }
+
+    const cedula = document.querySelector('#cedulaModificar').value.trim();
+    if (!cedula) {
+        showModalAlert('Faltan campos', 'El campo cédula es obligatorio', 'danger');
+        return;
+    }
+
+    const idEmpresa = parseInt(document.querySelector('#empresaModificar').value, 10);
+    if (!idEmpresa) {
+        showModalAlert('Faltan campos', 'El campo empresa es obligatorio', 'danger');
+        return;
+    }
+    
+    let empresa = {idEmpresa};
+
+    let datos = {
+        nombre,
+        apellido,
+        ctroCosto,
+        gerencia,
+        cedula,
+        empresa
+    };
+
+    await showSpinner(300);
 
     try {
         const request = await fetch('/api/empleado-cliente/' + idEmpleadoClienteModificar, {
@@ -187,38 +277,14 @@ async function cambioEstadoEmpleadoCliente(estado, idEmpleadoClienteModificar) {
             body: JSON.stringify(datos)
         });
         if (request.ok) {
-            cargarListaEmpleadosCliente();
+            showModalAlert('¡Modificacion exitosa!', 'El empleado cliente se modificó exitosamente.', 'success');
+            cargarListaEmpleadosCliente ();
+            document.getElementById('divModificarEmpleadoCliente').style.display = 'none';
+            document.getElementById('divRegistroEmpleadoCliente').style.display = 'flex';
         }
     } catch (error) {
-        console.error('Error al cambiar el estado del empleado cliente:', error);
+        console.error('Error al modificar el empleado:', error);
+    } finally {
+        hideSpinner();
     }
 }
-
-// async function registrarModificarEmpleadoCliente() {
-//     let datos = {
-//         nombre: document.querySelector('#nombreModificar').value,
-//         apellido: document.querySelector('#apellidoModificar').value,
-//         cedula: document.querySelector('#cedulaModificar').value,
-//         ctroCosto: document.querySelector('#ctroCostoModificar').value,
-//         gerencia: document.querySelector('#gerenciaModificar').value,
-//         empresa: { idEmpresa: document.querySelector('#empresaModificar').value }
-//     };
-
-//     try {
-//         const request = await fetch('/api/empleado-cliente/' + idEmpleadoModificar, {
-//             method: 'PUT',
-//             headers: {
-//                 'Accept': 'application/json',
-//                 'Content-Type': 'application/json'
-//             },
-//             body: JSON.stringify(datos)
-//         });
-//         if (request.ok) {
-//             alert("El empleado cliente se modificó exitosamente!");
-//             cargarListaEmpleadosCliente();  // Actualizar la lista de empleados
-//             document.getElementById('divModificarEmpleadoCliente').style.display = 'none';
-//         }
-//     } catch (error) {
-//         console.error('Error al modificar el empleado cliente:', error);
-//     }
-// }

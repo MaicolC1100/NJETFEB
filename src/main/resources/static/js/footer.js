@@ -42,3 +42,16 @@ function showModalAlert(label, message, type) {
     // Mostrar el modal
     alertModal.show();
 }
+
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function showSpinner(time) {
+    document.getElementById("spinner").style.display = "flex";
+    await delay(time);
+}
+
+function hideSpinner() {
+    document.getElementById("spinner").style.display = "none";
+}
