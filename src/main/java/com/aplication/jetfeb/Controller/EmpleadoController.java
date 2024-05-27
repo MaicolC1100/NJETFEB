@@ -3,14 +3,7 @@ package com.aplication.jetfeb.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.aplication.jetfeb.models.Empleado;
 import com.aplication.jetfeb.service.EmpleadoServicio;
@@ -39,35 +32,17 @@ public class EmpleadoController {
 
     @PutMapping("/{id}")
     public void actualizarEmpleado(@PathVariable Integer id, @RequestBody Empleado empleado) {
-
         Empleado empleadoExistente = empleadoServicio.obtenerEmpleadoporId(id);
         
         if (empleadoExistente != null) {
-
-            if (empleado.getCedula() != null) {
-                empleadoExistente.setCedula(empleado.getCedula());
-            }
-            if (empleado.getNombre() != null) {
-                empleadoExistente.setNombre(empleado.getNombre());
-            }
-            if (empleado.getApellido() != null) {
-                empleadoExistente.setApellido(empleado.getApellido());
-            }
-            if (empleado.getCargo() != null) {
-                empleadoExistente.setCargo(empleado.getCargo());
-            }
-            if (empleado.getCelular() != null) {
-                empleadoExistente.setCelular(empleado.getCelular());
-            }
-            if (empleado.getCorreo() != null) {
-                empleadoExistente.setCorreo(empleado.getCorreo());
-            }
-            if (empleado.getPlaca() != null) {
-                empleadoExistente.setPlaca(empleado.getPlaca());
-            }
-            if (empleado.getEstado() != null) {
-                empleadoExistente.setEstado(empleado.getEstado());
-            }
+            empleadoExistente.setCedula(empleado.getCedula());
+            empleadoExistente.setNombre(empleado.getNombre());
+            empleadoExistente.setApellido(empleado.getApellido());
+            empleadoExistente.setCargo(empleado.getCargo());
+            empleadoExistente.setCelular(empleado.getCelular());
+            empleadoExistente.setCorreo(empleado.getCorreo());
+            empleadoExistente.setPlaca(empleado.getPlaca());
+            empleadoExistente.setEstado(empleado.getEstado());
 
             empleadoServicio.actualizarEmpleado(empleadoExistente);
         }        

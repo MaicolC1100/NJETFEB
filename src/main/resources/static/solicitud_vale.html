@@ -5,21 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solicitud Vale</title>
     <link rel="icon" type="image/jpg" href="img/icono.png">
-    <!-- Importar Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    <!-- DISEÑO CSS -->
-    <link href="css/index.css" rel="stylesheet" >
-    <link href="css/generales.css" rel="stylesheet" >
+    <link href="css/index.css" rel="stylesheet">
+    <link href="css/generales.css" rel="stylesheet">
 </head>
 <body>
     <div class="page-container">
-        <!-- Contenedor del Header -->
         <div id="header-container"></div>
-
         <div class="content">
             <div class="container">
-                <!-- Formulario de Solicitud Vale -->
                 <div class="row justify-content-center" id="divSolicitudVale">
                     <form id="form-solicitud-vale" class="col-md-8 formularios">
                         <h2 class="h2-form">Solicitud Vale</h2>
@@ -53,56 +48,50 @@
                                 <input type="text" id="motivo" name="motivo" class="form-control" required>
                             </div>
                         </div>
-						<div class="form-row">
-							<div class="form-group col-md-4">
-								<label for="fecha_creacion">Fecha Creación:</label> <input
-									type="date" id="fecha_creacion" name="fecha_creacion"
-									class="form-control" required>
-							</div>
-							<div class="form-group col-md-4">
-								<label for="fecha_aprobacion">Fecha Aprobación:</label> <input
-									type="date" id="fecha_aprobacion" name="fecha_aprobacion"
-									class="form-control" required>
-							</div>
-							<div class="form-group col-md-4">
-								<label for="fecha_servicio">Fecha Servicio:</label> <input
-									type="date" id="fecha_servicio" name="fecha_servicio"
-									class="form-control" required>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="form-group col-md-3">
-								<label for="pasajero1">Pasajero 1:</label> <select
-									id="pasajero1" name="pasajero1" class="form-control" required>
-									<option value="">Seleccione un pasajero</option>
-									<!-- Las opciones del combobox se cargarán dinámicamente desde JavaScript -->
-								</select>
-							</div>
-							<div class="form-group col-md-3">
-								<label for="pasajero2">Pasajero 2:</label> <select
-									id="pasajero2" name="pasajero2" class="form-control">
-									<option value="">Seleccione un pasajero</option>
-									<!-- Las opciones del combobox se cargarán dinámicamente desde JavaScript -->
-								</select>
-							</div>
-							<div class="form-group col-md-3">
-								<label for="pasajero3">Pasajero 3:</label> <select
-									id="pasajero3" name="pasajero3" class="form-control">
-									<option value="">Seleccione un pasajero</option>
-									<!-- Las opciones del combobox se cargarán dinámicamente desde JavaScript -->
-								</select>
-							</div>
-							<div class="form-group col-md-3">
-								<label for="pasajero4">Pasajero 4:</label> <select
-									id="pasajero4" name="pasajero4" class="form-control">
-									<option value="">Seleccione un pasajero</option>
-									<!-- Las opciones del combobox se cargarán dinámicamente desde JavaScript -->
-								</select>
-							</div>
-						</div>
-						<div class="form-row btn-form">
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="fecha_creacion">Fecha Creación:</label>
+                                <input type="date" id="fecha_creacion" name="fecha_creacion" class="form-control" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="fecha_aprobacion">Fecha Aprobación:</label>
+                                <input type="date" id="fecha_aprobacion" name="fecha_aprobacion" class="form-control" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="fecha_servicio">Fecha Servicio:</label>
+                                <input type="date" id="fecha_servicio" name="fecha_servicio" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="pasajero1">Pasajero 1:</label>
+                                <select id="pasajero1" name="pasajero1" class="form-control" required>
+                                    <option value="">Seleccione un pasajero</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="pasajero2">Pasajero 2:</label>
+                                <select id="pasajero2" name="pasajero2" class="form-control">
+                                    <option value="">Seleccione un pasajero</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="pasajero3">Pasajero 3:</label>
+                                <select id="pasajero3" name="pasajero3" class="form-control">
+                                    <option value="">Seleccione un pasajero</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="pasajero4">Pasajero 4:</label>
+                                <select id="pasajero4" name="pasajero4" class="form-control">
+                                    <option value="">Seleccione un pasajero</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row btn-form">
                             <div class="form-group col-12">
-                                <button type="submit" onclick="registrarSolicitudVale()" class="btn btn-warning">Guardar <i class="bi bi-floppy"></i></button>
+                                <button type="submit" class="btn btn-warning">Guardar <i class="bi bi-floppy"></i></button>
+                                <button type="button" id="cancelar" class="btn btn-secondary">Cancelar</button>
                             </div>
                         </div>
                     </form>
@@ -132,13 +121,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Aquí se mostrará la lista de solicitudes de vale -->
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-        <!-- Contenedor del Footer -->
         <div id="footer-container"></div>
     </div>
     <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
@@ -157,7 +144,6 @@
             </div>
         </div>
     </div>
-    <!-- Importar jQuery y Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="js/solicitudVale.js"></script>
