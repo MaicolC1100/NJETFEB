@@ -30,8 +30,8 @@ async function cargarListaSolicitudesVale() {
             row.innerHTML = `
                 <td>${solicitudVale.idSolicitudVale}</td>
                 <td>${solicitudVale.nVale}</td>
-                <td>${solicitudVale.usuario.idUsuario}</td>
-                <td>${solicitudVale.empresa.idEmpresa}</td>
+                <td>${solicitudVale.usuario.nombre + ' ' + solicitudVale.usuario.apellido}</td>
+                <td>${solicitudVale.empresa.nombre}</td>
                 <td>${solicitudVale.origen}</td>
                 <td>${solicitudVale.destino}</td>
                 <td>${solicitudVale.motivo}</td>

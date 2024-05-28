@@ -12,12 +12,8 @@ import java.util.List;
 @Service
 public class SolicitudValeServicioImpl implements SolicitudValeServicio {
 
-    private final SolicitudValeRepository solicitudValeRepository;
-
     @Autowired
-    public SolicitudValeServicioImpl(SolicitudValeRepository solicitudValeRepository) {
-        this.solicitudValeRepository = solicitudValeRepository;
-    }
+    private SolicitudValeRepository solicitudValeRepository;
 
     @Override
     public List<Solicitud_Vale> listarTodasLasSolicitudes() {
