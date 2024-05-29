@@ -52,7 +52,7 @@ async function cargarListaEmpleados() {
     } catch (error) {
         console.error('Error al obtener los datos de los empleados:', error);
     } finally {
-        hideSpinner();
+        //hideSpinner();
     }
 }
 
@@ -112,7 +112,7 @@ async function registrarEmpleado() {
         estado: true
     };
 
-    await showSpinner(300);
+    // await showSpinner(300);
 
     try {
         const request = await fetch('/api/empleado', {
@@ -130,7 +130,7 @@ async function registrarEmpleado() {
     } catch (error) {
         console.error('Error al registrar el empleado:', error);
     } finally {
-        hideSpinner();  
+        //hideSpinner();  
     }
 }
 
@@ -138,7 +138,7 @@ async function modificarEmpleado(idEmpleado) {
 
     document.getElementById('divRegistroEmpleado').style.display = 'none';
 
-    await showSpinner(300);
+    // await showSpinner(300);
 
     try {
         const request = await fetch('/api/empleado/' + idEmpleado, {
@@ -164,7 +164,7 @@ async function modificarEmpleado(idEmpleado) {
         console.error('Error al obtener los datos del empleado:', error);
         document.getElementById('divRegistroEmpleado').style.display = 'flex';
     } finally {
-        hideSpinner();
+        //hideSpinner();
     }
 }
 
@@ -222,7 +222,7 @@ async function registrarModificarEmpleado() {
         placa
     };
 
-    await showSpinner(300);
+    //await showSpinner(300);
     
     try {
         const request = await fetch('/api/empleado/' + idEmpleadoModificar, {
@@ -242,7 +242,7 @@ async function registrarModificarEmpleado() {
     } catch (error) {
         console.error('Error al modificar el empleado:', error);
     } finally {
-        hideSpinner();
+        //hideSpinner();
     }
 }
 
@@ -250,7 +250,7 @@ async function cambioEstadoEmpleado(estado, idEmpleadoEstado) {
 
     let datos = { estado: estado };
 
-    await showSpinner(150);
+    //await showSpinner(150);
 
     try {
         const request = await fetch('/api/empleado/' + idEmpleadoEstado, {
@@ -268,6 +268,6 @@ async function cambioEstadoEmpleado(estado, idEmpleadoEstado) {
     } catch (error) {
         console.error('Error al cambiar el estado del empleado:', error);
     } finally {
-        hideSpinner();
+        //hideSpinner();
     }
 }

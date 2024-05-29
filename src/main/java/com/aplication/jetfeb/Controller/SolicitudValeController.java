@@ -12,15 +12,11 @@ import com.aplication.jetfeb.service.SolicitudValeServicio;
 import java.util.List;
 
 @RestController
-@RequestMapping("/solicitudes_vale")
+@RequestMapping("/api/solicitudes_vale")
 public class SolicitudValeController {
 
-    private final SolicitudValeServicio solicitudValeServicio;
-
     @Autowired
-    public SolicitudValeController(SolicitudValeServicio solicitudValeServicio) {
-        this.solicitudValeServicio = solicitudValeServicio;
-    }
+    private SolicitudValeServicio solicitudValeServicio;
 
     @GetMapping
     public List<Solicitud_Vale> getAllSolicitudVales() {

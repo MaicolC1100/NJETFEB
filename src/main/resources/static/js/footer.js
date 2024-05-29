@@ -43,15 +43,15 @@ function showModalAlert(label, message, type) {
     alertModal.show();
 }
 
-function delay(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
+// function delay(ms) {
+//     return new Promise(resolve => setTimeout(resolve, ms));
+// }
 
-async function showSpinner(time) {
-    document.getElementById("spinner").style.display = "flex";
-    await delay(time);
-}
+// async function showSpinner(time) {
+//     document.getElementById("spinner").style.display = "flex";
+//     await delay(time);
+// }
 
-function hideSpinner() {
-    document.getElementById("spinner").style.display = "none";
-}
+// function hideSpinner() {
+//     document.getElementById("spinner").style.display = "none";
+// }

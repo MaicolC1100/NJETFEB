@@ -13,7 +13,7 @@ let idEmpleadoClienteModificar = null;
 // Función para cargar la lista de empresas
 async function cargarEmpresas() {
 
-    await showSpinner(800);
+    // await showSpinner(800);
 
     try {
         const response = await fetch('/api/empresa');
@@ -39,7 +39,7 @@ async function cargarEmpresas() {
     } catch (error) {
         console.error('Error al obtener la lista de empresas:', error);
     } finally {
-        hideSpinner();
+        // hideSpinner();
     }
 }
 
@@ -128,7 +128,7 @@ async function registrarEmpleadoCliente() {
         return;
     }    
 
-    await showSpinner(800);
+    // await showSpinner(800);
 
     try {
         const request = await fetch('/api/empleado-cliente', {
@@ -146,7 +146,7 @@ async function registrarEmpleadoCliente() {
     } catch (error) {
         console.error('Error al registrar el empleado cliente:', error);
     } finally {
-        hideSpinner();
+        // hideSpinner();
     }
 }
 
@@ -154,7 +154,7 @@ async function modificarEmpleadoCliente(idEmpleadoCliente) {
 	
     document.getElementById('divRegistroEmpleadoCliente').style.display = 'none';
 
-    await showSpinner(300);
+    // await showSpinner(300);
 
     try {
         const request = await fetch('/api/empleado-cliente/' + idEmpleadoCliente, {
@@ -187,7 +187,7 @@ async function modificarEmpleadoCliente(idEmpleadoCliente) {
     } catch (error) {
         console.error('Error al obtener los datos del empleado cliente:', error);
     } finally {
-        hideSpinner();
+        // hideSpinner();
     }
 }
 
@@ -195,7 +195,7 @@ async function cambioEstadoEmpleadoCliente(estado, idEmpleadoClienteEstado) {
 
     let datos = { estado: estado };
 
-    await showSpinner(150);
+    // await showSpinner(150);
 
     try {
         const request = await fetch('/api/empleado-cliente/' + idEmpleadoClienteEstado, {
@@ -213,7 +213,7 @@ async function cambioEstadoEmpleadoCliente(estado, idEmpleadoClienteEstado) {
     } catch (error) {
         console.error('Error al cambiar el estado del empleado cliente:', error);
     } finally {
-        hideSpinner();
+        // hideSpinner();
     }
 }
 
@@ -265,7 +265,7 @@ async function registrarModificarEmpleadoCliente() {
         empresa
     };
 
-    await showSpinner(300);
+    // await showSpinner(300);
 
     try {
         const request = await fetch('/api/empleado-cliente/' + idEmpleadoClienteModificar, {
@@ -285,6 +285,6 @@ async function registrarModificarEmpleadoCliente() {
     } catch (error) {
         console.error('Error al modificar el empleado:', error);
     } finally {
-        hideSpinner();
+        // hideSpinner();
     }
 }
