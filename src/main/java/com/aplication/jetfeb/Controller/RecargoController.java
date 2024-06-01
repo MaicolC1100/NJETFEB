@@ -10,19 +10,19 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/recargos")
+@RequestMapping("/api/recargo")
 public class RecargoController {
 
     @Autowired
     private RecargoServicio recargoServicio;
 
-    @GetMapping
+    @GetMapping("/consultar")
     public ResponseEntity<List<Recargo>> listarRecargos() {
         List<Recargo> recargos = recargoServicio.listarTodosLosRecargos();
         return new ResponseEntity<>(recargos, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/consultar/{id}")
     public ResponseEntity<Recargo> obtenerRecargo(@PathVariable("id") Integer id) {
         Recargo recargo = recargoServicio.obtenerRecargoPorId(id);
         if (recargo == null) {
@@ -31,13 +31,13 @@ public class RecargoController {
         return new ResponseEntity<>(recargo, HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/guardar")
     public ResponseEntity<Recargo> crearRecargo(@RequestBody Recargo recargo) {
         Recargo nuevoRecargo = recargoServicio.guardarRecargo(recargo);
         return new ResponseEntity<>(nuevoRecargo, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/actualizar/{id}")
     public ResponseEntity<Recargo> actualizarRecargo(@PathVariable("id") Integer id, @RequestBody Recargo recargo) {
         Recargo recargoExistente = recargoServicio.obtenerRecargoPorId(id);
         if (recargoExistente == null) {
@@ -48,7 +48,7 @@ public class RecargoController {
         return new ResponseEntity<>(recargoActualizado, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<Void> eliminarRecargo(@PathVariable("id") Integer id) {
         Recargo recargo = recargoServicio.obtenerRecargoPorId(id);
         if (recargo == null) {

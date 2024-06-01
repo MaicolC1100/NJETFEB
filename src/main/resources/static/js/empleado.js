@@ -13,8 +13,12 @@ async function cargarListaEmpleados() {
     //await showSpinner(800);
 
     try {
-        const response = await fetch('/api/empleado');
-        const data = await response.json();
+        const request = await fetch('/api/empleado/consultar', {
+            method: 'GET',
+            headers: getHeaders()
+        });
+
+        const data = await request.json();
 
         // Limpiar la tabla antes de volver a llenarla
         empleadosTableBody.innerHTML = '';
@@ -115,12 +119,9 @@ async function registrarEmpleado() {
     // await showSpinner(300);
 
     try {
-        const request = await fetch('/api/empleado', {
+        const request = await fetch('/api/empleado/guardar', {
             method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
+            headers: getHeaders(),
             body: JSON.stringify(datos)
         });
         if (request.ok) {
@@ -141,12 +142,9 @@ async function modificarEmpleado(idEmpleado) {
     // await showSpinner(300);
 
     try {
-        const request = await fetch('/api/empleado/' + idEmpleado, {
+        const request = await fetch('/api/empleado/consultar/' + idEmpleado, {
             method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
+            headers: getHeaders()
         });
         const empleado = await request.json();
 
@@ -225,12 +223,9 @@ async function registrarModificarEmpleado() {
     //await showSpinner(300);
     
     try {
-        const request = await fetch('/api/empleado/' + idEmpleadoModificar, {
+        const request = await fetch('/api/empleado/actualizar/' + idEmpleadoModificar, {
             method: 'PUT',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
+            headers: getHeaders(),
             body: JSON.stringify(datos)
         });
         if (request.ok) {
@@ -253,7 +248,7 @@ async function cambioEstadoEmpleado(estado, idEmpleadoEstado) {
     //await showSpinner(150);
 
     try {
-        const request = await fetch('/api/empleado/' + idEmpleadoEstado, {
+        const request = await fetch('/api/empleado/actualizar/' + idEmpleadoEstado, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -270,4 +265,12 @@ async function cambioEstadoEmpleado(estado, idEmpleadoEstado) {
     } finally {
         //hideSpinner();
     }
+}
+
+function getHeaders() {
+    return {
+     'Accept': 'application/json',
+     'Content-Type': 'application/json',
+    //  'Authorization': localStorage.token
+   };
 }

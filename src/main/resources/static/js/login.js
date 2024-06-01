@@ -10,12 +10,9 @@ async function iniciarSesion(){
     datos.email = document.getElementById('email').value;
     datos.password = document.getElementById('password').value;
 
-    const request = await fetch('api/login', {
+    const request = await fetch('api/sesion/login', {
         method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
+        headers: getHeaders(),
         body: JSON.stringify(datos)
     });
 
@@ -29,4 +26,12 @@ async function iniciarSesion(){
         alert('Error al ingresar el usuario y contraseña');
         window.location.href = 'login.html'
     }
+}
+
+function getHeaders() {
+    return {
+     'Accept': 'application/json',
+     'Content-Type': 'application/json',
+    //  'Authorization': localStorage.token
+   };
 }

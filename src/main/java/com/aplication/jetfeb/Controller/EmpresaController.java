@@ -13,7 +13,7 @@ public class EmpresaController {
     @Autowired
     private EmpresaServicio empresaServicio;
 
-    @GetMapping
+    @GetMapping("/consultar")
     public List<Empresa> listarEmpresas() {
         return empresaServicio.listarTodasLasEmpresas();
     }

@@ -27,8 +27,12 @@ async function cargarEmpresas() {
     // await showSpinner(800);
 
     try {
-        const response = await fetch('/api/empresa');
-        const data = await response.json();
+        const request = await fetch('api/empresa/consultar', {
+            method: 'GET',
+            headers: getHeaders()
+          });
+          
+        const data = await request.json();
         
         // Limpiar los selects antes de volver a llenarlos
         empresaSelect.innerHTML = '<option value="" Active>Seleccionar</option>';
@@ -58,8 +62,12 @@ async function cargarEmpresas() {
 async function cargarListaEmpleadosCliente() {
 
     try {
-        const response = await fetch('/api/empleado-cliente');
-        const data = await response.json();
+        const request = await fetch('api/empleado-cliente/consultar', {
+            method: 'GET',
+            headers: getHeaders()
+          });
+        
+        const data = await request.json();
 
         // Limpiar la tabla antes de volver a llenarla
         empleadosClienteTableBody.innerHTML = '';
@@ -142,14 +150,12 @@ async function registrarEmpleadoCliente() {
     // await showSpinner(800);
 
     try {
-        const request = await fetch('/api/empleado-cliente', {
+        const request = await fetch('/api/empleado-cliente/guardar', {
             method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
+            headers: getHeaders(),
             body: JSON.stringify(datos)
         });
+        
         if (request.ok) {
             showModalAlert('¡Registro existoso!', 'El empleado cliente se creo exitosamente.', 'success');
             cargarListaEmpleadosCliente();  // Actualizar la lista de empleados
@@ -168,12 +174,9 @@ async function modificarEmpleadoCliente(idEmpleadoCliente) {
     // await showSpinner(300);
 
     try {
-        const request = await fetch('/api/empleado-cliente/' + idEmpleadoCliente, {
+        const request = await fetch('/api/empleado-cliente/consultar/' + idEmpleadoCliente, {
             method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
+            headers: getHeaders()
         });
         const empleadoCliente = await request.json();
         
@@ -209,12 +212,9 @@ async function cambioEstadoEmpleadoCliente(estado, idEmpleadoClienteEstado) {
     // await showSpinner(150);
 
     try {
-        const request = await fetch('/api/empleado-cliente/' + idEmpleadoClienteEstado, {
+        const request = await fetch('/api/empleado-cliente/actualizar/' + idEmpleadoClienteEstado, {
             method: 'PUT',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
+            headers: getHeaders(),
             body: JSON.stringify(datos)
         });
         if (request.ok) {
@@ -279,12 +279,9 @@ async function registrarModificarEmpleadoCliente() {
     // await showSpinner(300);
 
     try {
-        const request = await fetch('/api/empleado-cliente/' + idEmpleadoClienteModificar, {
+        const request = await fetch('/api/empleado-cliente/actualizar/' + idEmpleadoClienteModificar, {
             method: 'PUT',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
+            headers: getHeaders(),
             body: JSON.stringify(datos)
         });
         if (request.ok) {
@@ -298,4 +295,12 @@ async function registrarModificarEmpleadoCliente() {
     } finally {
         // hideSpinner();
     }
+}
+
+function getHeaders() {
+    return {
+     'Accept': 'application/json',
+     'Content-Type': 'application/json'
+    //  'Authorization': localStorage.token
+   };
 }

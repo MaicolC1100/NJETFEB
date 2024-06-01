@@ -12,29 +12,29 @@ import com.aplication.jetfeb.service.SolicitudValeServicio;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/solicitudes_vale")
+@RequestMapping("/api/solicitudes-vale")
 public class SolicitudValeController {
 
     @Autowired
     private SolicitudValeServicio solicitudValeServicio;
 
-    @GetMapping
+    @GetMapping("/consultar")
     public List<Solicitud_Vale> getAllSolicitudVales() {
         return solicitudValeServicio.listarTodasLasSolicitudes();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/consultar/{id}")
     public ResponseEntity<Solicitud_Vale> getSolicitudValeById(@PathVariable Integer id) {
         Solicitud_Vale solicitudVale = solicitudValeServicio.obtenerSolicitudPorId(id);
         return solicitudVale != null ? ResponseEntity.ok(solicitudVale) : ResponseEntity.notFound().build();
     }
 
-    @PostMapping
+    @PostMapping("/guardar")
     public Solicitud_Vale createSolicitudVale(@RequestBody Solicitud_Vale solicitudVale) {
         return solicitudValeServicio.guardarSolicitud(solicitudVale);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/actualizar/{id}")
     public ResponseEntity<Solicitud_Vale> updateSolicitudVale(@PathVariable Integer id, @RequestBody Solicitud_Vale solicitudValeDetails) {
         Solicitud_Vale solicitudVale = solicitudValeServicio.obtenerSolicitudPorId(id);
         
@@ -60,7 +60,7 @@ public class SolicitudValeController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<Void> deleteSolicitudVale(@PathVariable Integer id) {
         solicitudValeServicio.eliminarSolicitud(id);
         return ResponseEntity.noContent().build();

@@ -10,19 +10,19 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/tarifas")
+@RequestMapping("/api/tarifa")
 public class TarifaController {
 
     @Autowired
     private TarifaServicio tarifaServicio;
 
-    @GetMapping
+    @GetMapping("/consultar")
     public ResponseEntity<List<Tarifa>> listarTarifas() {
         List<Tarifa> tarifas = tarifaServicio.listarTodasLasTarifas();
         return new ResponseEntity<>(tarifas, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/consultar/{id}")
     public ResponseEntity<Tarifa> obtenerTarifa(@PathVariable("id") Integer id) {
         Tarifa tarifa = tarifaServicio.obtenerTarifaPorId(id);
         if (tarifa == null) {
@@ -31,13 +31,13 @@ public class TarifaController {
         return new ResponseEntity<>(tarifa, HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/guardar")
     public ResponseEntity<Tarifa> crearTarifa(@RequestBody Tarifa tarifa) {
         Tarifa nuevaTarifa = tarifaServicio.guardarTarifa(tarifa);
         return new ResponseEntity<>(nuevaTarifa, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/actualizar/{id}")
     public ResponseEntity<Tarifa> actualizarTarifa(@PathVariable("id") Integer id, @RequestBody Tarifa tarifa) {
         Tarifa tarifaExistente = tarifaServicio.obtenerTarifaPorId(id);
         if (tarifaExistente == null) {
@@ -48,7 +48,7 @@ public class TarifaController {
         return new ResponseEntity<>(tarifaActualizada, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<Void> eliminarTarifa(@PathVariable("id") Integer id) {
         Tarifa tarifa = tarifaServicio.obtenerTarifaPorId(id);
         if (tarifa == null) {

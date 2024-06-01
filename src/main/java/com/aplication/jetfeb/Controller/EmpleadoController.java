@@ -15,22 +15,22 @@ public class EmpleadoController {
     @Autowired
     private EmpleadoServicio empleadoServicio;
 
-    @GetMapping
+    @GetMapping("/consultar")
     public List<Empleado> listarEmpleados() {
         return empleadoServicio.listartodolosempleados();
     }
 
-    @PostMapping
+    @PostMapping("/guardar")
     public void guardarEmpleado(@RequestBody Empleado empleado) {
         empleadoServicio.guardarEmpleado(empleado);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/consultar/{id}")
     public Empleado obtenerEmpleadoPorId(@PathVariable Integer id) {
          return empleadoServicio.obtenerEmpleadoporId(id);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/actualizar/{id}")
     public void actualizarEmpleado(@PathVariable Integer id, @RequestBody Empleado empleado) {
         Empleado empleadoExistente = empleadoServicio.obtenerEmpleadoporId(id);
         
@@ -66,7 +66,7 @@ public class EmpleadoController {
                 
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/eliminar/{id}")
     public void eliminarEmpleado(@PathVariable Integer id) {
         empleadoServicio.eliminarEmpleado(id);
     }

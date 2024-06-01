@@ -13,22 +13,22 @@ public class EmpleadoClienteController {
     @Autowired
     private EmpleadoClienteServicio empleadoClienteServicio;
 
-    @GetMapping
+    @GetMapping("/consultar")
     public List<EmpleadoCliente> listarEmpleadosCliente() {
         return empleadoClienteServicio.listarTodosLosEmpleadosCliente();
     }
 
-    @PostMapping
+    @PostMapping("/guardar")
     public void guardarEmpleadoCliente(@RequestBody EmpleadoCliente empleadoCliente) {
         empleadoClienteServicio.guardarEmpleadoCliente(empleadoCliente);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/consultar/{id}")
     public EmpleadoCliente obtenerEmpleadoClientePorId(@PathVariable Integer id) {
         return empleadoClienteServicio.obtenerEmpleadoClientePorId(id);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/actualizar/{id}")
     public void actualizarEmpleadoCliente(@PathVariable Integer id, @RequestBody EmpleadoCliente empleadoCliente) {
         
         EmpleadoCliente empleadoClienteExistente = empleadoClienteServicio.obtenerEmpleadoClientePorId(id);
@@ -61,7 +61,7 @@ public class EmpleadoClienteController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/eliminar/{id}")
     public void eliminarEmpleadoCliente(@PathVariable Integer id) {
         empleadoClienteServicio.eliminarEmpleadoCliente(id);
     }
