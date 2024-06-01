@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.aplication.jetfeb.dao.UsuarioDao;
 import com.aplication.jetfeb.models.Usuario;
+import com.aplication.jetfeb.utils.JWTUtil;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -19,13 +20,16 @@ public class AuthController {
     @Autowired
     private UsuarioDao usuarioDao;
 
+     @Autowired
+     private JWTUtil jwtUtil;
+
     @PostMapping("/login")
-    public boolean login(@RequestBody Usuario usuario, HttpSession session){
-        boolean isAuthenticated = usuarioDao.loginUsuario(usuario);
-        if (isAuthenticated) {
-            session.setAttribute("isLoggedIn", true);
+    public String login(@RequestBody Usuario usuario){
+        Usuario usuarioLogin  = usuarioDao.loginUsuario(usuario);
+        if (usuarioLogin != null) {
+        	return jwtUtil.create(String.valueOf(usuarioLogin.getIdUsuario()), usuarioLogin.getEmail());
         }
-        return isAuthenticated;
+        return null;
     }
 
     @PostMapping("/logout")

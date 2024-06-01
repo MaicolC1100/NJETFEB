@@ -14,6 +14,6 @@ public interface UsuarioDao {
 
 	void registrar(Usuario usuario);
 
-	boolean loginUsuario(Usuario usuario);
+	Usuario loginUsuario(Usuario usuario);
 	
 }

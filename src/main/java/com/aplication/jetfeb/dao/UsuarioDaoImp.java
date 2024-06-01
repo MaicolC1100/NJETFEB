@@ -44,17 +44,23 @@ public class UsuarioDaoImp implements UsuarioDao {
     }
 
     @Override
-    public boolean loginUsuario(Usuario usuario) {
+    public Usuario loginUsuario(Usuario usuario) {
         String query = "From Usuario WHERE email = :email";
-        List<Usuario> usuarios = entityManager.createQuery(query, Usuario.class)
+        Usuario usuarioBD = entityManager.createQuery(query, Usuario.class)
             .setParameter("email", usuario.getEmail())
-            .getResultList();
+            .getSingleResult();
 
-        if (usuarios.isEmpty()) {
-            return false; // No se encontró el usuario con el email proporcionado
+        if (usuarioBD == null) {
+            return null; // No se encontró el usuario con el email proporcionado
         }
 
-        Usuario usuarioBD = usuarios.get(0);
-        return BCrypt.checkpw(usuario.getPassword(), usuarioBD.getPassword());
+        String passHashed = usuarioBD.getPassword(); // Se obtiene la contraseña guarda en la base de datos
+
+        if (BCrypt.checkpw(usuario.getPassword(), passHashed)) { // Se valida la contraseña de la BD contra la contraseña que envio el usuario
+            return usuarioBD; // Si la contraseña es correcta se devuelve los datos del usuario
+        }
+
+        return null;
+
     }
 }

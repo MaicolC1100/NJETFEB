@@ -18,9 +18,8 @@ async function iniciarSesion(){
 
     const respuesta = await request.text();
 
-    if(respuesta){
-        //localStorage.token = respuesta;
-        localStorage.userName = datos.email;
+    if(respuesta != null){
+        localStorage.token = respuesta;
         window.location.href = 'index.html'
     } else {
         alert('Error al ingresar el usuario y contraseña');
