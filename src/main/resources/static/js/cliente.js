@@ -6,9 +6,20 @@ $(document).ready(function() {
 
 const empleadosClienteTableBody = document.querySelector('#empleados-cliente-table tbody');
 const formAgregarEmpleadoCliente = document.querySelector('#form-agregar-empleado-cliente');
+const formModificarEmpleadoCliente = document.querySelector('#form-modificar-empleado-cliente');
 const empresaSelect = document.querySelector('#empresa');
 const empresaModificarSelect = document.querySelector('#empresaModificar');
 let idEmpleadoClienteModificar = null;
+
+formAgregarEmpleadoCliente.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    await registrarEmpleadoCliente();
+});
+
+formModificarEmpleadoCliente.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    await registrarModificarEmpleadoCliente();
+});
 
 // Función para cargar la lista de empresas
 async function cargarEmpresas() {
@@ -20,8 +31,8 @@ async function cargarEmpresas() {
         const data = await response.json();
         
         // Limpiar los selects antes de volver a llenarlos
-        empresaSelect.innerHTML = '';
-        empresaModificarSelect.innerHTML = '';
+        empresaSelect.innerHTML = '<option value="" Active>Seleccionar</option>';
+        empresaModificarSelect.innerHTML = '<option value="">Seleccionar</option>';
 
         data.forEach(empresa => {
             if (empresa.estado) {

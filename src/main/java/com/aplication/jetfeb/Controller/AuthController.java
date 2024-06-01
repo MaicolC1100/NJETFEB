@@ -1,13 +1,11 @@
 package com.aplication.jetfeb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import com.aplication.jetfeb.dao.UsuarioDao;
 import com.aplication.jetfeb.models.Usuario;
+import jakarta.servlet.http.HttpSession;
+
 
 @RestController
 public class AuthController {
@@ -15,18 +13,17 @@ public class AuthController {
     @Autowired
     private UsuarioDao usuarioDao;
 
-    // @Autowired
-    // private JWTUtil jwtUtil;
-
     @RequestMapping(value = "api/login", method = RequestMethod.POST)
-    public boolean login(@RequestBody Usuario usuario){
-        
-        // String plaintextPassword = usuario.getPassword();
-        // usuario.setPassword(BCrypt.hashpw(plaintextPassword, BCrypt.gensalt()));
+    public boolean login(@RequestBody Usuario usuario, HttpSession session){
+        boolean isAuthenticated = usuarioDao.loginUsuario(usuario);
+        if (isAuthenticated) {
+            session.setAttribute("isLoggedIn", true);
+        }
+        return isAuthenticated;
+    }
 
-        // if (user != null){
-        //     return jwtUtil.create(String.valueOf(user.getIdUsuario()), user.getUserName());
-        // }
-        return usuarioDao.loginUsuario(usuario);
+    @RequestMapping(value = "api/logout", method = RequestMethod.POST)
+    public void logout(HttpSession session) {
+        session.invalidate();
     }
 }
