@@ -1,127 +1,107 @@
 $(document).ready(function() {
-    // Mostrar el spinner
-    function showSpinner() {
-        $("#spinner").show();
-    }
+    cargarRecargos();
 
-    // Ocultar el spinner
-    function hideSpinner() {
-        $("#spinner").hide();
-    }
+    $('#addRecargoBtn').click(function() {
+        $('#recargoId').val('');
+        $('#recargoNombre').val('');
+        $('#recargoPrecio').val('');
+        $('#recargoModal').modal('show');
+    });
 
-    // Mostrar una alerta modal
-    function showAlert(message) {
-        $("#alertModalMessage").text(message);
-        $("#alertModal").modal("show");
-    }
+    $('#saveRecargoBtn').click(function() {
+        guardarRecargo();
+    });
+});
 
-    // Cargar recargos
-    function loadRecargos() {
-        showSpinner();
-        $.ajax({
-            url: "/recargos",
-            method: "GET",
-            success: function(data) {
-                hideSpinner();
-                var recargosTableBody = $("#recargosTableBody");
-                recargosTableBody.empty();
-                data.forEach(function(recargo) {
-                    var row = $("<tr>");
-                    row.append($("<td>").text(recargo.idRecargo));
-                    row.append($("<td>").text(recargo.recargo));
-                    row.append($("<td>").text(recargo.precio));
-                    row.append(`
+function cargarRecargos() {
+    $.ajax({
+        url: '/api/recargo/consultar',
+        method: 'GET',
+        success: function(recargos) {
+            let recargosTableBody = $('#recargosTableBody');
+            recargosTableBody.empty();
+            recargos.forEach(function(recargo) {
+                recargosTableBody.append(`
+                    <tr>
+                        <td>${recargo.idRecargo}</td>
+                        <td>${recargo.recargo}</td>
+                        <td>${recargo.precio}</td>
                         <td>
-                            <button class="btn btn-primary btn-sm edit-recargo" data-id="${recargo.idRecargo}"><i class="bi bi-pencil"></i></button>
-                            <button class="btn btn-danger btn-sm delete-recargo" data-id="${recargo.idRecargo}"><i class="bi bi-trash"></i></button>
+                            <button class="btn btn-primary btn-sm" onclick="editarRecargo(${recargo.idRecargo})">Editar</button>
+                            <button class="btn btn-danger btn-sm" onclick="eliminarRecargo(${recargo.idRecargo})">Eliminar</button>
                         </td>
-                    `);
-                    recargosTableBody.append(row);
-                });
-            },
-            error: function() {
-                hideSpinner();
-                showAlert("Error al cargar los recargos.");
-            }
-        });
-    }
-
-    // Crear o actualizar recargo
-    function saveRecargo(recargo) {
-        var method = recargo.idRecargo ? "PUT" : "POST";
-        var url = recargo.idRecargo ? "/recargos/" + recargo.idRecargo : "/recargos";
-        $.ajax({
-            url: url,
-            method: method,
-            contentType: "application/json",
-            data: JSON.stringify(recargo),
-            success: function() {
-                loadRecargos();
-            },
-            error: function() {
-                showAlert("Error al guardar el recargo.");
-            }
-        });
-    }
-
-    // Eliminar recargo
-    function deleteRecargo(id) {
-        $.ajax({
-            url: "/recargos/" + id,
-            method: "DELETE",
-            success: function() {
-                loadRecargos();
-            },
-            error: function() {
-                showAlert("Error al eliminar el recargo.");
-            }
-        });
-    }
-
-    // Event listeners
-    $("#addRecargoBtn").on("click", function() {
-        $("#recargoId").val("");
-        $("#recargoNombre").val("");
-        $("#recargoPrecio").val("");
-        $("#recargoModalLabel").text("Agregar Recargo");
-        $("#recargoModal").modal("show");
-    });
-
-    $("#saveRecargoBtn").on("click", function() {
-        var recargo = {
-            idRecargo: $("#recargoId").val(),
-            recargo: $("#recargoNombre").val(),
-            precio: $("#recargoPrecio").val()
-        };
-        saveRecargo(recargo);
-        $("#recargoModal").modal("hide");
-    });
-
-    $(document).on("click", ".edit-recargo", function() {
-        var id = $(this).data("id");
-        $.ajax({
-            url: "/recargos/" + id,
-            method: "GET",
-            success: function(recargo) {
-                $("#recargoId").val(recargo.idRecargo);
-                $("#recargoNombre").val(recargo.recargo);
-                $("#recargoPrecio").val(recargo.precio);
-                $("#recargoModalLabel").text("Editar Recargo");
-                $("#recargoModal").modal("show");
-            },
-            error: function() {
-                showAlert("Error al obtener los datos del recargo.");
-            }
-        });
-    });
-
-    $(document).on("click", ".delete-recargo", function() {
-        var id = $(this).data("id");
-        if (confirm("¿Estás seguro de que quieres eliminar este recargo?")) {
-            deleteRecargo(id);
+                    </tr>
+                `);
+            });
+        },
+        error: function() {
+            mostrarAlerta('Error al cargar los recargos.');
         }
     });
+}
 
-    // Inicializar la carga de recargos
-    loadRecargos();
-});
+function editarRecargo(id) {
+    $.ajax({
+        url: `/api/recargo/consultar/${id}`,
+        method: 'GET',
+        success: function(recargo) {
+            $('#recargoId').val(recargo.idRecargo);
+            $('#recargoNombre').val(recargo.recargo);
+            $('#recargoPrecio').val(recargo.precio);
+            $('#recargoModal').modal('show');
+        },
+        error: function() {
+            mostrarAlerta('Error al cargar el recargo.');
+        }
+    });
+}
+
+function eliminarRecargo(id) {
+    if (confirm('¿Está seguro de que desea eliminar este recargo?')) {
+        $.ajax({
+            url: `/api/recargo/eliminar/${id}`,
+            method: 'DELETE',
+            success: function() {
+                cargarRecargos();
+                mostrarAlerta('Recargo eliminado exitosamente.');
+            },
+            error: function() {
+                mostrarAlerta('Error al eliminar el recargo.');
+            }
+        });
+    }
+}
+
+function guardarRecargo() {
+    let id = $('#recargoId').val();
+    let nombre = $('#recargoNombre').val();
+    let precio = $('#recargoPrecio').val();
+
+    let recargo = {
+        recargo: nombre,
+        precio: precio
+    };
+
+    let method = id ? 'PUT' : 'POST';
+    let url = id ? `/api/recargo/actualizar/${id}` : '/api/recargo/guardar';
+
+    $.ajax({
+        url: url,
+        method: method,
+        contentType: 'application/json',
+        data: JSON.stringify(recargo),
+        success: function() {
+            $('#recargoModal').modal('hide');
+            cargarRecargos();
+            mostrarAlerta('Recargo guardado exitosamente.');
+        },
+        error: function() {
+            mostrarAlerta('Error al guardar el recargo.');
+        }
+    });
+}
+
+function mostrarAlerta(mensaje) {
+    $('#alertModalMessage').text(mensaje);
+    $('#alertModal').modal('show');
+}
