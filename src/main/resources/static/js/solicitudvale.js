@@ -1,8 +1,8 @@
-
+// Función para obtener los encabezados de las solicitudes fetch
 function getHeaders() {
     return {
-     'Accept': 'application/json',
- 		 'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
         'Authorization': 'Bearer YOUR_TOKEN_HERE' // Cambia 'YOUR_TOKEN_HERE' por el token de autorización si es necesario
     };
 }
@@ -18,6 +18,9 @@ const solicitudesValeTableBody = document.querySelector('#solicitudes-vale-table
 const empresaSelect = document.querySelector('#empresa');
 const empresaModificarSelect = document.querySelector('#empresaModificar');
 const pasajero1Select = document.querySelector('#pasajero1');
+const pasajero2Select = document.querySelector('#pasajero2');
+const pasajero3Select = document.querySelector('#pasajero3');
+const pasajero4Select = document.querySelector('#pasajero4');
 const pasajero1ModificarSelect = document.querySelector('#pasajero1Modificar');
 
 // Función para cargar la lista de empresas
@@ -34,7 +37,7 @@ async function cargarEmpresas() {
 
         // Limpiar los selects antes de volver a llenarlos
         empresaSelect.innerHTML = '<option value="" Active>Seleccionar</option>';
-      // empresaModificarSelect.innerHTML = '<option value="">Seleccionar</option>';
+        // empresaModificarSelect.innerHTML = '<option value="">Seleccionar</option>';
 
         data.forEach(empresa => {
             if (empresa.estado) {
@@ -43,10 +46,10 @@ async function cargarEmpresas() {
                 option.textContent = empresa.nombre;
                 empresaSelect.appendChild(option);
 
-//                const option2 = document.createElement('option');
-//                option2.value = empresa.idEmpresa;
-//                option2.textContent = empresa.nombre;
-//                empresaModificarSelect.appendChild(option2);
+                // const option2 = document.createElement('option');
+                // option2.value = empresa.idEmpresa;
+                // option2.textContent = empresa.nombre;
+                // empresaModificarSelect.appendChild(option2);
             }
         });
     } catch (error) {
@@ -70,19 +73,37 @@ async function cargarPasajeros() {
 
         // Limpiar los selects antes de volver a llenarlos
         pasajero1Select.innerHTML = '<option value="" active>Seleccionar</option>';
-//        pasajero1ModificarSelect.innerHTML = '<option value="">Seleccionar</option>';
+        pasajero2Select.innerHTML = '<option value="">Seleccionar</option>';
+        pasajero3Select.innerHTML = '<option value="">Seleccionar</option>';
+        pasajero4Select.innerHTML = '<option value="">Seleccionar</option>';
+        // pasajero1ModificarSelect.innerHTML = '<option value="">Seleccionar</option>';
 
         // Llenar los selects con los datos obtenidos
         data.forEach(pasajero => {
-            const option = document.createElement('option');
-            option.value = pasajero.idPasajero;
-            option.textContent = pasajero.nombre;
-            pasajero1Select.appendChild(option);
+            const option1 = document.createElement('option');
+            option1.value = pasajero.idPasajero;
+            option1.textContent = pasajero.nombre;
+            pasajero1Select.appendChild(option1);
 
-//            const option2 = document.createElement('option');
-//            option2.value = pasajero.idPasajero;
-//            option2.textContent = pasajero.nombre;
-//            pasajero1ModificarSelect.appendChild(option2);
+            const option2 = document.createElement('option');
+            option2.value = pasajero.idPasajero;
+            option2.textContent = pasajero.nombre;
+            pasajero2Select.appendChild(option2);
+
+            const option3 = document.createElement('option');
+            option3.value = pasajero.idPasajero;
+            option3.textContent = pasajero.nombre;
+            pasajero3Select.appendChild(option3);
+
+            const option4 = document.createElement('option');
+            option4.value = pasajero.idPasajero;
+            option4.textContent = pasajero.nombre;
+            pasajero4Select.appendChild(option4);
+
+            // const optionMod = document.createElement('option');
+            // optionMod.value = pasajero.idPasajero;
+            // optionMod.textContent = pasajero.nombre;
+            // pasajero1ModificarSelect.appendChild(optionMod);
         });
 
     } catch (error) {
