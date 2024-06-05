@@ -1,7 +1,8 @@
-// Función para obtener los encabezados de las solicitudes fetch
+
 function getHeaders() {
     return {
-        'Content-Type': 'application/json',
+     'Accept': 'application/json',
+ 		 'Content-Type': 'application/json',
         'Authorization': 'Bearer YOUR_TOKEN_HERE' // Cambia 'YOUR_TOKEN_HERE' por el token de autorización si es necesario
     };
 }
@@ -42,10 +43,10 @@ async function cargarEmpresas() {
                 option.textContent = empresa.nombre;
                 empresaSelect.appendChild(option);
 
-                const option2 = document.createElement('option');
-                option2.value = empresa.idEmpresa;
-                option2.textContent = empresa.nombre;
-                empresaModificarSelect.appendChild(option2);
+//                const option2 = document.createElement('option');
+//                option2.value = empresa.idEmpresa;
+//                option2.textContent = empresa.nombre;
+//                empresaModificarSelect.appendChild(option2);
             }
         });
     } catch (error) {
@@ -78,10 +79,10 @@ async function cargarPasajeros() {
             option.textContent = pasajero.nombre;
             pasajero1Select.appendChild(option);
 
-            const option2 = document.createElement('option');
-            option2.value = pasajero.idPasajero;
-            option2.textContent = pasajero.nombre;
-            pasajero1ModificarSelect.appendChild(option2);
+//            const option2 = document.createElement('option');
+//            option2.value = pasajero.idPasajero;
+//            option2.textContent = pasajero.nombre;
+//            pasajero1ModificarSelect.appendChild(option2);
         });
 
     } catch (error) {
