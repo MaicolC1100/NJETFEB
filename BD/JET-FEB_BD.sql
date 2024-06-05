@@ -127,4 +127,81 @@ CREATE TABLE `asignacion_vale` (
 
 -- ALTER TABLE usuarios
 -- ADD CONSTRAINT unique_email UNIQUE (email);
- 
+
+-- Generando Registros de prueba
+
+INSERT INTO `empresa` (nombre, estado) VALUES
+('Belleza Express', 1),
+('Chorrico', 1),
+('Tech Solutions', 1),
+('Global Ventures', 0),
+('Innovative Industries', 1);
+
+
+INSERT INTO `usuario` (nombre, apellido, telefono, email, password, estado) VALUES
+('Carlos', 'García', '123-456-7890', 'carlos.garcia@example.com', 'pass1234', 1),
+('María', 'Fernández', '234-567-8901', 'maria.fernandez@example.com', 'securepass', 1),
+('José', 'Martínez', '345-678-9012', 'jose.martinez@example.com', 'mypassword', 0),
+('Ana', 'López', '456-789-0123', 'ana.lopez@example.com', 'password1', 1),
+('Luis', 'González', '567-890-1234', 'luis.gonzalez@example.com', 'password2', 0),
+('Laura', 'Rodríguez', '678-901-2345', 'laura.rodriguez@example.com', 'password3', 1),
+('Juan', 'Pérez', '789-012-3456', 'juan.perez@example.com', 'password4', 1),
+('Elena', 'Sánchez', '890-123-4567', 'elena.sanchez@example.com', 'password5', 0),
+('Miguel', 'Torres', '901-234-5678', 'miguel.torres@example.com', 'password6', 1),
+('Isabel', 'Ramírez', '012-345-6789', 'isabel.ramirez@example.com', 'password7', 1),
+('Pedro', 'Flores', '123-456-7891', 'pedro.flores@example.com', 'password8', 0),
+('Carmen', 'Vargas', '234-567-8902', 'carmen.vargas@example.com', 'password9', 1),
+('Jorge', 'Jiménez', '345-678-9013', 'jorge.jimenez@example.com', 'password10', 1),
+('Sofía', 'Morales', '456-789-0124', 'sofia.morales@example.com', 'password11', 0),
+('Andrés', 'Ortiz', '567-890-1235', 'andres.ortiz@example.com', 'password12', 1),
+('Teresa', 'Castro', '678-901-2346', 'teresa.castro@example.com', 'password13', 1),
+('David', 'Romero', '789-012-3457', 'david.romero@example.com', 'password14', 0),
+('Lucía', 'Navarro', '890-123-4568', 'lucia.navarro@example.com', 'password15', 1),
+('Raúl', 'Molina', '901-234-5679', 'raul.molina@example.com', 'password16', 1),
+('Admin', 'User', '012-345-6790', 'admin@example.com', '$2a$10$BT1ry/ZeURYjajNHC5IUH.eV.99vkK4NMDwIY67se4pEyVC4EUD4K', 1);
+
+
+
+INSERT INTO `empleado_cliente` (id_empresa, nombre, apellido, ctro_costo, gerencia, cedula, estado) VALUES
+(1, 'Juan', 'Pérez', 'Centro A', 'Gerencia de Ventas', '12345678', 1),
+(2, 'María', 'López', 'Centro B', 'Gerencia de Marketing', '23456789', 1),
+(1, 'José', 'González', 'Centro C', 'Gerencia de Operaciones', '34567890', 0),
+(2, 'Ana', 'Martínez', 'Centro D', 'Gerencia de Recursos Humanos', '45678901', 1),
+(1, 'Pedro', 'Sánchez', 'Centro E', 'Gerencia Financiera', '56789012', 1),
+(2, 'Laura', 'Rodríguez', 'Centro F', 'Gerencia de Desarrollo', '67890123', 0),
+(1, 'Sofía', 'García', 'Centro G', 'Gerencia de Tecnología', '78901234', 1),
+(2, 'David', 'Fernández', 'Centro H', 'Gerencia de Producción', '89012345', 1),
+(1, 'Luis', 'Ramírez', 'Centro I', 'Gerencia de Calidad', '90123456', 0),
+(2, 'Elena', 'Pérez', 'Centro J', 'Gerencia de Logística', '01234567', 1),
+(1, 'Carlos', 'Martínez', 'Centro K', 'Gerencia de Investigación', '12345678', 1),
+(2, 'María', 'González', 'Centro L', 'Gerencia de Ventas', '23456789', 0),
+(1, 'Jorge', 'Sánchez', 'Centro M', 'Gerencia de Marketing', '34567890', 1),
+(2, 'Ana', 'Rodríguez', 'Centro N', 'Gerencia de Operaciones', '45678901', 1),
+(1, 'Teresa', 'López', 'Centro O', 'Gerencia de Recursos Humanos', '56789012', 0),
+(2, 'Daniel', 'Martínez', 'Centro P', 'Gerencia Financiera', '67890123', 1),
+(1, 'Isabel', 'García', 'Centro Q', 'Gerencia de Desarrollo', '78901234', 1),
+(2, 'Alejandro', 'Fernández', 'Centro R', 'Gerencia de Tecnología', '89012345', 0),
+(1, 'Sara', 'Ramírez', 'Centro S', 'Gerencia de Producción', '90123456', 1),
+(2, 'Luisa', 'Pérez', 'Centro T', 'Gerencia de Calidad', '01234567', 1);
+
+ INSERT INTO `empleado` (cedula, nombre, apellido, cargo, celular, correo, placa, estado) VALUES
+('12345678', 'Juan', 'Pérez', 'Gerente de Ventas', '123-456-7890', 'juan.perez@example.com', 'ABC123', 1),
+('23456789', 'María', 'López', 'Especialista en Marketing', '234-567-8901', 'maria.lopez@example.com', 'DEF456', 1),
+('34567890', 'José', 'González', 'Analista de Operaciones', '345-678-9012', 'jose.gonzalez@example.com', 'GHI789', 0),
+('45678901', 'Ana', 'Martínez', 'Coordinadora de Recursos Humanos', '456-789-0123', 'ana.martinez@example.com', 'JKL012', 1),
+('56789012', 'Pedro', 'Sánchez', 'Contador', '567-890-1234', 'pedro.sanchez@example.com', 'MNO345', 1),
+('67890123', 'Laura', 'Rodríguez', 'Desarrolladora de Software', '678-901-2345', 'laura.rodriguez@example.com', 'PQR678', 0),
+('78901234', 'Sofía', 'García', 'Ingeniera de Sistemas', '789-012-3456', 'sofia.garcia@example.com', 'STU901', 1),
+('89012345', 'David', 'Fernández', 'Supervisor de Producción', '890-123-4567', 'david.fernandez@example.com', 'VWX234', 1),
+('90123456', 'Luis', 'Ramírez', 'Especialista en Calidad', '901-234-5678', 'luis.ramirez@example.com', 'YZA567', 0),
+('01234567', 'Elena', 'Pérez', 'Logística', '012-345-6789', 'elena.perez@example.com', 'BCD890', 1),
+('12345679', 'Carlos', 'Martínez', 'Investigador', '123-456-7891', 'carlos.martinez@example.com', 'EFG123', 1),
+('23456780', 'María', 'González', 'Vendedora', '234-567-8902', 'maria.gonzalez@example.com', 'HIJ456', 0),
+('34567891', 'Jorge', 'Sánchez', 'Especialista en Marketing', '345-678-9013', 'jorge.sanchez@example.com', 'KLM789', 1),
+('45678902', 'Ana', 'Rodríguez', 'Analista de Operaciones', '456-789-0124', 'ana.rodriguez@example.com', 'NOP012', 1),
+('56789013', 'Teresa', 'López', 'Coordinadora de Recursos Humanos', '567-890-1235', 'teresa.lopez@example.com', 'QRS345', 0),
+('67890124', 'Daniel', 'Martínez', 'Contador', '678-901-2346', 'daniel.martinez@example.com', 'TUV678', 1),
+('78901235', 'Isabel', 'García', 'Desarrolladora de Software', '789-012-3457', 'isabel.garcia@example.com', 'WXY901', 1),
+('89012346', 'Alejandro', 'Fernández', 'Ingeniero de Sistemas', '890-123-4568', 'alejandro.fernandez@example.com', 'ZAB234', 0),
+('90123457', 'Sara', 'Ramírez', 'Supervisora de Producción', '901-234-5679', 'sara.ramirez@example.com', 'CDE567', 1),
+('01234568', 'Luisa', 'Pérez', 'Especialista en Calidad', '012-345-6790', 'luisa.perez@example.com', 'FGH890', 1);
