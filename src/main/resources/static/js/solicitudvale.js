@@ -34,7 +34,6 @@ async function cargarEmpresas() {
 
         // Limpiar los selects antes de volver a llenarlos
         empresaSelect.innerHTML = '<option value="" Active>Seleccionar</option>';
-        // empresaModificarSelect.innerHTML = '<option value="">Seleccionar</option>';
 
         data.forEach(empresa => {
             if (empresa.estado) {
@@ -57,7 +56,6 @@ async function cargarEmpresas() {
 
 // Función para cargar la lista de pasajeros
 async function cargarPasajeros() {
-    // await showSpinner(800);
 
     try {
         const request = await fetch('api/empleado-cliente/consultar', {
@@ -96,10 +94,6 @@ async function cargarPasajeros() {
             option4.textContent = pasajero.cedula + ' - ' + pasajero.nombre + ' ' + pasajero.apellido;
             pasajero4Select.appendChild(option4);
 
-            // const optionMod = document.createElement('option');
-            // optionMod.value = pasajero.idPasajero;
-            // optionMod.textContent = pasajero.nombre;
-            // pasajero1ModificarSelect.appendChild(optionMod);
         });
 
     } catch (error) {
