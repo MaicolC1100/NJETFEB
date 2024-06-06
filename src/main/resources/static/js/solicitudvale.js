@@ -2,8 +2,7 @@
 function getHeaders() {
     return {
         'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer YOUR_TOKEN_HERE' // Cambia 'YOUR_TOKEN_HERE' por el token de autorización si es necesario
+        'Content-Type': 'application/json'
     };
 }
 
@@ -25,8 +24,6 @@ const pasajero1ModificarSelect = document.querySelector('#pasajero1Modificar');
 
 // Función para cargar la lista de empresas
 async function cargarEmpresas() {
-    // await showSpinner(800);
-
     try {
         const request = await fetch('api/empresa/consultar', {
             method: 'GET',
@@ -55,7 +52,6 @@ async function cargarEmpresas() {
     } catch (error) {
         console.error('Error al obtener la lista de empresas:', error);
     } finally {
-        // hideSpinner();
     }
 }
 
@@ -73,31 +69,31 @@ async function cargarPasajeros() {
 
         // Limpiar los selects antes de volver a llenarlos
         pasajero1Select.innerHTML = '<option value="" active>Seleccionar</option>';
-        pasajero2Select.innerHTML = '<option value="">Seleccionar</option>';
-        pasajero3Select.innerHTML = '<option value="">Seleccionar</option>';
-        pasajero4Select.innerHTML = '<option value="">Seleccionar</option>';
+        pasajero2Select.innerHTML = '<option value="" active>Seleccionar</option>';
+        pasajero3Select.innerHTML = '<option value="" active>Seleccionar</option>';
+        pasajero4Select.innerHTML = '<option value="" active>Seleccionar</option>';
         // pasajero1ModificarSelect.innerHTML = '<option value="">Seleccionar</option>';
 
         // Llenar los selects con los datos obtenidos
         data.forEach(pasajero => {
             const option1 = document.createElement('option');
             option1.value = pasajero.idPasajero;
-            option1.textContent = pasajero.nombre;
+            option1.textContent = pasajero.cedula + ' - ' + pasajero.nombre + ' ' + pasajero.apellido;
             pasajero1Select.appendChild(option1);
 
             const option2 = document.createElement('option');
             option2.value = pasajero.idPasajero;
-            option2.textContent = pasajero.nombre;
+            option2.textContent = pasajero.cedula + ' - ' + pasajero.nombre + ' ' + pasajero.apellido;
             pasajero2Select.appendChild(option2);
 
             const option3 = document.createElement('option');
             option3.value = pasajero.idPasajero;
-            option3.textContent = pasajero.nombre;
+            option3.textContent = pasajero.cedula + ' - ' + pasajero.nombre + ' ' + pasajero.apellido;
             pasajero3Select.appendChild(option3);
 
             const option4 = document.createElement('option');
             option4.value = pasajero.idPasajero;
-            option4.textContent = pasajero.nombre;
+            option4.textContent = pasajero.cedula + ' - ' + pasajero.nombre + ' ' + pasajero.apellido;
             pasajero4Select.appendChild(option4);
 
             // const optionMod = document.createElement('option');
@@ -109,7 +105,6 @@ async function cargarPasajeros() {
     } catch (error) {
         console.error('Error al obtener la lista de pasajeros:', error);
     } finally {
-        // hideSpinner();
     }
 }
 

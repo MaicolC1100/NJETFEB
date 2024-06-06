@@ -50,18 +50,18 @@ public class Solicitud_Vale {
     private Date fechaServicio;
 
     @ManyToOne
-    @JoinColumn(name = "identificacion_pasajero_1")
+    @JoinColumn(name = "id_pasajero_1")
     private EmpleadoCliente pasajero1;
 
     @ManyToOne
-    @JoinColumn(name = "identificacion_pasajero_2")
+    @JoinColumn(name = "id_pasajero_2")
     private EmpleadoCliente pasajero2;
 
     @ManyToOne
-    @JoinColumn(name = "identificacion_pasajero_3")
+    @JoinColumn(name = "id_pasajero_3")
     private EmpleadoCliente pasajero3;
 
     @ManyToOne
-    @JoinColumn(name = "identificacion_pasajero_4")
+    @JoinColumn(name = "id_pasajero_4")
     private EmpleadoCliente pasajero4;
 }

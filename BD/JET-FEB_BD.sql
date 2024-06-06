@@ -65,16 +65,16 @@ CREATE TABLE solicitud_vale (
     fecha_creacion DATE NOT NULL DEFAULT NOW() COMMENT 'Fecha en que se creó la solicitud',
     fecha_aprobacion DATE NOT NULL COMMENT 'Fecha en que se aprobó la solicitud',
     fecha_servicio DATE NOT NULL COMMENT 'Fecha en que se realizará el servicio',
-    identificacion_pasajero_1 INT COMMENT 'Identificación del primer pasajero, referencia a la tabla empleado_cliente',
-    identificacion_pasajero_2 INT COMMENT 'Identificación del segundo pasajero, referencia a la tabla empleado_cliente',
-    identificacion_pasajero_3 INT COMMENT 'Identificación del tercer pasajero, referencia a la tabla empleado_cliente',
-    identificacion_pasajero_4 INT COMMENT 'Identificación del cuarto pasajero, referencia a la tabla empleado_cliente',
+    id_pasajero_1 INT COMMENT 'Identificación del primer pasajero, referencia a la tabla empleado_cliente',
+    id_pasajero_2 INT COMMENT 'Identificación del segundo pasajero, referencia a la tabla empleado_cliente',
+    id_pasajero_3 INT COMMENT 'Identificación del tercer pasajero, referencia a la tabla empleado_cliente',
+    id_pasajero_4 INT COMMENT 'Identificación del cuarto pasajero, referencia a la tabla empleado_cliente',
     FOREIGN KEY (id_empresa) REFERENCES empresa(id_empresa),
     FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
-    FOREIGN KEY (identificacion_pasajero_1) REFERENCES empleado_cliente(id_empleado_cliente),
-    FOREIGN KEY (identificacion_pasajero_2) REFERENCES empleado_cliente(id_empleado_cliente),
-    FOREIGN KEY (identificacion_pasajero_3) REFERENCES empleado_cliente(id_empleado_cliente),
-    FOREIGN KEY (identificacion_pasajero_4) REFERENCES empleado_cliente(id_empleado_cliente)
+    FOREIGN KEY (id_pasajero_1) REFERENCES empleado_cliente(id_empleado_cliente),
+    FOREIGN KEY (id_pasajero_2) REFERENCES empleado_cliente(id_empleado_cliente),
+    FOREIGN KEY (id_pasajero_3) REFERENCES empleado_cliente(id_empleado_cliente),
+    FOREIGN KEY (id_pasajero_4) REFERENCES empleado_cliente(id_empleado_cliente)
 ) COMMENT 'Tabla que almacena las solicitudes de vales de viaje o servicio';
 
 CREATE TABLE `asignacion_vale` (
@@ -91,24 +91,24 @@ CREATE TABLE `asignacion_vale` (
   `fecha_creacion` date NOT NULL COMMENT 'Fecha de creación del vale',
   `fecha_aprobacion` date NOT NULL COMMENT 'Fecha de aprobación del vale',
   `fecha_servicio` date NOT NULL COMMENT 'Fecha en que se prestará el servicio',
-  `identificacion_pasajero_1` int(11) DEFAULT NULL COMMENT 'Identificación del primer pasajero',
-  `identificacion_pasajero_2` int(11) DEFAULT NULL COMMENT 'Identificación del segundo pasajero',
-  `identificacion_pasajero_3` int(11) DEFAULT NULL COMMENT 'Identificación del tercer pasajero',
-  `identificacion_pasajero_4` int(11) DEFAULT NULL COMMENT 'Identificación del cuarto pasajero',
+  `id_pasajero_1` int(11) DEFAULT NULL COMMENT 'Identificación del primer pasajero',
+  `id_pasajero_2` int(11) DEFAULT NULL COMMENT 'Identificación del segundo pasajero',
+  `id_pasajero_3` int(11) DEFAULT NULL COMMENT 'Identificación del tercer pasajero',
+  `id_pasajero_4` int(11) DEFAULT NULL COMMENT 'Identificación del cuarto pasajero',
   PRIMARY KEY (`id_asigvale`),
   KEY `fk_usuario` (`id_usuario`),
   KEY `fk_empresa` (`id_empresa`),
-  KEY `fk_pasajero1` (`identificacion_pasajero_1`),
-  KEY `fk_pasajero2` (`identificacion_pasajero_2`),
-  KEY `fk_pasajero3` (`identificacion_pasajero_3`),
-  KEY `fk_pasajero4` (`identificacion_pasajero_4`),
+  KEY `fk_pasajero1` (`id_pasajero_1`),
+  KEY `fk_pasajero2` (`id_pasajero_2`),
+  KEY `fk_pasajero3` (`id_pasajero_3`),
+  KEY `fk_pasajero4` (`id_pasajero_4`),
   KEY `fk_empleado_asig` (`id_empleado`),
   CONSTRAINT `fk_empleado_asig` FOREIGN KEY (`id_empleado`) REFERENCES `empleado` (`id_empleado`),
   CONSTRAINT `fk_empresa_asig` FOREIGN KEY (`id_empresa`) REFERENCES `empresa` (`id_empresa`),
-  CONSTRAINT `fk_pasajero1_asig` FOREIGN KEY (`identificacion_pasajero_1`) REFERENCES `empleado_cliente` (`id_empleado_cliente`),
-  CONSTRAINT `fk_pasajero2_asig` FOREIGN KEY (`identificacion_pasajero_2`) REFERENCES `empleado_cliente` (`id_empleado_cliente`),
-  CONSTRAINT `fk_pasajero3_asig` FOREIGN KEY (`identificacion_pasajero_3`) REFERENCES `empleado_cliente` (`id_empleado_cliente`),
-  CONSTRAINT `fk_pasajero4_asig` FOREIGN KEY (`identificacion_pasajero_4`) REFERENCES `empleado_cliente` (`id_empleado_cliente`),
+  CONSTRAINT `fk_pasajero1_asig` FOREIGN KEY (`id_pasajero_1`) REFERENCES `empleado_cliente` (`id_empleado_cliente`),
+  CONSTRAINT `fk_pasajero2_asig` FOREIGN KEY (`id_pasajero_2`) REFERENCES `empleado_cliente` (`id_empleado_cliente`),
+  CONSTRAINT `fk_pasajero3_asig` FOREIGN KEY (`id_pasajero_3`) REFERENCES `empleado_cliente` (`id_empleado_cliente`),
+  CONSTRAINT `fk_pasajero4_asig` FOREIGN KEY (`id_pasajero_4`) REFERENCES `empleado_cliente` (`id_empleado_cliente`),
   CONSTRAINT `fk_usuario_asig` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`)
 ) COMMENT='Tabla que almacena los vales asignados para servicios de transporte';
 
@@ -127,6 +127,60 @@ CREATE TABLE `asignacion_vale` (
 
 -- ALTER TABLE usuarios
 -- ADD CONSTRAINT unique_email UNIQUE (email);
+
+
+-- ALTER TABLE solicitud_vale
+ALTER TABLE `jet-febbd`.`solicitud_vale` 
+DROP FOREIGN KEY `fk_pasajero1`,
+DROP FOREIGN KEY `fk_pasajero2`,
+DROP FOREIGN KEY `fk_pasajero3`,
+DROP FOREIGN KEY `fk_pasajero4`;
+ALTER TABLE `jet-febbd`.`solicitud_vale` 
+CHANGE COLUMN `ide_pasajero_1` `id_pasajero_1` INT(11) NULL DEFAULT NULL ,
+CHANGE COLUMN `ide_pasajero_2` `id_pasajero_2` INT(11) NULL DEFAULT NULL ,
+CHANGE COLUMN `ide_pasajero_3` `id_pasajero_3` INT(11) NULL DEFAULT NULL ,
+CHANGE COLUMN `ide_pasajero_4` `id_pasajero_4` INT(11) NULL DEFAULT NULL ;
+ALTER TABLE `jet-febbd`.`solicitud_vale` 
+ADD CONSTRAINT `fk_pasajero1`
+  FOREIGN KEY (`id_pasajero_1`)
+  REFERENCES `jet-febbd`.`empleado_cliente` (`id_empleado_cliente`),
+ADD CONSTRAINT `fk_pasajero2`
+  FOREIGN KEY (`id_pasajero_2`)
+  REFERENCES `jet-febbd`.`empleado_cliente` (`id_empleado_cliente`),
+ADD CONSTRAINT `fk_pasajero3`
+  FOREIGN KEY (`id_pasajero_3`)
+  REFERENCES `jet-febbd`.`empleado_cliente` (`id_empleado_cliente`),
+ADD CONSTRAINT `fk_pasajero4`
+  FOREIGN KEY (`id_pasajero_4`)
+  REFERENCES `jet-febbd`.`empleado_cliente` (`id_empleado_cliente`);
+
+--ALTER TABLE asignacion_vale
+ALTER TABLE `jet-febbd`.`asignacion_vale` 
+DROP FOREIGN KEY `fk_pasajero1_asig`,
+DROP FOREIGN KEY `fk_pasajero2_asig`,
+DROP FOREIGN KEY `fk_pasajero3_asig`,
+DROP FOREIGN KEY `fk_pasajero4_asig`;
+ALTER TABLE `jet-febbd`.`asignacion_vale` 
+CHANGE COLUMN `identificacion_pasajero_1` `id_pasajero_1` INT(11) NULL DEFAULT NULL ,
+CHANGE COLUMN `identificacion_pasajero_2` `id_pasajero_2` INT(11) NULL DEFAULT NULL ,
+CHANGE COLUMN `identificacion_pasajero_3` `id_pasajero_3` INT(11) NULL DEFAULT NULL ,
+CHANGE COLUMN `identificacion_pasajero_4` `id_pasajero_4` INT(11) NULL DEFAULT NULL ;
+ALTER TABLE `jet-febbd`.`asignacion_vale` 
+ADD CONSTRAINT `fk_pasajero1_asig`
+  FOREIGN KEY (`id_pasajero_1`)
+  REFERENCES `jet-febbd`.`empleado_cliente` (`id_empleado_cliente`),
+ADD CONSTRAINT `fk_pasajero2_asig`
+  FOREIGN KEY (`id_pasajero_2`)
+  REFERENCES `jet-febbd`.`empleado_cliente` (`id_empleado_cliente`),
+ADD CONSTRAINT `fk_pasajero3_asig`
+  FOREIGN KEY (`id_pasajero_3`)
+  REFERENCES `jet-febbd`.`empleado_cliente` (`id_empleado_cliente`),
+ADD CONSTRAINT `fk_pasajero4_asig`
+  FOREIGN KEY (`id_pasajero_4`)
+  REFERENCES `jet-febbd`.`empleado_cliente` (`id_empleado_cliente`);
+
+
+
 
 -- Generando Registros de prueba
 
