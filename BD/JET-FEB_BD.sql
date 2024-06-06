@@ -77,40 +77,37 @@ CREATE TABLE solicitud_vale (
     FOREIGN KEY (id_pasajero_4) REFERENCES empleado_cliente(id_empleado_cliente)
 ) COMMENT 'Tabla que almacena las solicitudes de vales de viaje o servicio';
 
-CREATE TABLE `asignacion_vale` (
-  `id_asigvale` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador único del vale asignado',
-  `n_vale` bigint(20) NOT NULL COMMENT 'Número del vale',
-  `id_usuario` int(11) NOT NULL COMMENT 'Identificador del usuario que asigna el vale',
-  `id_empresa` int(11) NOT NULL COMMENT 'Identificador de la empresa asociada al vale',
-  `id_empleado` int(11) NOT NULL COMMENT 'Identificador del empleado asignado al vale',
-  `placa` varchar(50) NOT NULL COMMENT 'Placa del vehículo utilizado',
-  `origen` varchar(255) NOT NULL COMMENT 'Lugar de origen del servicio',
-  `destino` varchar(255) NOT NULL COMMENT 'Lugar de destino del servicio',
-  `motivo` varchar(255) NOT NULL COMMENT 'Motivo del servicio',
-  `valorvale` decimal(10,2) NOT NULL COMMENT 'Valor del vale',
-  `fecha_creacion` date NOT NULL COMMENT 'Fecha de creación del vale',
-  `fecha_aprobacion` date NOT NULL COMMENT 'Fecha de aprobación del vale',
-  `fecha_servicio` date NOT NULL COMMENT 'Fecha en que se prestará el servicio',
-  `id_pasajero_1` int(11) DEFAULT NULL COMMENT 'Identificación del primer pasajero',
-  `id_pasajero_2` int(11) DEFAULT NULL COMMENT 'Identificación del segundo pasajero',
-  `id_pasajero_3` int(11) DEFAULT NULL COMMENT 'Identificación del tercer pasajero',
-  `id_pasajero_4` int(11) DEFAULT NULL COMMENT 'Identificación del cuarto pasajero',
-  PRIMARY KEY (`id_asigvale`),
-  KEY `fk_usuario` (`id_usuario`),
-  KEY `fk_empresa` (`id_empresa`),
-  KEY `fk_pasajero1` (`id_pasajero_1`),
-  KEY `fk_pasajero2` (`id_pasajero_2`),
-  KEY `fk_pasajero3` (`id_pasajero_3`),
-  KEY `fk_pasajero4` (`id_pasajero_4`),
-  KEY `fk_empleado_asig` (`id_empleado`),
-  CONSTRAINT `fk_empleado_asig` FOREIGN KEY (`id_empleado`) REFERENCES `empleado` (`id_empleado`),
-  CONSTRAINT `fk_empresa_asig` FOREIGN KEY (`id_empresa`) REFERENCES `empresa` (`id_empresa`),
-  CONSTRAINT `fk_pasajero1_asig` FOREIGN KEY (`id_pasajero_1`) REFERENCES `empleado_cliente` (`id_empleado_cliente`),
-  CONSTRAINT `fk_pasajero2_asig` FOREIGN KEY (`id_pasajero_2`) REFERENCES `empleado_cliente` (`id_empleado_cliente`),
-  CONSTRAINT `fk_pasajero3_asig` FOREIGN KEY (`id_pasajero_3`) REFERENCES `empleado_cliente` (`id_empleado_cliente`),
-  CONSTRAINT `fk_pasajero4_asig` FOREIGN KEY (`id_pasajero_4`) REFERENCES `empleado_cliente` (`id_empleado_cliente`),
-  CONSTRAINT `fk_usuario_asig` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`)
+-- `jet-febbd`.asignacion_vale definition
+
+-- `jet-febbd`.asignacion_vale definition
+
+CREATE TABLE asignacion_vale (
+    id_asigvale INT AUTO_INCREMENT PRIMARY KEY COMMENT 'Identificador único del vale asignado',
+    n_vale BIGINT NOT NULL COMMENT 'Número del vale',
+    id_usuario INT NOT NULL COMMENT 'Identificador del usuario que asigna el vale, referencia a la tabla usuario',
+    id_empresa INT NOT NULL COMMENT 'Identificador de la empresa asociada al vale, referencia a la tabla empresa',
+    id_empleado INT NOT NULL COMMENT 'Identificador del empleado asignado al vale, referencia a la tabla empleado',
+    placa VARCHAR(50) NOT NULL COMMENT 'Placa del vehículo utilizado',
+    origen VARCHAR(255) NOT NULL COMMENT 'Lugar de origen del servicio',
+    destino VARCHAR(255) NOT NULL COMMENT 'Lugar de destino del servicio',
+    motivo VARCHAR(255) NOT NULL COMMENT 'Motivo del servicio',
+    valorvale DECIMAL(10,2) NOT NULL COMMENT 'Valor del vale',
+    fecha_creacion DATE NOT NULL COMMENT 'Fecha de creación del vale',
+    fecha_aprobacion DATE NOT NULL COMMENT 'Fecha de aprobación del vale',
+    fecha_servicio DATE NOT NULL COMMENT 'Fecha en que se prestará el servicio',
+    id_pasajero_1 INT DEFAULT NULL COMMENT 'Identificación del primer pasajero, referencia a la tabla empleado_cliente',
+    id_pasajero_2 INT DEFAULT NULL COMMENT 'Identificación del segundo pasajero, referencia a la tabla empleado_cliente',
+    id_pasajero_3 INT DEFAULT NULL COMMENT 'Identificación del tercer pasajero, referencia a la tabla empleado_cliente',
+    id_pasajero_4 INT DEFAULT NULL COMMENT 'Identificación del cuarto pasajero, referencia a la tabla empleado_cliente',
+    FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
+    FOREIGN KEY (id_empresa) REFERENCES empresa(id_empresa),
+    FOREIGN KEY (id_empleado) REFERENCES empleado(id_empleado),
+    FOREIGN KEY (id_pasajero_1) REFERENCES empleado_cliente(id_empleado_cliente),
+    FOREIGN KEY (id_pasajero_2) REFERENCES empleado_cliente(id_empleado_cliente),
+    FOREIGN KEY (id_pasajero_3) REFERENCES empleado_cliente(id_empleado_cliente),
+    FOREIGN KEY (id_pasajero_4) REFERENCES empleado_cliente(id_empleado_cliente)
 ) COMMENT='Tabla que almacena los vales asignados para servicios de transporte';
+
 
 
 -- Scripts para elimninar las tablas
@@ -130,29 +127,10 @@ CREATE TABLE `asignacion_vale` (
 
 
 -- ALTER TABLE solicitud_vale
-ALTER TABLE `jet-febbd`.`solicitud_vale` 
-DROP FOREIGN KEY `fk_pasajero1`,
-DROP FOREIGN KEY `fk_pasajero2`,
-DROP FOREIGN KEY `fk_pasajero3`,
-DROP FOREIGN KEY `fk_pasajero4`;
-ALTER TABLE `jet-febbd`.`solicitud_vale` 
-CHANGE COLUMN `ide_pasajero_1` `id_pasajero_1` INT(11) NULL DEFAULT NULL ,
-CHANGE COLUMN `ide_pasajero_2` `id_pasajero_2` INT(11) NULL DEFAULT NULL ,
-CHANGE COLUMN `ide_pasajero_3` `id_pasajero_3` INT(11) NULL DEFAULT NULL ,
-CHANGE COLUMN `ide_pasajero_4` `id_pasajero_4` INT(11) NULL DEFAULT NULL ;
-ALTER TABLE `jet-febbd`.`solicitud_vale` 
-ADD CONSTRAINT `fk_pasajero1`
-  FOREIGN KEY (`id_pasajero_1`)
-  REFERENCES `jet-febbd`.`empleado_cliente` (`id_empleado_cliente`),
-ADD CONSTRAINT `fk_pasajero2`
-  FOREIGN KEY (`id_pasajero_2`)
-  REFERENCES `jet-febbd`.`empleado_cliente` (`id_empleado_cliente`),
-ADD CONSTRAINT `fk_pasajero3`
-  FOREIGN KEY (`id_pasajero_3`)
-  REFERENCES `jet-febbd`.`empleado_cliente` (`id_empleado_cliente`),
-ADD CONSTRAINT `fk_pasajero4`
-  FOREIGN KEY (`id_pasajero_4`)
-  REFERENCES `jet-febbd`.`empleado_cliente` (`id_empleado_cliente`);
+ALTER TABLE `jet-febbd`.solicitud_vale CHANGE identificacion_pasajero_1 id_pasajero_1 int NULL COMMENT 'Identificación del primer pasajero, referencia a la tabla empleado_cliente';
+ALTER TABLE `jet-febbd`.solicitud_vale CHANGE identificacion_pasajero_2 id_pasajero_2 int NULL COMMENT 'Identificación del segundo pasajero, referencia a la tabla empleado_cliente';
+ALTER TABLE `jet-febbd`.solicitud_vale CHANGE identificacion_pasajero_3 id_pasajero_3 int NULL COMMENT 'Identificación del tercer pasajero, referencia a la tabla empleado_cliente';
+ALTER TABLE `jet-febbd`.solicitud_vale CHANGE identificacion_pasajero_4 id_pasajero_4 int NULL COMMENT 'Identificación del cuarto pasajero, referencia a la tabla empleado_cliente';
 
 --ALTER TABLE asignacion_vale
 ALTER TABLE `jet-febbd`.`asignacion_vale` 
