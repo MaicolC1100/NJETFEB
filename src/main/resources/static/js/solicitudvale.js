@@ -14,6 +14,7 @@ $(document).ready(function() {
 });
 
 const solicitudesValeTableBody = document.querySelector('#solicitudes-vale-table tbody');
+const formAgregarSolicitudVale = document.querySelector('#form-agregar-solicitud-vale');
 const empresaSelect = document.querySelector('#empresa');
 const empresaModificarSelect = document.querySelector('#empresaModificar');
 const pasajero1Select = document.querySelector('#pasajero1');
@@ -21,6 +22,12 @@ const pasajero2Select = document.querySelector('#pasajero2');
 const pasajero3Select = document.querySelector('#pasajero3');
 const pasajero4Select = document.querySelector('#pasajero4');
 const pasajero1ModificarSelect = document.querySelector('#pasajero1Modificar');
+
+
+formAgregarSolicitudVale.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    await registrarSolicitudVale();
+});
 
 // Función para cargar la lista de empresas
 async function cargarEmpresas() {
@@ -75,22 +82,22 @@ async function cargarPasajeros() {
         // Llenar los selects con los datos obtenidos
         data.forEach(pasajero => {
             const option1 = document.createElement('option');
-            option1.value = pasajero.idPasajero;
+            option1.value = pasajero.idEmpleadoCliente;
             option1.textContent = pasajero.cedula + ' - ' + pasajero.nombre + ' ' + pasajero.apellido;
             pasajero1Select.appendChild(option1);
 
             const option2 = document.createElement('option');
-            option2.value = pasajero.idPasajero;
+            option2.value = pasajero.idEmpleadoCliente;
             option2.textContent = pasajero.cedula + ' - ' + pasajero.nombre + ' ' + pasajero.apellido;
             pasajero2Select.appendChild(option2);
 
             const option3 = document.createElement('option');
-            option3.value = pasajero.idPasajero;
+            option3.value = pasajero.idEmpleadoCliente;
             option3.textContent = pasajero.cedula + ' - ' + pasajero.nombre + ' ' + pasajero.apellido;
             pasajero3Select.appendChild(option3);
 
             const option4 = document.createElement('option');
-            option4.value = pasajero.idPasajero;
+            option4.value = pasajero.idEmpleadoCliente;
             option4.textContent = pasajero.cedula + ' - ' + pasajero.nombre + ' ' + pasajero.apellido;
             pasajero4Select.appendChild(option4);
 
@@ -143,4 +150,55 @@ async function cargarListaSolicitudes() {
     } catch (error) {
         console.error('Error al obtener las solicitudes del vale:', error);
     }
+}
+async function registrarSolicitudVale() {
+	let solicitudvale = {};
+	let empresa = {};
+	let pasajero1 = {};
+	let pasajero2 = {};
+	let pasajero3 = {};
+	let pasajero4 = {};
+
+	empresa.idEmpresa = document.querySelector('#empresa').value;
+	pasajero1.idEmpleadoCliente = document.querySelector('#pasajero1').value;
+	pasajero2.idEmpleadoCliente = document.querySelector('#pasajero2').value;
+	pasajero3.idEmpleadoCliente = document.querySelector('#pasajero3').value;
+	pasajero4.idEmpleadoCliente = document.querySelector('#pasajero4').value;
+
+	// Reemplaza esto con la obtención del ID del usuario correcto
+	let usuario = { idUsuario: 1 }; 
+
+	solicitudvale.usuario = usuario;
+	solicitudvale.nVale = document.querySelector('#nvale').value;
+	solicitudvale.empresa = empresa;
+	solicitudvale.origen = document.querySelector('#origen').value;
+	solicitudvale.destino = document.querySelector('#destino').value;
+	solicitudvale.motivo = document.querySelector('#motivo').value;
+	solicitudvale.fechaCreacion = document.querySelector('#fecha_creacion').value;
+	solicitudvale.fechaAprobacion = document.querySelector('#fecha_aprobacion').value;
+	solicitudvale.fechaServicio = document.querySelector('#fecha_servicio').value;
+	solicitudvale.pasajero1 = pasajero1;
+	solicitudvale.pasajero2 = pasajero2;
+	solicitudvale.pasajero3 = pasajero3;
+	solicitudvale.pasajero4 = pasajero4;
+
+	try {
+        const request = await fetch('/api/solicitudes-vale/guardar', {
+            method: 'POST',
+            headers: getHeaders(),
+            body: JSON.stringify(solicitudvale)
+        });
+        
+
+		if (request.ok) {
+			showModalAlert('¡Registro exitoso!', 'La solicitud de vale se registró exitosamente.', 'success');
+			cargarListaSolicitudes();  // Actualizar la lista de empleados
+		} else {
+			console.error('Error en la solicitud:', request.statusText);
+		}
+	} catch (error) {
+		console.error('Error al registrar la solicitud de vale:', error);
+	} finally {
+		// hideSpinner();
+	}
 }
