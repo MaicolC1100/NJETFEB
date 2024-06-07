@@ -14,7 +14,6 @@ $(document).ready(function() {
 });
 
 const solicitudesValeTableBody = document.querySelector('#solicitudes-vale-table tbody');
-const formAgregarSolicitudVale = document.querySelector('#form-agregar-solicitud-vale');
 const empresaSelect = document.querySelector('#empresa');
 const empresaModificarSelect = document.querySelector('#empresaModificar');
 const pasajero1Select = document.querySelector('#pasajero1');
@@ -22,7 +21,7 @@ const pasajero2Select = document.querySelector('#pasajero2');
 const pasajero3Select = document.querySelector('#pasajero3');
 const pasajero4Select = document.querySelector('#pasajero4');
 const pasajero1ModificarSelect = document.querySelector('#pasajero1Modificar');
-
+const formAgregarSolicitudVale = document.querySelector('#form-agregar-solicitud-vale');
 
 formAgregarSolicitudVale.addEventListener('submit', async (event) => {
     event.preventDefault();
