@@ -89,7 +89,86 @@
                         <div class="form-row btn-form">
                             <div class="form-group col-12">
                                 <button type="submit" class="btn btn-warning">Guardar <i class="bi bi-floppy"></i></button>
-                                <button type="button" id="cancelar" class="btn btn-secondary">Cancelar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+             <div class="container">
+            	 <div class="row justify-content-center" id="divModificarEmpleadoCliente" style="display: none;">
+                    <form id="form-modificar-solicitud-vale" class="col-md-8 formularios">
+                        <h2 class="h2-form">Solicitud vale</h2>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="nvale">N° Vale:</label>
+                                <input type="text" id="nvaleModificar" name="nvaleModificar" class="form-control" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="empresa">Empresa:</label> 
+                                <select id="empresaModificar" name="empresaModificar" class="form-control" required>
+                                    <option value="">-- Seleccionar --</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">                   
+                            <div class="form-group col-md-6">
+                                <label for="origen">Origen:</label>
+                                <input type="text" id="origenModificar" name="origenModificar" class="form-control" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="destino">Destino:</label>
+                                <input type="text" id="destinoModificar" name="destinoModificar" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="motivo">Motivo:</label>
+                                <input type="text" id="motivoModificar" name="motivoModificar" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="fecha_creacion">Fecha creación:</label>
+                                <input type="date" id="fecha_creacionModificar" name="fecha_creacionModificar" class="form-control" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="fecha_aprobacion">Fecha aprobación:</label>
+                                <input type="date" id="fecha_aprobacionModificar" name="fecha_aprobacionModificar" class="form-control" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="fecha_servicio">Fecha servicio:</label>
+                                <input type="date" id="fecha_servicioModificar" name="fecha_servicioModificar" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="pasajero1">Pasajero 1:</label> 
+                                <select id="pasajero1Modificar" name="pasajero1Modificar" class="form-control" required>
+                                    <option value="">-- Seleccionar --</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="pasajero2">Pasajero 2:</label>
+                                <select id="pasajero2Modificar" name="pasajero2Modificar" class="form-control">
+                                    <option value="">-- Seleccionar --</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="pasajero3">Pasajero 3:</label>
+                                <select id="pasajero3Modificar" name="pasajero3Modificar" class="form-control">
+                                    <option value="">-- Seleccionar --</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="pasajero4">Pasajero 4:</label>
+                                <select id="pasajero4Modificar" name="pasajero4Modificar" class="form-control">
+                                    <option value="">-- Seleccionar --</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row btn-form">
+                            <div class="form-group col-12">
+                               <button type="submit"  class="btn btn-secondary">Guardar <i class="bi bi-floppy"></i></button>                              
                             </div>
                         </div>
                     </form>

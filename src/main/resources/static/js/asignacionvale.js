@@ -10,30 +10,23 @@ $(document).ready(function() {
     // on ready
     cargarEmpresas();
     cargarPasajeros();
-    cargarListaSolicitudes();
+    cargarEmpleado();
+    cargarListaAsignacionesVale();
 });
 
-const solicitudesValeTableBody = document.querySelector('#solicitudes-vale-table tbody');
+const asignacionesValeTableBody = document.querySelector('#asignaciones-vale-table tbody');
 const empresaSelect = document.querySelector('#empresa');
 const empresaModificarSelect = document.querySelector('#empresaModificar');
+const empleadoSelect = document.querySelector('#empleado');
 const pasajero1Select = document.querySelector('#pasajero1');
 const pasajero2Select = document.querySelector('#pasajero2');
 const pasajero3Select = document.querySelector('#pasajero3');
 const pasajero4Select = document.querySelector('#pasajero4');
 const pasajero1ModificarSelect = document.querySelector('#pasajero1Modificar');
-const formAgregarSolicitudVale = document.querySelector('#form-agregar-solicitud-vale');
-const formModificarSolicitudVale = document.querySelector('#form-modificar-solicitud-vale');
 
 
-formAgregarSolicitudVale.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    await registrarSolicitudVale();
-});
 
-formModificarSolicitudVale.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    await registrarModificarEmpleadoCliente();
-});
+
 
 // Función para cargar la lista de empresas
 async function cargarEmpresas() {
@@ -66,6 +59,34 @@ async function cargarEmpresas() {
     } finally {
     }
 }
+
+// Función para cargar el empleado
+async function cargarEmpleado() {
+    try {
+        const request = await fetch('api/empleado/consultar', {
+            method: 'GET',
+            headers: getHeaders()
+        });
+
+        const data = await request.json();
+
+		// Limpiar los selects antes de volver a llenarlos
+		empleadoSelect.innerHTML = '<option value="" Active>Seleccionar</option>';
+
+		data.forEach(empleado => {
+            if (empleado.estado) {
+                const option = document.createElement('option');
+                option.value = empleado.idEmpleado;
+                option.textContent = empleado.nombre + ' ' + empleado.apellido;
+                empleadoSelect.appendChild(option);
+            }
+        });
+    } catch (error) {
+        console.error('Error al obtener la lista de empleado:', error);
+    } finally {
+    }
+}
+
 
 // Función para cargar la lista de pasajeros
 async function cargarPasajeros() {
@@ -115,96 +136,59 @@ async function cargarPasajeros() {
     }
 }
 
-// Función para cargar la lista de solicitudes de vale
-async function cargarListaSolicitudes() {
+// Función para cargar la lista de asignaciones de vale
+async function cargarListaAsignacionesVale() {
     try {
-        const request = await fetch('/api/solicitudes-vale/consultar', {
+        const response = await fetch('api/asignacion-vale/consultar', {
             method: 'GET',
             headers: getHeaders()
         });
 
-        const data = await request.json();
+        if (!response.ok) {
+            throw new Error('Error en la respuesta del servidor');
+        }
 
+        const data = await response.json();
+
+  
+        
         // Limpiar la tabla antes de volver a llenarla
-        solicitudesValeTableBody.innerHTML = '';
+        asignacionesValeTableBody.innerHTML = '';
 
-        // Llenar la tabla con los datos de las solicitudes de vale
-        data.forEach(solicitud => {
+        // Llenar la tabla con los datos de las asignaciones de vale
+        data.forEach(asignacion => {
             const row = document.createElement('tr');
+
+            // Formatear fechas
+            const formatFecha = fecha => new Date(fecha).toLocaleDateString();
+
             row.innerHTML = `
-                <td>${solicitud.id}</td>
-                <td>${solicitud.nVale}</td>
-                <td>${solicitud.usuario.nombre}</td>
-                <td>${solicitud.empresa.nombre}</td>
-                <td>${solicitud.origen}</td>
-                <td>${solicitud.destino}</td>
-                <td>${solicitud.motivo}</td>
-                <td>${solicitud.fechaCreacion}</td>
-                <td>${solicitud.fechaAprobacion}</td>
-                <td>${solicitud.fechaServicio}</td>
-                <td>${solicitud.pasajero1.nombre}</td>
-                <td>${solicitud.pasajero2.nombre}</td>
-                <td>${solicitud.pasajero3.nombre}</td>
-                <td>${solicitud.pasajero4.nombre}</td>
+                <td>${asignacion.idAsigVale}</td>
+                <td>${asignacion.nVale}</td>
+                <td>${asignacion.usuario.nombre}</td>
+                <td>${asignacion.empresa.nombre}</td>
+                <td>${asignacion.empleado.nombre}</td>
+                <td>${asignacion.placa}</td>
+                <td>${asignacion.origen}</td>
+                <td>${asignacion.destino}</td>
+                <td>${asignacion.motivo}</td>
+                <td>${asignacion.valorVale.toFixed(2)}</td>
+                <td>${formatFecha(asignacion.fechaCreacion)}</td>
+                <td>${formatFecha(asignacion.fechaAprobacion)}</td>
+                <td>${formatFecha(asignacion.fechaServicio)}</td>
+                <td>${asignacion.pasajero1 ? asignacion.pasajero1.nombre : ''}</td>
+                <td>${asignacion.pasajero2 ? asignacion.pasajero2.nombre : ''}</td>
+                <td>${asignacion.pasajero3 ? asignacion.pasajero3.nombre : ''}</td>
+                <td>${asignacion.pasajero4 ? asignacion.pasajero4.nombre : ''}</td>
                 <td>
-                    <button class="btn btn-primary btn-sm" onclick="editarSolicitud(${solicitud.id})">Editar</button>
-                    <button class="btn btn-danger btn-sm" onclick="eliminarSolicitud(${solicitud.id})">Eliminar</button>
+                    <button class="btn btn-primary btn-sm" onclick="editarAsignacion(${asignacion.idAsigVale})">Editar</button>
+                    <button class="btn btn-danger btn-sm" onclick="eliminarAsignacion(${asignacion.idAsigVale})">Eliminar</button>
                 </td>
             `;
-            solicitudesValeTableBody.appendChild(row);
+            asignacionesValeTableBody.appendChild(row);
         });
     } catch (error) {
-        console.error('Error al obtener las solicitudes del vale:', error);
+        console.error('Error al obtener las asignaciones de vale:', error);
+        alert('Hubo un error al cargar las asignaciones de vale. Intente de nuevo más tarde.');
     }
-}
-async function registrarSolicitudVale() {
-	let solicitudvale = {};
-	let empresa = {};
-	let pasajero1 = {};
-	let pasajero2 = {};
-	let pasajero3 = {};
-	let pasajero4 = {};
-
-	empresa.idEmpresa = document.querySelector('#empresa').value;
-	pasajero1.idEmpleadoCliente = document.querySelector('#pasajero1').value;
-	pasajero2.idEmpleadoCliente = document.querySelector('#pasajero2').value;
-	pasajero3.idEmpleadoCliente = document.querySelector('#pasajero3').value;
-	pasajero4.idEmpleadoCliente = document.querySelector('#pasajero4').value;
-
-	// Reemplaza esto con la obtención del ID del usuario correcto
-	let usuario = { idUsuario: 1 }; 
-
-	solicitudvale.usuario = usuario;
-	solicitudvale.nVale = document.querySelector('#nvale').value;
-	solicitudvale.empresa = empresa;
-	solicitudvale.origen = document.querySelector('#origen').value;
-	solicitudvale.destino = document.querySelector('#destino').value;
-	solicitudvale.motivo = document.querySelector('#motivo').value;
-	solicitudvale.fechaCreacion = document.querySelector('#fecha_creacion').value;
-	solicitudvale.fechaAprobacion = document.querySelector('#fecha_aprobacion').value;
-	solicitudvale.fechaServicio = document.querySelector('#fecha_servicio').value;
-	solicitudvale.pasajero1 = pasajero1;
-	solicitudvale.pasajero2 = pasajero2;
-	solicitudvale.pasajero3 = pasajero3;
-	solicitudvale.pasajero4 = pasajero4;
-
-	try {
-        const request = await fetch('/api/solicitudes-vale/guardar', {
-            method: 'POST',
-            headers: getHeaders(),
-            body: JSON.stringify(solicitudvale)
-        });
-        
-
-		if (request.ok) {
-			showModalAlert('¡Registro exitoso!', 'La solicitud de vale se registró exitosamente.', 'success');
-			cargarListaSolicitudes();  // Actualizar la lista de empleados
-		} else {
-			console.error('Error en la solicitud:', request.statusText);
-		}
-	} catch (error) {
-		console.error('Error al registrar la solicitud de vale:', error);
-	} finally {
-		// hideSpinner();
-	}
 }
