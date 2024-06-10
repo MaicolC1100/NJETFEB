@@ -63,25 +63,25 @@
                         <div class="form-row">
                             <div class="form-group col-md-3">
                                 <label for="pasajero1">Pasajero 1:</label> 
-                                <select id="pasajero1" name="pasajero1" class="form-control" required>
+                                <select id="pasajero1Select" name="pasajero1Select" class="form-control" required>
                                     <option value="">-- Seleccionar --</option>
                                 </select>
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="pasajero2">Pasajero 2:</label>
-                                <select id="pasajero2" name="pasajero2" class="form-control">
+                                <select id="pasajero2Select" name="pasajero2Select" class="form-control">
                                     <option value="">-- Seleccionar --</option>
                                 </select>
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="pasajero3">Pasajero 3:</label>
-                                <select id="pasajero3" name="pasajero3" class="form-control">
+                                <select id="pasajero3Select" name="pasajero3Select" class="form-control">
                                     <option value="">-- Seleccionar --</option>
                                 </select>
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="pasajero4">Pasajero 4:</label>
-                                <select id="pasajero4" name="pasajero4" class="form-control">
+                                <select id="pasajero4Select" name="pasajero4Select" class="form-control">
                                     <option value="">-- Seleccionar --</option>
                                 </select>
                             </div>
@@ -94,87 +94,104 @@
                     </form>
                 </div>
             </div>
-             <div class="container">
-            	 <div class="row justify-content-center" id="divModificarEmpleadoCliente" style="display: none;">
-                    <form id="form-modificar-solicitud-vale" class="col-md-8 formularios">
-                        <h2 class="h2-form">Solicitud vale</h2>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="nvale">N° Vale:</label>
-                                <input type="text" id="nvaleModificar" name="nvaleModificar" class="form-control" required>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="empresa">Empresa:</label> 
-                                <select id="empresaModificar" name="empresaModificar" class="form-control" required>
-                                    <option value="">-- Seleccionar --</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-row">                   
-                            <div class="form-group col-md-6">
-                                <label for="origen">Origen:</label>
-                                <input type="text" id="origenModificar" name="origenModificar" class="form-control" required>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="destino">Destino:</label>
-                                <input type="text" id="destinoModificar" name="destinoModificar" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-12">
-                                <label for="motivo">Motivo:</label>
-                                <input type="text" id="motivoModificar" name="motivoModificar" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
-                                <label for="fecha_creacion">Fecha creación:</label>
-                                <input type="date" id="fecha_creacionModificar" name="fecha_creacionModificar" class="form-control" required>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="fecha_aprobacion">Fecha aprobación:</label>
-                                <input type="date" id="fecha_aprobacionModificar" name="fecha_aprobacionModificar" class="form-control" required>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="fecha_servicio">Fecha servicio:</label>
-                                <input type="date" id="fecha_servicioModificar" name="fecha_servicioModificar" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-3">
-                                <label for="pasajero1">Pasajero 1:</label> 
-                                <select id="pasajero1Modificar" name="pasajero1Modificar" class="form-control" required>
-                                    <option value="">-- Seleccionar --</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label for="pasajero2">Pasajero 2:</label>
-                                <select id="pasajero2Modificar" name="pasajero2Modificar" class="form-control">
-                                    <option value="">-- Seleccionar --</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label for="pasajero3">Pasajero 3:</label>
-                                <select id="pasajero3Modificar" name="pasajero3Modificar" class="form-control">
-                                    <option value="">-- Seleccionar --</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label for="pasajero4">Pasajero 4:</label>
-                                <select id="pasajero4Modificar" name="pasajero4Modificar" class="form-control">
-                                    <option value="">-- Seleccionar --</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-row btn-form">
-                            <div class="form-group col-12">
-                               <button type="submit"  class="btn btn-secondary">Guardar <i class="bi bi-floppy"></i></button>                              
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="row div-table custom-container">
+			<div class="container">
+				<div class="row justify-content-center"
+					id="divModificarSolicitudVale" style="display: none;">
+					<form id="form-modificar-solicitud-vale"
+						class="col-md-8 formularios">
+						<h2 class="h2-form">Solicitud vale</h2>
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="nvale">N° Vale:</label> <input type="text"
+									id="nvaleModificar" name="nvaleModificar" class="form-control"
+									required>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="empresa">Empresa:</label> <select
+									id="empresaModificarSelect" name="empresaModificarSelect"
+									class="form-control" required>
+									<option value="">-- Seleccionar --</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="origen">Origen:</label> <input type="text"
+									id="origenModificar" name="origenModificar"
+									class="form-control" required>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="destino">Destino:</label> <input type="text"
+									id="destinoModificar" name="destinoModificar"
+									class="form-control" required>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-12">
+								<label for="motivo">Motivo:</label> <input type="text"
+									id="motivoModificar" name="motivoModificar"
+									class="form-control" required>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-4">
+								<label for="fecha_creacion">Fecha creación:</label> <input
+									type="date" id="fecha_creacionModificar"
+									name="fecha_creacionModificar" class="form-control" required>
+							</div>
+							<div class="form-group col-md-4">
+								<label for="fecha_aprobacion">Fecha aprobación:</label> <input
+									type="date" id="fecha_aprobacionModificar"
+									name="fecha_aprobacionModificar" class="form-control" required>
+							</div>
+							<div class="form-group col-md-4">
+								<label for="fecha_servicio">Fecha servicio:</label> <input
+									type="date" id="fecha_servicioModificar"
+									name="fecha_servicioModificar" class="form-control" required>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-3">
+								<label for="pasajero1">Pasajero 1:</label> <select
+									id="pasajero1ModificarSelect" name="pasajero1ModificarSelect"
+									class="form-control" required>
+									<option value="">-- Seleccionar --</option>
+								</select>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="pasajero2">Pasajero 2:</label> <select
+									id="pasajero2ModificarSelect" name="pasajero2ModificarSelect"
+									class="form-control">
+									<option value="">-- Seleccionar --</option>
+								</select>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="pasajero3">Pasajero 3:</label> <select
+									id="pasajero3ModificarSelect" name="pasajero3ModificarSelect"
+									class="form-control">
+									<option value="">-- Seleccionar --</option>
+								</select>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="pasajero4">Pasajero 4:</label> <select
+									id="pasajero4ModificarSelect" name="pasajero4ModificarSelect"
+									class="form-control">
+									<option value="">-- Seleccionar --</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-row btn-form">
+							<div class="form-group col-12">
+								<button type="submit" class="btn btn-secondary">
+									Guardar <i class="bi bi-floppy"></i>
+								</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<div class="row div-table custom-container">
                 <h2 class="h2-table">Listado solicitudes vale</h2>
                 <div class="table-responsive">
                     <table id="solicitudes-vale-table" class="table table-striped table-bordered table-margin-top">
