@@ -14,18 +14,17 @@ $(document).ready(function() {
 });
 
 const solicitudesValeTableBody = document.querySelector('#solicitudes-vale-table tbody');
+const formAgregarSolicitudVale = document.querySelector('#form-agregar-solicitud-vale');
 const empresaSelect = document.querySelector('#empresa');
 const empresaModificarSelect = document.querySelector('#empresaModificarSelect');
-const pasajero1Select = document.querySelector('#pasajero1');
-const pasajero2Select = document.querySelector('#pasajero2');
-const pasajero3Select = document.querySelector('#pasajero3');
-const pasajero4Select = document.querySelector('#pasajero4');
+const pasajero1Select = document.querySelector('#pasajero1select');
+const pasajero2Select = document.querySelector('#pasajero2select');
+const pasajero3Select = document.querySelector('#pasajero3select');
+const pasajero4Select = document.querySelector('#pasajero4select');
 const pasajero1ModificarSelect = document.querySelector('#pasajero1ModificarSelect');
 const pasajero2ModificarSelect = document.querySelector('#pasajero2ModificarSelect');
 const pasajero3ModificarSelect = document.querySelector('#pasajero3ModificarSelect');
 const pasajero4ModificarSelect = document.querySelector('#pasajero4ModificarSelect');
-const formAgregarSolicitudVale = document.querySelector('#form-agregar-solicitud-vale');
-const formModificarSolicitudVale = document.querySelector('#form-modificar-solicitud-vale');
 
 
 formAgregarSolicitudVale.addEventListener('submit', async (event) => {
@@ -33,10 +32,10 @@ formAgregarSolicitudVale.addEventListener('submit', async (event) => {
     await registrarSolicitudVale();
 });
 
-formModificarSolicitudVale.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    await registrarModificarSolicitudVale();
-});
+//formModificarSolicitudVale.addEventListener('submit', async (event) => {
+//    event.preventDefault();
+//    await registrarModificarSolicitudVale();
+//});
 
 // Función para cargar la lista de empresas
 async function cargarEmpresas() {
@@ -50,8 +49,8 @@ async function cargarEmpresas() {
 
         // Limpiar los selects antes de volver a llenarlos
         empresaSelect.innerHTML = '<option value="" Active>Seleccionar</option>';
-		empresaModificarSelect.innerHTML = '<option value="" Active>Seleccionar</option>';
-		
+		empresaModificarSelect.innerHTML = '<option value="">Seleccionar</option>';
+
         data.forEach(empresa => {
             if (empresa.estado) {
                 const option = document.createElement('option');
@@ -59,10 +58,10 @@ async function cargarEmpresas() {
                 option.textContent = empresa.nombre;
                 empresaSelect.appendChild(option);
 
-                const option2 = document.createElement('option');
-                option2.value = empresa.idEmpresa;
-                option2.textContent = empresa.nombre;
-                empresaModificarSelect.appendChild(option2);
+                 const option2 = document.createElement('option');
+                 option2.value = empresa.idEmpresa;
+                 option2.textContent = empresa.nombre;
+                 empresaModificarSelect.appendChild(option2);
             }
         });
     } catch (error) {
@@ -80,45 +79,36 @@ async function cargarPasajeros() {
         });
 
         const data = await request.json();
-        console.log('Datos de pasajeros obtenidos:', data);
 
-        // Obtener los elementos select
-        const selectElements = [
-            document.getElementById('pasajero1Select'),
-            document.getElementById('pasajero2Select'),
-            document.getElementById('pasajero3Select'),
-            document.getElementById('pasajero4Select'),
-            document.getElementById('pasajero1ModificarSelect'),
-            document.getElementById('pasajero2ModificarSelect'),
-            document.getElementById('pasajero3ModificarSelect'),
-            document.getElementById('pasajero4ModificarSelect')
-        ];
-
-        // Verificar que los selects existen
-        selectElements.forEach(select => {
-            if (!select) {
-                console.error('No se encontró el elemento select:', select);
-                return;
-            }
+        // Limpiar los selects antes de volver a llenarlos
+        const selectLists = [pasajero1Select, pasajero2Select, pasajero3Select, pasajero4Select, 
+                             pasajero1ModificarSelect, pasajero2ModificarSelect, pasajero3ModificarSelect, pasajero4ModificarSelect];
+        selectLists.forEach(select => {
             select.innerHTML = '<option value="" active>Seleccionar</option>';
         });
 
-        // Llenar los selects con las opciones
+        // Llenar los selects con los datos obtenidos
         data.forEach(pasajero => {
-            selectElements.forEach(select => {
-                const option = document.createElement('option');
-                option.value = pasajero.idEmpleadoCliente;
-                option.textContent = `${pasajero.cedula} - ${pasajero.nombre} ${pasajero.apellido}`;
-                select.appendChild(option.cloneNode(true));
-            });
+            const option = document.createElement('option');
+            option.value = pasajero.idEmpleadoCliente;
+            option.textContent = `${pasajero.cedula} - ${pasajero.nombre} ${pasajero.apellido}`;
+
+            pasajero1Select.appendChild(option.cloneNode(true));
+            pasajero2Select.appendChild(option.cloneNode(true));
+            pasajero3Select.appendChild(option.cloneNode(true));
+            pasajero4Select.appendChild(option.cloneNode(true));
+
+            pasajero1ModificarSelect.appendChild(option.cloneNode(true));
+            pasajero2ModificarSelect.appendChild(option.cloneNode(true));
+            pasajero3ModificarSelect.appendChild(option.cloneNode(true));
+            pasajero4ModificarSelect.appendChild(option.cloneNode(true));
         });
 
-        console.log('Selects llenados correctamente');
     } catch (error) {
         console.error('Error al obtener la lista de pasajeros:', error);
+    } finally {
     }
 }
-
 
 // Función para cargar la lista de solicitudes de vale
 async function cargarListaSolicitudes() {
@@ -151,11 +141,9 @@ async function cargarListaSolicitudes() {
                 <td>${solicitud.pasajero2.nombre}</td>
                 <td>${solicitud.pasajero3.nombre}</td>
                 <td>${solicitud.pasajero4.nombre}</td>
-
-	            <td class="td-icon">
-				<a href="#" onclick="modificarSolicitudVale(${solicitud.idSolicitudVale})" class="btn btn-warning btn-sm" title="Modificar"><i class="bi bi-eraser-fill"></i></a>
+                <td class="td-icon">
+					<a href="#" onclick="modificarSolicitudVale(${solicitud.idSolicitudVale})" class="btn btn-warning btn-sm" title="Modificar"><i class="bi bi-eraser-fill"></i></a>
 				</td>
-             
             `;
             solicitudesValeTableBody.appendChild(row);
         });
@@ -172,10 +160,10 @@ async function registrarSolicitudVale() {
 	let pasajero4 = {};
 
 	empresa.idEmpresa = document.querySelector('#empresa').value;
-	pasajero1.idEmpleadoCliente = document.querySelector('#pasajero1').value;
-	pasajero2.idEmpleadoCliente = document.querySelector('#pasajero2').value;
-	pasajero3.idEmpleadoCliente = document.querySelector('#pasajero3').value;
-	pasajero4.idEmpleadoCliente = document.querySelector('#pasajero4').value;
+	pasajero1.idEmpleadoCliente = document.querySelector('#pasajero1select').value;
+	pasajero2.idEmpleadoCliente = document.querySelector('#pasajero2select').value;
+	pasajero3.idEmpleadoCliente = document.querySelector('#pasajero3select').value;
+	pasajero4.idEmpleadoCliente = document.querySelector('#pasajero4select').value;
 
 	// Reemplaza esto con la obtención del ID del usuario correcto
 	let usuario = { idUsuario: 1 }; 
@@ -215,10 +203,10 @@ async function registrarSolicitudVale() {
 	}
 }
 
+
 async function modificarSolicitudVale(idSolicitudVale) {
     document.getElementById('divRegistrosolicitudvale').style.display = 'none';
-
-    // await showSpinner(300);
+  	document.getElementById('divModificarSolicitudVale').style.display = 'flex';
 
     try {
         const request = await fetch('/api/solicitudes-vale/consultar/' + idSolicitudVale, {
@@ -236,120 +224,32 @@ async function modificarSolicitudVale(idSolicitudVale) {
         document.getElementById('fecha_aprobacionModificar').value = solicitudVale.fechaAprobacion.split('T')[0];
         document.getElementById('fecha_servicioModificar').value = solicitudVale.fechaServicio.split('T')[0];       
 
-        // Seleccionar la empresa
-        const empresaModificarSelect = document.getElementById('empresaModificarSelect');
+        // Seleccionar la empresa a modificar
         for (let i = 0; i < empresaModificarSelect.options.length; i++) {
             let option = empresaModificarSelect.options[i];
+
+            // Verificar si el valor de la opción coincide con el valor deseado
             if (option.value == solicitudVale.empresa.idEmpresa) {
                 empresaModificarSelect.selectedIndex = i;
-                break;
+                break; // Salir del bucle una vez encontrada la coincidencia
             }
         }
-
-     // Seleccionar los pasajeros correctos
-        const pasajero1ModificarSelect = document.getElementById('pasajero1ModificarSelect');
-        const pasajero2ModificarSelect = document.getElementById('pasajero2ModificarSelect');
-        const pasajero3ModificarSelect = document.getElementById('pasajero3ModificarSelect');
-        const pasajero4ModificarSelect = document.getElementById('pasajero4ModificarSelect');
-
-        pasajero1ModificarSelect.value = solicitudVale.pasajero1 ? solicitudVale.pasajero1.idEmpleadoCliente : '';
-        pasajero2ModificarSelect.value = solicitudVale.pasajero2 ? solicitudVale.pasajero2.idEmpleadoCliente : '';
-        pasajero3ModificarSelect.value = solicitudVale.pasajero3 ? solicitudVale.pasajero3.idEmpleadoCliente : '';
-        pasajero4ModificarSelect.value = solicitudVale.pasajero4 ? solicitudVale.pasajero4.idEmpleadoCliente : '';
         
-        document.getElementById('divModificarSolicitudVale').style.display = 'flex';
+        // Seleccionar el pasajero a modificar
+        for (let i = 0; i < pasajero1ModificarSelect.options.length; i++) {
+            let option = pasajero1ModificarSelect.options[i];
+
+            // Verificar si el valor de la opción coincide con el valor deseado
+            if (option.value == solicitudVale.pasajero1.id_pasajero_1) {
+                pasajero1ModificarSelect.selectedIndex = i;
+                break; // Salir del bucle una vez encontrada la coincidencia
+            }
+        }
         
+        
+    // await showSpinner(300);
     } catch (error) {
         console.error('Error al obtener los datos del empleado cliente:', error);
-    } finally {
-        // hideSpinner();
-    }
-}
-
-async function registrarModificarSolicitudVale() {
-    const nvale = document.querySelector('#nvaleModificar').value.trim();
-    if (!nvale) {
-        showModalAlert('Faltan campos', 'El campo N° Vale es obligatorio', 'danger');
-        return;
-    }
-
-    const origen = document.querySelector('#origenModificar').value.trim();
-    if (!origen) {
-        showModalAlert('Faltan campos', 'El campo origen es obligatorio', 'danger');
-        return;
-    }
-
-    const destino = document.querySelector('#destinoModificar').value.trim();
-    if (!destino) {
-        showModalAlert('Faltan campos', 'El campo destino es obligatorio', 'danger');
-        return;
-    }
-
-    const motivo = document.querySelector('#motivoModificar').value.trim();
-    if (!motivo) {
-        showModalAlert('Faltan campos', 'El campo motivo es obligatorio', 'danger');
-        return;
-    }
-
-    const fechaCreacion = document.querySelector('#fecha_creacionModificar').value;
-    if (!fechaCreacion) {
-        showModalAlert('Faltan campos', 'El campo fecha de creación es obligatorio', 'danger');
-        return;
-    }
-
-    const fechaAprobacion = document.querySelector('#fecha_aprobacionModificar').value;
-    if (!fechaAprobacion) {
-        showModalAlert('Faltan campos', 'El campo fecha de aprobación es obligatorio', 'danger');
-        return;
-    }
-
-    const fechaServicio = document.querySelector('#fecha_servicioModificar').value;
-    if (!fechaServicio) {
-        showModalAlert('Faltan campos', 'El campo fecha de servicio es obligatorio', 'danger');
-        return;
-    }
-
-    const idEmpresa = parseInt(document.querySelector('#empresaModificarSelect').value, 10);
-    if (!idEmpresa) {
-        showModalAlert('Faltan campos', 'Debe seleccionar una empresa', 'danger');
-        return;
-    }
-
-    // Obtener los IDs de los pasajeros seleccionados
-    const pasajero1 = parseInt(document.querySelector('#pasajero1ModificarSelect').value, 10);
-    const pasajero2 = parseInt(document.querySelector('#pasajero2ModificarSelect').value, 10);
-    const pasajero3 = parseInt(document.querySelector('#pasajero3ModificarSelect').value, 10);
-    const pasajero4 = parseInt(document.querySelector('#pasajero4ModificarSelect').value, 10);
-
-    let datos = {
-        nVale: nvale,
-        origen,
-        destino,
-        motivo,
-        fechaCreacion,
-        fechaAprobacion,
-        fechaServicio,
-        empresa: { idEmpresa },
-        pasajero1,
-        pasajero2,
-        pasajero3,
-        pasajero4
-    };
-
-    // await showSpinner(300);
-
-    try {
-        const request = await fetch('/api/solicitudes-vale/actualizar/' + idSolicitudValeModificar, {
-            method: 'PUT',
-            headers: getHeaders(),
-            body: JSON.stringify(datos)
-        });
-        if (request.ok) {
-            showModalAlert('¡Modificación exitosa!', 'La solicitud de vale se modificó exitosamente.', 'success');
-            // Realizar cualquier otra acción necesaria después de la modificación
-        }
-    } catch (error) {
-        console.error('Error al modificar la solicitud de vale:', error);
     } finally {
         // hideSpinner();
     }
