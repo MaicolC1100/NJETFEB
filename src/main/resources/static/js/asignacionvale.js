@@ -23,7 +23,13 @@ const pasajero2Select = document.querySelector('#pasajero2');
 const pasajero3Select = document.querySelector('#pasajero3');
 const pasajero4Select = document.querySelector('#pasajero4');
 const pasajero1ModificarSelect = document.querySelector('#pasajero1Modificar');
+const formAgregarAsignacionVale = document.querySelector('#form-agregar-asginacion-vale');
 
+
+formAgregarAsignacionVale.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    await registrarAsignacionVale();
+});
 
 
 
@@ -190,5 +196,58 @@ async function cargarListaAsignacionesVale() {
     } catch (error) {
         console.error('Error al obtener las asignaciones de vale:', error);
         alert('Hubo un error al cargar las asignaciones de vale. Intente de nuevo más tarde.');
+    }
+}
+
+async function registrarAsignacionVale() {
+    let asignacionvale = {};
+    let empresa = {};
+    let pasajero1 = {};
+    let pasajero2 = {};
+    let pasajero3 = {};
+    let pasajero4 = {};
+
+    empresa.idEmpresa = document.querySelector('#empresa').value;
+    pasajero1.idEmpleadoCliente = document.querySelector('#pasajero1').value;
+    pasajero2.idEmpleadoCliente = document.querySelector('#pasajero2').value;
+    pasajero3.idEmpleadoCliente = document.querySelector('#pasajero3').value;
+    pasajero4.idEmpleadoCliente = document.querySelector('#pasajero4').value;
+
+    // Reemplaza esto con la obtención del ID del usuario correcto
+    let usuario = { idUsuario: 1 }; 
+
+    asignacionvale.usuario = usuario;
+    asignacionvale.nVale = document.querySelector('#nvale').value;
+    asignacionvale.empresa = empresa;
+    asignacionvale.placa = document.querySelector('#placa').value;
+    asignacionvale.origen = document.querySelector('#origen').value;
+    asignacionvale.destino = document.querySelector('#destino').value;
+    asignacionvale.motivo = document.querySelector('#motivo').value;
+    asignacionvale.valorVale = document.querySelector('#valorvale').value;
+    asignacionvale.fechaCreacion = document.querySelector('#fecha_creacion').value;
+    asignacionvale.fechaAprobacion = document.querySelector('#fecha_aprobacion').value;
+    asignacionvale.fechaServicio = document.querySelector('#fecha_servicio').value;
+    asignacionvale.pasajero1 = pasajero1;
+    asignacionvale.pasajero2 = pasajero2;
+    asignacionvale.pasajero3 = pasajero3;
+    asignacionvale.pasajero4 = pasajero4;
+
+    try {
+        const request = await fetch('/api/asignacion-vale/guardar', {
+            method: 'POST',
+            headers: getHeaders(),
+            body: JSON.stringify(asignacionvale)
+        });
+        
+        if (request.ok) {
+            showModalAlert('¡Registro exitoso!', 'La solicitud de vale se registró exitosamente.', 'success');
+            cargarListaSolicitudes();  // Actualizar la lista de solicitudes
+        } else {
+            console.error('Error en la solicitud:', request.statusText);
+        }
+    } catch (error) {
+        console.error('Error al registrar la solicitud de vale:', error);
+    } finally {
+        // hideSpinner();
     }
 }
