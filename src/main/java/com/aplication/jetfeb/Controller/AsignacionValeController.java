@@ -1,12 +1,12 @@
 package com.aplication.jetfeb.controller;
 
-
+import com.aplication.jetfeb.models.Asignacion_Vale;
+import com.aplication.jetfeb.models.Empleado;
+import com.aplication.jetfeb.service.AsignacionValeService;
+import com.aplication.jetfeb.service.EmpleadoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import com.aplication.jetfeb.models.Asignacion_Vale;
-import com.aplication.jetfeb.service.AsignacionValeService;
 
 import java.util.List;
 
@@ -16,6 +16,9 @@ public class AsignacionValeController {
 
     @Autowired
     private AsignacionValeService asignacionValeService;
+
+    @Autowired
+    private EmpleadoServicio empleadoService;
 
     @GetMapping("/consultar")
     public List<Asignacion_Vale> getAllAsignacionVales() {
@@ -30,6 +33,7 @@ public class AsignacionValeController {
 
     @PostMapping("/guardar")
     public ResponseEntity<Asignacion_Vale> createAsignacionVale(@RequestBody Asignacion_Vale asignacionVale) {
+        // Puedes hacer validaciones o lógica adicional antes de guardar
         Asignacion_Vale nuevaAsignacionVale = asignacionValeService.save(asignacionVale);
         return ResponseEntity.ok(nuevaAsignacionVale);
     }
@@ -50,9 +54,9 @@ public class AsignacionValeController {
         }
     }
 
-    @DeleteMapping("/eliminar/{id}")
-    public ResponseEntity<Void> deleteAsignacionVale(@PathVariable int id) {
-        asignacionValeService.deleteById(id);
-        return ResponseEntity.ok().build();
+    @GetMapping("/empleados/{id}")
+    public ResponseEntity<Empleado> obtenerEmpleadoPorId(@PathVariable Integer id) {
+        Empleado empleado = empleadoService.obtenerEmpleadoporId(id);
+        return empleado != null ? ResponseEntity.ok(empleado) : ResponseEntity.notFound().build();
     }
 }

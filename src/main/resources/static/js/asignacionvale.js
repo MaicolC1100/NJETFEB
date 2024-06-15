@@ -16,14 +16,13 @@ $(document).ready(function() {
 
 const asignacionesValeTableBody = document.querySelector('#asignaciones-vale-table tbody');
 const empresaSelect = document.querySelector('#empresa');
-const empresaModificarSelect = document.querySelector('#empresaModificar');
 const empleadoSelect = document.querySelector('#empleado');
 const pasajero1Select = document.querySelector('#pasajero1');
 const pasajero2Select = document.querySelector('#pasajero2');
 const pasajero3Select = document.querySelector('#pasajero3');
 const pasajero4Select = document.querySelector('#pasajero4');
-const pasajero1ModificarSelect = document.querySelector('#pasajero1Modificar');
 const formAgregarAsignacionVale = document.querySelector('#form-agregar-asginacion-vale');
+
 
 
 formAgregarAsignacionVale.addEventListener('submit', async (event) => {
@@ -31,8 +30,48 @@ formAgregarAsignacionVale.addEventListener('submit', async (event) => {
     await registrarAsignacionVale();
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+    // Cargar empleados y agregar evento de cambio al seleccionar un conductor
+    cargarEmpleado().then(() => {
+        empleadoSelect.addEventListener('change', async (event) => {
+            const empleadoId = event.target.value;
+            if (empleadoId) {
+                const empleado = await obtenerEmpleado(empleadoId);
+                if (empleado) {
+                    console.log(empleado); // Verifica la estructura de la respuesta
+                    document.querySelector('#idcdt').value = empleado.cedula || ''; // Ajusta aquí si es necesario
+                    document.querySelector('#placa').value = empleado.placa || '';
+                }
+            } else {
+                // Limpiar los campos si no se selecciona ningún conductor
+                document.querySelector('#idcdt').value = '';
+                document.querySelector('#placa').value = '';
+            }
+        });
+    });
+    cargarListaAsignacionesVale();
+});
 
-
+// Función para obtener un empleado por ID
+async function obtenerEmpleado(id) {
+    try {
+        const response = await fetch(`/api/asignacion-vale/empleados/${id}`, {
+            method: 'GET',
+            headers: getHeaders()
+        });
+        if (response.ok) {
+            const empleado = await response.json();
+            console.log(empleado); // Verifica la estructura de la respuesta
+            return empleado;
+        } else {
+            console.error('Error al obtener el empleado:', response.statusText);
+            return null;
+        }
+    } catch (error) {
+        console.error('Error al obtener el empleado:', error);
+        return null;
+    }
+}
 
 // Función para cargar la lista de empresas
 async function cargarEmpresas() {
@@ -53,16 +92,10 @@ async function cargarEmpresas() {
                 option.value = empresa.idEmpresa;
                 option.textContent = empresa.nombre;
                 empresaSelect.appendChild(option);
-
-                // const option2 = document.createElement('option');
-                // option2.value = empresa.idEmpresa;
-                // option2.textContent = empresa.nombre;
-                // empresaModificarSelect.appendChild(option2);
             }
         });
     } catch (error) {
         console.error('Error al obtener la lista de empresas:', error);
-    } finally {
     }
 }
 
@@ -76,10 +109,10 @@ async function cargarEmpleado() {
 
         const data = await request.json();
 
-		// Limpiar los selects antes de volver a llenarlos
-		empleadoSelect.innerHTML = '<option value="" Active>Seleccionar</option>';
+        // Limpiar los selects antes de volver a llenarlos
+        empleadoSelect.innerHTML = '<option value="" Active>Seleccionar</option>';
 
-		data.forEach(empleado => {
+        data.forEach(empleado => {
             if (empleado.estado) {
                 const option = document.createElement('option');
                 option.value = empleado.idEmpleado;
@@ -89,14 +122,11 @@ async function cargarEmpleado() {
         });
     } catch (error) {
         console.error('Error al obtener la lista de empleado:', error);
-    } finally {
     }
 }
 
-
 // Función para cargar la lista de pasajeros
 async function cargarPasajeros() {
-
     try {
         const request = await fetch('api/empleado-cliente/consultar', {
             method: 'GET',
@@ -110,7 +140,6 @@ async function cargarPasajeros() {
         pasajero2Select.innerHTML = '<option value="" active>Seleccionar</option>';
         pasajero3Select.innerHTML = '<option value="" active>Seleccionar</option>';
         pasajero4Select.innerHTML = '<option value="" active>Seleccionar</option>';
-        // pasajero1ModificarSelect.innerHTML = '<option value="">Seleccionar</option>';
 
         // Llenar los selects con los datos obtenidos
         data.forEach(pasajero => {
@@ -133,12 +162,9 @@ async function cargarPasajeros() {
             option4.value = pasajero.idEmpleadoCliente;
             option4.textContent = pasajero.cedula + ' - ' + pasajero.nombre + ' ' + pasajero.apellido;
             pasajero4Select.appendChild(option4);
-
         });
-
     } catch (error) {
         console.error('Error al obtener la lista de pasajeros:', error);
-    } finally {
     }
 }
 
@@ -156,8 +182,6 @@ async function cargarListaAsignacionesVale() {
 
         const data = await response.json();
 
-  
-        
         // Limpiar la tabla antes de volver a llenarla
         asignacionesValeTableBody.innerHTML = '';
 
@@ -175,6 +199,7 @@ async function cargarListaAsignacionesVale() {
                 <td>${asignacion.empresa.nombre}</td>
                 <td>${asignacion.empleado.nombre}</td>
                 <td>${asignacion.placa}</td>
+                <td>${asignacion.cedula}</td>
                 <td>${asignacion.origen}</td>
                 <td>${asignacion.destino}</td>
                 <td>${asignacion.motivo}</td>
@@ -194,36 +219,42 @@ async function cargarListaAsignacionesVale() {
             asignacionesValeTableBody.appendChild(row);
         });
     } catch (error) {
-        console.error('Error al obtener las asignaciones de vale:', error);
-        alert('Hubo un error al cargar las asignaciones de vale. Intente de nuevo más tarde.');
+        console.error('Error al obtener la lista de asignaciones de vale:', error);
     }
 }
 
+/// Función para registrar una nueva solicitud de vale
 async function registrarAsignacionVale() {
     let asignacionvale = {};
     let empresa = {};
+    let empleado = {};
     let pasajero1 = {};
     let pasajero2 = {};
     let pasajero3 = {};
     let pasajero4 = {};
 
-    empresa.idEmpresa = document.querySelector('#empresa').value;
-    pasajero1.idEmpleadoCliente = document.querySelector('#pasajero1').value;
-    pasajero2.idEmpleadoCliente = document.querySelector('#pasajero2').value;
-    pasajero3.idEmpleadoCliente = document.querySelector('#pasajero3').value;
-    pasajero4.idEmpleadoCliente = document.querySelector('#pasajero4').value;
+    // Obtener valores del formulario
+    empresa.idEmpresa = empresaSelect.value;
+    empleado.idEmpleado = empleadoSelect.value;
+    pasajero1.idEmpleadoCliente = pasajero1Select.value;
+    pasajero2.idEmpleadoCliente = pasajero2Select.value;
+    pasajero3.idEmpleadoCliente = pasajero3Select.value;
+    pasajero4.idEmpleadoCliente = pasajero4Select.value;
 
     // Reemplaza esto con la obtención del ID del usuario correcto
-    let usuario = { idUsuario: 1 }; 
+    let usuario = { idUsuario: 1 };
 
+    // Asignar valores al objeto asignacionvale
     asignacionvale.usuario = usuario;
     asignacionvale.nVale = document.querySelector('#nvale').value;
     asignacionvale.empresa = empresa;
+    asignacionvale.empleado = empleado; // Asignar el empleado al objeto asignacionvale
     asignacionvale.placa = document.querySelector('#placa').value;
+    asignacionvale.cedula= document.querySelector('#idcdt').value;
     asignacionvale.origen = document.querySelector('#origen').value;
     asignacionvale.destino = document.querySelector('#destino').value;
     asignacionvale.motivo = document.querySelector('#motivo').value;
-    asignacionvale.valorVale = document.querySelector('#valorvale').value;
+    asignacionvale.valorvale = document.querySelector('#valorvale').value;
     asignacionvale.fechaCreacion = document.querySelector('#fecha_creacion').value;
     asignacionvale.fechaAprobacion = document.querySelector('#fecha_aprobacion').value;
     asignacionvale.fechaServicio = document.querySelector('#fecha_servicio').value;
@@ -233,21 +264,27 @@ async function registrarAsignacionVale() {
     asignacionvale.pasajero4 = pasajero4;
 
     try {
+        // Enviar solicitud POST al servidor
         const request = await fetch('/api/asignacion-vale/guardar', {
             method: 'POST',
-            headers: getHeaders(),
+            headers: {
+                'Content-Type': 'application/json',
+                ...getHeaders() // Agrega tus headers personalizados si es necesario
+            },
             body: JSON.stringify(asignacionvale)
         });
-        
+
+        // Manejar la respuesta del servidor
         if (request.ok) {
             showModalAlert('¡Registro exitoso!', 'La solicitud de vale se registró exitosamente.', 'success');
-            cargarListaSolicitudes();  // Actualizar la lista de solicitudes
+            cargarListaAsignacionesVale(); // Actualizar la lista de solicitudes
+            formAgregarAsignacionVale.reset(); // Limpiar el formulario
         } else {
             console.error('Error en la solicitud:', request.statusText);
         }
     } catch (error) {
         console.error('Error al registrar la solicitud de vale:', error);
     } finally {
-        // hideSpinner();
+        // hideSpinner(); // Si tienes un spinner para ocultar después de la solicitud
     }
 }

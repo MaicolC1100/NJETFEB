@@ -36,6 +36,9 @@ public class Asignacion_Vale {
     @Column(name = "placa", nullable = false)
     private String placa;
 
+    @Column(name = "cedula", nullable = false)
+    private String cedula;
+    
     @Column(name = "origen", nullable = false)
     private String origen;
 

@@ -33,7 +33,7 @@
                         <div class="form-row">                   
                              <div class="form-group col-md-12">
                                 <label for="empleado">Conductor</label>
-                                <select id="empleado" name="id_empleado" class="form-control" required>
+                                <select id="empleado" name="empleado" class="form-control" required>
                                     <option value="">-- Seleccionar --</option>
                                 </select>
                             </div>
@@ -41,11 +41,11 @@
                         <div class="form-row">    
                             <div class="form-group col-md-6">
                                 <label for="idcdt">Identificación conductor:</label>
-                                <input type="text" id="idcdt" name="idcdt" class="form-control" required>
+                                <input type="text" id="idcdt" name="idcdt" class="form-control" required readonly>
                             </div>               
                             <div class="form-group col-md-6">
                                 <label for="placa">Placa:</label>
-                                <input type="text" id="placa" name="placa" class="form-control" required>
+                                <input type="text" id="placa" name="placa" class="form-control" required readonly>
                             </div>
                         </div>
                         <div class="form-row">                   
@@ -129,6 +129,7 @@
 								<th>Empresa</th>
 								<th>Conductor</th>
 								<th>Placa</th>
+								<th>Cedula</th>
 								<th>Origen</th>
 								<th>Destino</th>
 								<th>Motivo</th>
