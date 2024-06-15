@@ -15,6 +15,7 @@ $(document).ready(function() {
 
 const solicitudesValeTableBody = document.querySelector('#solicitudes-vale-table tbody');
 const formAgregarSolicitudVale = document.querySelector('#form-agregar-solicitud-vale');
+const formModificarSolicitudVale = document.querySelector('#form-modificar-solicitud-vale');
 const empresaSelect = document.querySelector('#empresa');
 const empresaModificarSelect = document.querySelector('#empresaModificarSelect');
 const pasajero1Select = document.querySelector('#pasajero1select');
@@ -32,10 +33,10 @@ formAgregarSolicitudVale.addEventListener('submit', async (event) => {
     await registrarSolicitudVale();
 });
 
-//formModificarSolicitudVale.addEventListener('submit', async (event) => {
-//    event.preventDefault();
-//    await registrarModificarSolicitudVale();
-//});
+formModificarSolicitudVale.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    await registrarModificarSolicitudVale();
+});
 
 // Función para cargar la lista de empresas
 async function cargarEmpresas() {
@@ -206,7 +207,7 @@ async function registrarSolicitudVale() {
 
 async function modificarSolicitudVale(idSolicitudVale) {
     document.getElementById('divRegistrosolicitudvale').style.display = 'none';
-  	document.getElementById('divModificarSolicitudVale').style.display = 'flex';
+    document.getElementById('divModificarSolicitudVale').style.display = 'flex';
 
     try {
         const request = await fetch('/api/solicitudes-vale/consultar/' + idSolicitudVale, {
@@ -225,31 +226,124 @@ async function modificarSolicitudVale(idSolicitudVale) {
         document.getElementById('fecha_servicioModificar').value = solicitudVale.fechaServicio.split('T')[0];       
 
         // Seleccionar la empresa a modificar
-        for (let i = 0; i < empresaModificarSelect.options.length; i++) {
-            let option = empresaModificarSelect.options[i];
+        seleccionarOpcion(empresaModificarSelect, solicitudVale.empresa.idEmpresa);
+        
+        // Seleccionar los pasajeros a modificar
+        seleccionarOpcion(pasajero1ModificarSelect, solicitudVale.pasajero1.idEmpleadoCliente);
+        seleccionarOpcion(pasajero2ModificarSelect, solicitudVale.pasajero2.idEmpleadoCliente);
+        seleccionarOpcion(pasajero3ModificarSelect, solicitudVale.pasajero3.idEmpleadoCliente);
+        seleccionarOpcion(pasajero4ModificarSelect, solicitudVale.pasajero4.idEmpleadoCliente);
 
-            // Verificar si el valor de la opción coincide con el valor deseado
-            if (option.value == solicitudVale.empresa.idEmpresa) {
-                empresaModificarSelect.selectedIndex = i;
-                break; // Salir del bucle una vez encontrada la coincidencia
-            }
-        }
-        
-        // Seleccionar el pasajero a modificar
-        for (let i = 0; i < pasajero1ModificarSelect.options.length; i++) {
-            let option = pasajero1ModificarSelect.options[i];
-
-            // Verificar si el valor de la opción coincide con el valor deseado
-            if (option.value == solicitudVale.pasajero1.id_pasajero_1) {
-                pasajero1ModificarSelect.selectedIndex = i;
-                break; // Salir del bucle una vez encontrada la coincidencia
-            }
-        }
-        
-        
-    // await showSpinner(300);
     } catch (error) {
-        console.error('Error al obtener los datos del empleado cliente:', error);
+        console.error('Error al obtener los datos de la solicitud de vale:', error);
+    }
+}
+
+function seleccionarOpcion(selectElement, value) {
+    for (let i = 0; i < selectElement.options.length; i++) {
+        if (selectElement.options[i].value == value) {
+            selectElement.selectedIndex = i;
+            break;
+        }
+    }
+}
+
+async function registrarModificarSolicitudVale(idSolicitudVale) {
+    try {
+        const nVale = document.querySelector('#nvaleModificar').value.trim();
+        if (!nVale) {
+            showModalAlert('Faltan campos', 'El campo número de vale es obligatorio', 'danger');
+            return;
+        }
+
+        const origen = document.querySelector('#origenModificar').value.trim();
+        if (!origen) {
+            showModalAlert('Faltan campos', 'El campo origen es obligatorio', 'danger');
+            return;
+        }
+
+        const destino = document.querySelector('#destinoModificar').value.trim();
+        if (!destino) {
+            showModalAlert('Faltan campos', 'El campo destino es obligatorio', 'danger');
+            return;
+        }
+
+        const motivo = document.querySelector('#motivoModificar').value.trim();
+        if (!motivo) {
+            showModalAlert('Faltan campos', 'El campo motivo es obligatorio', 'danger');
+            return;
+        }
+
+        const fechaCreacion = document.querySelector('#fecha_creacionModificar').value.trim();
+        if (!fechaCreacion) {
+            showModalAlert('Faltan campos', 'El campo fecha de creación es obligatorio', 'danger');
+            return;
+        }
+
+        const fechaAprobacion = document.querySelector('#fecha_aprobacionModificar').value.trim();
+        if (!fechaAprobacion) {
+            showModalAlert('Faltan campos', 'El campo fecha de aprobación es obligatorio', 'danger');
+            return;
+        }
+
+        const fechaServicio = document.querySelector('#fecha_servicioModificar').value.trim();
+        if (!fechaServicio) {
+            showModalAlert('Faltan campos', 'El campo fecha de servicio es obligatorio', 'danger');
+            return;
+        }
+
+        const idEmpresa = parseInt(document.querySelector('#empresaModificarSelect').value, 10);
+        if (!idEmpresa) {
+            showModalAlert('Faltan campos', 'El campo empresa es obligatorio', 'danger');
+            return;
+        }
+
+        const idPasajero1 = parseInt(document.querySelector('#pasajero1ModificarSelect').value, 10);
+        const idPasajero2 = parseInt(document.querySelector('#pasajero2ModificarSelect').value, 10);
+        const idPasajero3 = parseInt(document.querySelector('#pasajero3ModificarSelect').value, 10);
+        const idPasajero4 = parseInt(document.querySelector('#pasajero4ModificarSelect').value, 10);
+
+        let empresa = { idEmpresa };
+        let pasajero1 = { idEmpleadoCliente: idPasajero1 };
+        let pasajero2 = { idEmpleadoCliente: idPasajero2 };
+        let pasajero3 = { idEmpleadoCliente: idPasajero3 };
+        let pasajero4 = { idEmpleadoCliente: idPasajero4 };
+
+        let datos = {
+            nVale,
+            origen,
+            destino,
+            motivo,
+            fechaCreacion,
+            fechaAprobacion,
+            fechaServicio,
+            empresa,
+            pasajero1,
+            pasajero2,
+            pasajero3,
+            pasajero4
+        };
+
+        // await showSpinner(300);
+
+        const request = await fetch('/api/solicitudes-vale/actualizar/' + idSolicitudValeModificar, {
+            method: 'PUT',
+            headers: getHeaders(),
+            body: JSON.stringify(datos)
+        });
+
+        if (request.ok) {
+            showModalAlert('¡Modificación exitosa!', 'La solicitud de vale se modificó exitosamente.', 'success');
+            cargarListaSolicitudes();
+            document.getElementById('divModificarSolicitudVale').style.display = 'none';
+            document.getElementById('divRegistrosolicitudvale').style.display = 'flex';
+        } else {
+            const errorData = await request.json();
+            showModalAlert('Error al modificar', errorData.message || 'Ocurrió un error al modificar la solicitud de vale.', 'danger');
+        }
+    } catch (error) {
+        console.error('Error al modificar la solicitud de vale:', error);
+        showModalAlert('Error al modificar', 'Ocurrió un error al modificar la solicitud de vale.', 'danger');
     } finally {
         // hideSpinner();
     }
