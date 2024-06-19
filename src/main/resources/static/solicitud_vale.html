@@ -19,11 +19,11 @@
                     <form id="form-agregar-solicitud-vale" class="col-md-8 formularios">
                         <h2 class="h2-form">Solicitud vale</h2>
                         <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="nvale">N° Vale:</label>
-                                <input type="text" id="nvale" name="nvale" class="form-control" required>
-                            </div>
-                            <div class="form-group col-md-6">
+							<div class="form-group col-md-6">
+								<label for="nvale">N° Vale:</label> <input type="number"
+									id="nvale" name="nvale" class="form-control" required>
+							</div>
+							<div class="form-group col-md-6">
                                 <label for="empresa">Empresa:</label> 
                                 <select id="empresa" name="empresa" class="form-control" required>
                                     <option value="">-- Seleccionar --</option>
@@ -102,9 +102,8 @@
 						<h2 class="h2-form">Solicitud vale</h2>
 						<div class="form-row">
 							<div class="form-group col-md-6">
-								<label for="nvale">N° Vale:</label> <input type="text"
-									id="nvaleModificar" name="nvaleModificar" class="form-control"
-									required>
+								<label for="nvaleModificar">N° Vale:</label>
+								 <input type="number" id="nvaleModificar" name="nvaleModificar" class="form-control" required>
 							</div>
 							<div class="form-group col-md-6">
 								<label for="empresa">Empresa:</label> <select
@@ -183,6 +182,7 @@
 						<div class="form-row btn-form">
                             <div class="form-group col-12">
                                 <button type="submit" class="btn btn-warning">Guardar <i class="bi bi-floppy"></i></button>
+                                 <button type="button" onclick="cancelarEdicion()">Cancelar</button>
                             </div>
                         </div>
 					</form>
@@ -195,7 +195,6 @@
                     <table id="solicitudes-vale-table" class="table table-striped table-bordered table-margin-top">
                         <thead class="thead-dark">
                             <tr>
-                                <th>ID Solicitud</th>
                                 <th>N° Vale</th>
                                 <th>Usuario</th>
                                 <th>Empresa</th>

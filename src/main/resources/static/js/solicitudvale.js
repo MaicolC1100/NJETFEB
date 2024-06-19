@@ -1,11 +1,3 @@
-// Función para obtener los encabezados de las solicitudes fetch
-function getHeaders() {
-    return {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-    };
-}
-
 $(document).ready(function() {
     // on ready
     cargarEmpresas();
@@ -37,6 +29,7 @@ formModificarSolicitudVale.addEventListener('submit', async (event) => {
     event.preventDefault();
     await registrarModificarSolicitudVale();
 });
+
 
 // Función para cargar la lista de empresas
 async function cargarEmpresas() {
@@ -128,8 +121,7 @@ async function cargarListaSolicitudes() {
         data.forEach(solicitud => {
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td>${solicitud.id}</td>
-                <td>${solicitud.nVale}</td>
+                <td>${solicitud.n_vale}</td>
                 <td>${solicitud.usuario.nombre}</td>
                 <td>${solicitud.empresa.nombre}</td>
                 <td>${solicitud.origen}</td>
@@ -153,55 +145,57 @@ async function cargarListaSolicitudes() {
     }
 }
 async function registrarSolicitudVale() {
-	let solicitudvale = {};
-	let empresa = {};
-	let pasajero1 = {};
-	let pasajero2 = {};
-	let pasajero3 = {};
-	let pasajero4 = {};
+    let solicitudvale = {};
+    let empresa = {};
+    let pasajero1 = {};
+    let pasajero2 = {};
+    let pasajero3 = {};
+    let pasajero4 = {};
 
-	empresa.idEmpresa = document.querySelector('#empresa').value;
-	pasajero1.idEmpleadoCliente = document.querySelector('#pasajero1select').value;
-	pasajero2.idEmpleadoCliente = document.querySelector('#pasajero2select').value;
-	pasajero3.idEmpleadoCliente = document.querySelector('#pasajero3select').value;
-	pasajero4.idEmpleadoCliente = document.querySelector('#pasajero4select').value;
+    empresa.idEmpresa = document.querySelector('#empresa').value;
+    pasajero1.idEmpleadoCliente = document.querySelector('#pasajero1select').value;
+    pasajero2.idEmpleadoCliente = document.querySelector('#pasajero2select').value;
+    pasajero3.idEmpleadoCliente = document.querySelector('#pasajero3select').value;
+    pasajero4.idEmpleadoCliente = document.querySelector('#pasajero4select').value;
 
-	// Reemplaza esto con la obtención del ID del usuario correcto
-	let usuario = { idUsuario: 1 }; 
+    let usuario = { idUsuario: localStorage.idUsuario };
 
-	solicitudvale.usuario = usuario;
-	solicitudvale.nVale = document.querySelector('#nvale').value;
-	solicitudvale.empresa = empresa;
-	solicitudvale.origen = document.querySelector('#origen').value;
-	solicitudvale.destino = document.querySelector('#destino').value;
-	solicitudvale.motivo = document.querySelector('#motivo').value;
-	solicitudvale.fechaCreacion = document.querySelector('#fecha_creacion').value;
-	solicitudvale.fechaAprobacion = document.querySelector('#fecha_aprobacion').value;
-	solicitudvale.fechaServicio = document.querySelector('#fecha_servicio').value;
-	solicitudvale.pasajero1 = pasajero1;
-	solicitudvale.pasajero2 = pasajero2;
-	solicitudvale.pasajero3 = pasajero3;
-	solicitudvale.pasajero4 = pasajero4;
+    solicitudvale.usuario = usuario;
+    solicitudvale.n_vale = parseInt(document.querySelector('#nvale').value); // Asegúrate de que el valor no sea NaN
 
-	try {
+    solicitudvale.empresa = empresa;
+    solicitudvale.origen = document.querySelector('#origen').value;
+    solicitudvale.destino = document.querySelector('#destino').value;
+    solicitudvale.motivo = document.querySelector('#motivo').value;
+    solicitudvale.fechaCreacion = document.querySelector('#fecha_creacion').value;
+    solicitudvale.fechaAprobacion = document.querySelector('#fecha_aprobacion').value;
+    solicitudvale.fechaServicio = document.querySelector('#fecha_servicio').value;
+    solicitudvale.pasajero1 = pasajero1;
+    solicitudvale.pasajero2 = pasajero2;
+    solicitudvale.pasajero3 = pasajero3;
+    solicitudvale.pasajero4 = pasajero4;
+
+    console.log('Solicitud Vale JSON:', JSON.stringify(solicitudvale, null, 2));
+
+    try {
         const request = await fetch('/api/solicitudes-vale/guardar', {
             method: 'POST',
             headers: getHeaders(),
             body: JSON.stringify(solicitudvale)
         });
-        
 
-		if (request.ok) {
-			showModalAlert('¡Registro exitoso!', 'La solicitud de vale se registró exitosamente.', 'success');
-			cargarListaSolicitudes();  // Actualizar la lista de empleados
-		} else {
-			console.error('Error en la solicitud:', request.statusText);
-		}
-	} catch (error) {
-		console.error('Error al registrar la solicitud de vale:', error);
-	} finally {
-		// hideSpinner();
-	}
+        if (request.ok) {
+            showModalAlert('¡Registro exitoso!', 'La solicitud de vale se registró exitosamente.', 'success');
+            cargarListaSolicitudes();  // Actualizar la lista de empleados
+
+            // Restablecer el formulario después de un registro exitoso
+            document.querySelector('#form-agregar-solicitud-vale').reset();
+        } else {
+            console.error('Error en la solicitud:', request.statusText);
+        }
+    } catch (error) {
+        console.error('Error al registrar la solicitud de vale:', error);
+    }
 }
 
 
@@ -214,10 +208,10 @@ async function modificarSolicitudVale(idSolicitudVale) {
             method: 'GET',
             headers: getHeaders()
         });
-        const solicitudVale = await request.json();
-
+        const solicitudVale = await request.json();	
+		
         idSolicitudValeModificar = solicitudVale.idSolicitudVale;
-        document.getElementById('nvaleModificar').value = solicitudVale.nVale;
+        document.getElementById('nvaleModificar').value = solicitudVale.n_vale;
         document.getElementById('origenModificar').value = solicitudVale.origen;
         document.getElementById('destinoModificar').value = solicitudVale.destino;
         document.getElementById('motivoModificar').value = solicitudVale.motivo;
@@ -248,10 +242,12 @@ function seleccionarOpcion(selectElement, value) {
     }
 }
 
-async function registrarModificarSolicitudVale(idSolicitudVale) {
+
+
+async function registrarModificarSolicitudVale() {
     try {
-        const nVale = document.querySelector('#nvaleModificar').value.trim();
-        if (!nVale) {
+        const n_vale = document.querySelector('#nvaleModificar').value.trim();
+        if (!n_vale) {
             showModalAlert('Faltan campos', 'El campo número de vale es obligatorio', 'danger');
             return;
         }
@@ -308,9 +304,11 @@ async function registrarModificarSolicitudVale(idSolicitudVale) {
         let pasajero2 = { idEmpleadoCliente: idPasajero2 };
         let pasajero3 = { idEmpleadoCliente: idPasajero3 };
         let pasajero4 = { idEmpleadoCliente: idPasajero4 };
-
+		let usuario = {idUsuario: localStorage.idUsuario};
+		
         let datos = {
-            nVale,
+			usuario,
+            n_vale,
             origen,
             destino,
             motivo,
@@ -348,3 +346,15 @@ async function registrarModificarSolicitudVale(idSolicitudVale) {
         // hideSpinner();
     }
 }
+
+
+
+
+// Función para obtener los encabezados de las solicitudes fetch
+function getHeaders() {
+    return {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    };
+}
+

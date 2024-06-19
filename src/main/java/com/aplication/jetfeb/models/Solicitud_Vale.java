@@ -18,7 +18,7 @@ public class Solicitud_Vale {
     private int idSolicitudVale;
 
     @Column(name = "n_vale", nullable = false)
-    private long nVale;
+    private int n_vale;
 
     @ManyToOne
     @JoinColumn(name = "id_usuario", nullable = false)

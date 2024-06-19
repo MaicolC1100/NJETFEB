@@ -1,7 +1,5 @@
 package com.aplication.jetfeb.controller;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,7 +37,7 @@ public class SolicitudValeController {
         Solicitud_Vale solicitudVale = solicitudValeServicio.obtenerSolicitudPorId(id);
         
         if (solicitudVale != null) {
-            solicitudVale.setNVale(solicitudValeDetails.getNVale());
+            solicitudVale.setN_vale(solicitudValeDetails.getN_vale());
             solicitudVale.setUsuario(solicitudValeDetails.getUsuario());
             solicitudVale.setEmpresa(solicitudValeDetails.getEmpresa());
             solicitudVale.setOrigen(solicitudValeDetails.getOrigen());
