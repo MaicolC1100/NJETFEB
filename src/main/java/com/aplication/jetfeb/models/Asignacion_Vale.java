@@ -19,7 +19,7 @@ public class Asignacion_Vale {
     private int idAsigVale;
 
     @Column(name = "n_vale", nullable = false)
-    private long nVale;
+    private double n_vale;
 
     @ManyToOne
     @JoinColumn(name = "id_usuario", nullable = false)

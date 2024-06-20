@@ -4,14 +4,17 @@ import java.util.List;
 
 import com.aplication.jetfeb.models.Asignacion_Vale;
 
+
 public interface AsignacionValeService {
 
-	List<Asignacion_Vale> findAll();
+	public List<Asignacion_Vale> listarTodasLasAsignacions();
 
-	Asignacion_Vale findById(int id);
+	public Asignacion_Vale guardarAsignacion(Asignacion_Vale asignacionVale);
 
-	Asignacion_Vale save(Asignacion_Vale asignacionVale);
+	public Asignacion_Vale obtenerAsignacionPorId(Integer id);
 
-	void deleteById(int id);
+	public Asignacion_Vale actualizarAsignacion(Asignacion_Vale asignacionVale);
+
+	public void eliminarAsignacion(Integer id);
 
 }
